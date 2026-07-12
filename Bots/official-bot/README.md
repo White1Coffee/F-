@@ -1,5 +1,29 @@
 # Minecraft AI Bot - Installeren En Starten
 
+## Betrouwbare taak- en learninglaag
+
+`bot.js` blijft het compatibele entrypoint. De bestaande runtime gebruikt daarnaast een centrale `TaskManager` voor plannerwerk: één actieve hoofdtaak, een prioriteitsqueue, preëmptie, `AbortController`-cancellation, timeouts en maximaal drie gewijzigde pogingen. De planner kiest alleen geregistreerde high-level skills; Mineflayer en pathfinder voeren de lage acties uit.
+
+Geleerde records staan in `knowledge/learned.json` met `schemaVersion: 2`. Dit bestand bevat compacte ervaringen, skillstatistieken en wereldlocaties. Iedere wereldlocatie heeft een gehashte `worldId` op basis van host, poort, Minecraft-versie en geconfigureerde wereldnaam. Bij migratie wordt eerst een kopie in `knowledge-backups/schema-*` gemaakt. Schrijven gebeurt atomisch via een tijdelijk bestand en rename.
+
+De skillketen omvat veiligheid, voedsel, navigatie, hout, planken, crafting table, tools, steen, oven, ijzer, smelten, terugkeren en opslag. Zonder externe AI-API blijft deze keten deterministisch bruikbaar. De bestaande commando's, HUD-events, viewer en Hub-poorten blijven beschikbaar; de HUD-update heeft alleen nieuwe velden gekregen onder andere `reliableTask`, `activeSkill`, `currentPlan` en curriculumstatus.
+
+Tests draaien zonder Minecraft-login of publieke server:
+
+```powershell
+cd F:\Bots\official-bot
+npm test
+```
+
+Een directe start blijft:
+
+```powershell
+cd F:\Bots\official-bot
+node bot.js
+```
+
+Voor multi-botgebruik blijft `F:\Start.cmd` de aanbevolen route. Bestaande knowledge hoeft niet handmatig te worden aangepast; `learned.json` wordt bij de eerste save aangemaakt en oude versies worden automatisch geback-upt en gemigreerd.
+
 Deze handleiding geldt voor elke botmap, bijvoorbeeld:
 
 ```powershell

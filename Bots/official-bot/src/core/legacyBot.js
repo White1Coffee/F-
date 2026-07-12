@@ -27,6 +27,17 @@ const { TaskService } = require('../services/taskService')
 const { FeedbackService } = require('../services/feedbackService')
 const { RankingService } = require('../services/rankingService')
 const { WorldScanner } = require('../systems/worldScanner')
+const { ItemPickupSystem } = require('../systems/itemPickupSystem')
+const { TaskManager, PRIORITY } = require('./taskManager')
+const { SkillRegistry } = require('../skills/skillRegistry')
+const { registerVerticalSkills } = require('../skills/verticalSkills')
+const { KnowledgeStore } = require('../memory/knowledgeStore')
+const { ExperienceMemory } = require('../memory/experienceMemory')
+const { SkillStats } = require('../learning/skillStats')
+const { Curriculum } = require('../learning/curriculum')
+const { worldIdentity } = require('../memory/worldIdentity')
+const skillResult = require('../skills/skillResult')
+const { ErrorCodes } = require('../recovery/errorCodes')
 const APP_TIME_ZONE = 'Europe/Amsterdam'
 const SUPPORTED_MINECRAFT_VERSIONS = [...minecraftProtocol.supportedVersions].reverse()
 process.env.TZ ||= APP_TIME_ZONE
@@ -47,7 +58,9 @@ function defaultBotSettings() {
     offlineSkinValue: '',
     offlineSkinVariant: 'classic',
     eliteMode: true,
-    whitelistedPlayers: []
+    whitelistedPlayers: [],
+    learning: { enabled: true, curriculumEnabled: true, maxSkillRetries: 3, taskTimeoutMs: 120000, memoryResultLimit: 5, minimumSkillSuccessRate: 0.7, minimumCurriculumSuccesses: 3, experienceDeduplicationWindowMs: 3600000 },
+    safety: { minimumHealth: 10, minimumFood: 8, fleeDistance: 16 }
   }
 }
 
@@ -84,7 +97,9 @@ function normalizeBotSettings(value = {}) {
     offlineSkinValue: String(value.offlineSkinValue || '').trim(),
     offlineSkinVariant,
     eliteMode: value.eliteMode !== false,
-    whitelistedPlayers
+    whitelistedPlayers,
+    learning: { ...defaults.learning, ...(value.learning || {}) },
+    safety: { ...defaults.safety, ...(value.safety || {}) }
   }
 }
 
@@ -195,6 +210,8 @@ const runtimeRoot = botSettings.dataProfile === 'default'
 const backupsRoot = path.join(APP_ROOT, 'backups', botSettings.dataProfile)
 const microsoftProfilesFolder = path.join(runtimeRoot, 'microsoft-auth')
 const coordinationRoot = path.join(path.dirname(APP_ROOT), '.bot-coordination')
+const learnedKnowledgeFile = path.join(runtimeRoot, 'knowledge', 'learned.json')
+const identity = worldIdentity({ host: minecraftHost, port: minecraftPort, version: minecraftVersion, worldName: botSettings.worldId })
 const textureBaseRoot = path.join(path.dirname(APP_ROOT), 'node_modules', 'prismarine-viewer', 'public', 'textures')
 const textureRoot = fs.existsSync(path.join(textureBaseRoot, minecraftVersion))
   ? path.join(textureBaseRoot, minecraftVersion)
@@ -377,6 +394,7 @@ let workerStopping = false
 const stopWorkerGracefully = async signal => {
   if (workerStopping) return
   workerStopping = true
+  await reliableTaskManager?.close?.(`worker ${signal}`).catch(() => {})
   await flushJsonWrites()
   process.exit(signal === 'SIGINT' ? 130 : 0)
 }
@@ -473,6 +491,7 @@ function scheduleReconnect(reason) {
 }
 
 function resetDisconnectedSession() {
+  reliableTaskManager?.cancelAll?.('bot disconnected')
   minecraftConnected = false
   state.busy = false
   state.activeRoute = null
@@ -641,6 +660,8 @@ const state = {
   infoLog: [],
   lastTaskKey: null,
   lastTaskAt: 0,
+  // Info: Items die de bot zelf bewust weggooit worden kort genegeerd om een pickup/toss-lus te voorkomen.
+  pickupIgnoreUntilByName: {},
   lastMovementAt: 0,
   lastMovementPosition: null,
   lastPriorityAt: 0,
@@ -830,11 +851,52 @@ const actionExecutor = new ActionExecutor({
     }
   }
 })
+const learnedStore = new KnowledgeStore(learnedKnowledgeFile)
+const experienceMemory = new ExperienceMemory(learnedStore, { deduplicationWindowMs: botSettings.learning.experienceDeduplicationWindowMs })
+const skillStats = new SkillStats(learnedStore)
+const skillRegistry = registerVerticalSkills(new SkillRegistry(), {
+  ensureSafety: async () => bot.health >= botSettings.safety.minimumHealth ? skillResult.success() : (await eliteEmergencySurvival() ? skillResult.success() : skillResult.failure(ErrorCodes.LOW_HEALTH, true)),
+  findFood: async () => (bot.food >= botSettings.safety.minimumFood || bot.inventory.items().some(item => isFood(item.name))) ? skillResult.success() : (await eliteAcquireFood(), bot.inventory.items().some(item => isFood(item.name)) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
+  eat: async () => bot.food >= botSettings.safety.minimumFood ? skillResult.success() : (await eatFoodIfNeeded({ force: true }) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
+  collectWood: async () => (await ensureWood(), bot.inventory.items().some(item => item.name.endsWith('_log')) ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
+  craftPlanks: async () => (await craftAvailablePlanks(), bot.inventory.items().some(item => item.name.endsWith('_planks')) ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
+  craftCraftingTable: async () => hasItem('crafting_table') ? skillResult.success() : (await craftSmart('crafting_table') ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
+  craftTool: async () => hasItem('stone_pickaxe') ? skillResult.success() : (await craftSmart(itemCount('cobblestone') >= 3 ? 'stone_pickaxe' : 'wooden_pickaxe') ? skillResult.success() : skillResult.failure(ErrorCodes.NO_TOOL, true)),
+  collectStone: async () => (await ensureCobblestone(8), itemCount('cobblestone') >= 8 ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
+  craftFurnace: async () => hasItem('furnace') || await hasAvailableFurnace() ? skillResult.success() : (await craftSmart('furnace') ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
+  mineResource: async () => { const before=itemCount('raw_iron'); await gatherForProgression('raw_iron', Math.max(1, 3-before)); return itemCount('raw_iron')>before?skillResult.success():skillResult.failure(ErrorCodes.TARGET_MISSING,true) },
+  smeltItem: async () => { const before=itemCount('iron_ingot'); await smeltStep('raw_iron','iron_ingot',Math.max(1,itemCount('raw_iron'))); return itemCount('iron_ingot')>before?skillResult.success():skillResult.failure(ErrorCodes.SMELT_FAILED,true) },
+  returnHome: async () => await goHome() !== false ? skillResult.success() : skillResult.failure(ErrorCodes.PATH_FAILED, true),
+  storeItems: async () => await depositInventory(false) !== false ? skillResult.success() : skillResult.failure(ErrorCodes.VALIDATION_FAILED, true)
+})
+const reliableTaskManager = new TaskManager({ registry: skillRegistry, taskTimeoutMs: botSettings.learning.taskTimeoutMs })
+const curriculum = new Curriculum(learnedStore.data.skillStats, { enabled: botSettings.learning.curriculumEnabled, minimumSuccesses: botSettings.learning.minimumCurriculumSuccesses, minimumSuccessRate: botSettings.learning.minimumSkillSuccessRate })
+reliableTaskManager.on('complete', task => {
+  const skill = skillRegistry.get(task.currentStep)
+  if (skill && task.result) skillStats.record(skill, task.result, { dimension: currentDimension() })
+  if (botSettings.learning.enabled && skill && task.result && (!task.result.success || task.result.data?.lesson)) experienceMemory.record({ task: task.goal, skill: skill.name, context: { dimension: currentDimension(), health: bot.health, food: bot.food, inventorySummary: Object.fromEntries(bot.inventory.items().map(item => [item.name, itemCount(item.name)])) }, success: task.result.success, durationMs: task.finishedAt-task.startedAt, attempts: task.attempt, errorCode: task.result.reason, problems: [], lesson: task.result.data?.lesson || null, createdAt: new Date().toISOString(), botId: path.basename(APP_ROOT), worldId: identity.worldId })
+})
 const worldScanner = new WorldScanner(bot, state, worldMemory, {
   mcData: () => mcData,
   save: saveWorldMemory,
   timestamp: appTimestamp,
   dimension: currentDimension
+})
+
+// Info: Eén pickup-systeem verwerkt zowel HUD/chatopdrachten als automatische loot na mining, farming en combat.
+const itemPickupSystem = new ItemPickupSystem(bot, {
+  radius: 16,
+  maxBatch: 6,
+  itemName: droppedItemName,
+  isImportant: entity => shouldPickupUsefulDrop(entity),
+  shouldCollect: (_entity, name) => !name || Number(state.pickupIgnoreUntilByName[name] || 0) <= Date.now(),
+  isSafe: () => Boolean(bot.entity && !state.hardStopped && !state.unstucking && !state.recovering && !state.combatRetreating && !bestEliteHostileTarget(8)),
+  navigate: entity => safeGoto(new goals.GoalNear(entity.position.x, entity.position.y, entity.position.z, 1), 'picking up dropped items'),
+  onStatus: entry => setCurrentTask('pickup', `picking up ${entry.important ? 'important ' : ''}${entry.name || 'item'}`, {
+    target: entry.name || 'item',
+    position: `${entry.entity.position.x.toFixed(1)} ${entry.entity.position.y.toFixed(1)} ${entry.entity.position.z.toFixed(1)}`
+  }),
+  onCollected: entry => bumpKnowledgeStat('items', 'pickedUp', entry.name || 'unknown')
 })
 
 const commands = [
@@ -1600,11 +1662,10 @@ async function findWood() {
 }
 
 async function pickupNearbyItems() {
-  const item = bot.nearestEntity(e => e.name === 'item')
-  if (!item) return bot.chat('I don\'t see any items.')
-
-  await safeGoto(new goals.GoalNear(item.position.x, item.position.y, item.position.z, 1), 'pickup items')
-  bot.chat('I am picking up items.')
+  // Info: Het chatcommando gebruikt dezelfde gevalideerde batchcollector als automatisch gedrag.
+  const result = await itemPickupSystem.collectBatch()
+  bot.chat(result.success ? `I picked up ${result.collected} nearby drop${result.collected === 1 ? '' : 's'}.` : 'I don\'t see any reachable items or my inventory is full.')
+  return result.success
 }
 
 function shouldCancelRecoveryForCommand(message) {
@@ -4734,20 +4795,10 @@ function shouldPickupUsefulDrop(entity) {
 }
 
 async function pickupNearbyUsefulDrop() {
+  // Info: De naam blijft voor backward compatibility; de collector neemt nu ook gewone drops mee.
   if (!bot.entity || state.unstucking || state.recovering) return false
-  const item = Object.values(bot.entities || {})
-    .filter(entity => entity.name === 'item' && entity.position.distanceTo(bot.entity.position) <= 8 && shouldPickupUsefulDrop(entity))
-    .sort((left, right) => left.position.distanceTo(bot.entity.position) - right.position.distanceTo(bot.entity.position))[0]
-  if (!item) return false
-
-  const name = droppedItemName(item) || 'item'
-  setCurrentTask('pickup', `picking up useful ${name}`, {
-    target: name,
-    position: `${item.position.x.toFixed(1)} ${item.position.y.toFixed(1)} ${item.position.z.toFixed(1)}`
-  })
-  bumpKnowledgeStat('items', 'pickedUp', name)
-  await safeGoto(new goals.GoalNear(item.position.x, item.position.y, item.position.z, 1), 'picking up useful drop')
-  return true
+  const result = await itemPickupSystem.collectBatch()
+  return result.success
 }
 
 async function mineNearbyNeededResource() {
@@ -6787,6 +6838,7 @@ async function tossUnneededInventory(aggressive = false) {
     if (count <= 0) continue
     try {
       await bot.toss(item.type, null, count)
+      state.pickupIgnoreUntilByName[item.name] = Date.now() + 10000
       tossed += count
     } catch (err) {
       logActionError(`Could not drop ${item.name}`, err)
@@ -7034,6 +7086,10 @@ async function runPriorities() {
       await defendAgainst(hostile)
       return
     }
+
+    // Info: Na directe gevaren wordt loot opgepakt vóór de bot een nieuwe route of productietaak start.
+    if (await pickupNearbyUsefulDrop()) return
+    if (cancelled()) return
     if (Date.now() < state.navigationBlockedUntil) {
       setCurrentTask('waiting', 'navigation cooling down after repeated failures')
       return
@@ -7046,8 +7102,6 @@ async function runPriorities() {
         await scanWorldFeatures()
         if (cancelled()) return
       }
-      if (await pickupNearbyUsefulDrop()) return
-      if (cancelled()) return
       if (await mineNearbyEliteUpgradeResource()) return
       if (cancelled()) return
       if (await serviceToolRepair()) return
@@ -7119,7 +7173,18 @@ async function runPlannerBrainTick() {
   if (!plan?.action) return false
 
   console.log(`[Planner] ${plan.goal}/${plan.action}/${plan.reason} | score=${Math.round(plan.score ?? plan.priority ?? 0)} reward=${Math.round(plan.reward ?? 0)} risk=${Math.round(plan.risk ?? 0)} time=${Math.round(plan.timeCost ?? 0)}`)
-  return actionExecutor.execute(plan, situation)
+  const skillPlans = {
+    heal_or_retreat: ['ensureSafety'], eat: ['eat'], get_food: ['findFood', 'eat'],
+    get_wood: ['collectWood'], craft_crafting_table: ['craftPlanks', 'craftCraftingTable'],
+    craft_pickaxe: ['craftPlanks', 'craftCraftingTable', 'craftTool'],
+    get_stone_tools: ['craftTool', 'collectStone', 'craftTool'],
+    get_iron: ['ensureSafety', 'findFood', 'eat', 'craftTool', 'collectStone', 'craftFurnace', 'mineResource', 'smeltItem']
+  }
+  const verticalPlan = skillPlans[plan.action]
+  if (!verticalPlan) return actionExecutor.execute(plan, situation)
+  if (reliableTaskManager.active || reliableTaskManager.queue.length) return false
+  reliableTaskManager.enqueue({ name: plan.action, goal: plan.action === 'get_iron' ? 'obtain_iron_ingot' : plan.goal, source: 'planner', priority: plan.priority, context: situation, plan: verticalPlan })
+  return true
 }
 
 function nearestThreatFromSituation(situation = {}) {
@@ -8214,6 +8279,18 @@ function updateHud() {
       firstPerson: true
     },
     currentTask: state.currentTask,
+    reliableTask: reliableTaskManager.status(),
+    currentStep: reliableTaskManager.status().currentStep,
+    activeSkill: reliableTaskManager.status().activeSkill,
+    attempt: reliableTaskManager.status().attempt,
+    maxAttempts: reliableTaskManager.status().maxAttempts,
+    lastError: reliableTaskManager.status().lastError,
+    learningEnabled: botSettings.learning.enabled,
+    knownSkills: skillRegistry.list().length,
+    experienceCount: learnedStore.data.experiences.length,
+    currentPlan: reliableTaskManager.status().currentPlan,
+    safetyState: bot.health < botSettings.safety.minimumHealth ? 'unsafe' : 'safe',
+    curriculum: { enabled: curriculum.enabled, unlocked: curriculum.unlocked(), next: curriculum.next() },
     taskLog: state.taskLog,
     miningTask: state.miningTask,
     hitmanTask: state.hitmanTask,
@@ -8277,7 +8354,7 @@ function updateHud() {
   })
 }
 
-setInterval(updateHud, hudIntervalMs)
+addRuntimeInterval(updateHud, hudIntervalMs)
 
 io.on('connection', socket => {
   updateHud()
@@ -8305,6 +8382,8 @@ io.on('connection', socket => {
     const amount = Math.max(1, Math.floor(Number(request?.amount) || 1))
     const item = bot.inventory.items().find(item => item.slot === slot)
     if (!item) return
+    // Info: Een handmatige HUD-drop wordt niet meteen door de automatische collector teruggepakt.
+    state.pickupIgnoreUntilByName[item.name] = Date.now() + 10000
     bot.toss(item.type, item.metadata, Math.min(item.count, amount))
       .then(updateHud)
       .catch(err => console.log('Inventory drop failed:', err.message))

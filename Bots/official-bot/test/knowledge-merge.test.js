@@ -76,3 +76,27 @@ test('multi-folder merge combines between two and five bots', () => {
     fs.rmSync(root, { recursive: true, force: true })
   }
 })
+
+test('learned knowledge keeps worlds isolated and only combines matching skill versions', () => {
+  const merged = mergeKnowledgeDocuments(
+    { schemaVersion: 1, worldLocations: [{ type: 'chest', worldId: 'server-a', dimension: 'overworld', position: { x: 1, y: 2, z: 3 } }], skillStats: { mine: { version: 1, executions: 10 } } },
+    { schemaVersion: 2, worldLocations: [{ type: 'chest', worldId: 'server-b', dimension: 'overworld', position: { x: 1, y: 2, z: 3 } }], skillStats: { mine: { version: 2, executions: 2 } } }
+  )
+  assert.equal(merged.schemaVersion, 2)
+  assert.equal(merged.worldLocations.length, 2)
+  assert.deepEqual(merged.skillStats.mine, { version: 2, executions: 2 })
+})
+
+test('folder merge skips corrupt documents and writes valid input atomically', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'knowledge-corrupt-'))
+  try {
+    const left = path.join(root, 'left'), right = path.join(root, 'right'), output = path.join(root, 'output')
+    fs.mkdirSync(left); fs.mkdirSync(right)
+    fs.writeFileSync(path.join(left, 'learned.json'), '{broken')
+    fs.writeFileSync(path.join(right, 'learned.json'), JSON.stringify({ experiences: [{ id: 'valid', botId: 'tester' }] }))
+    const results = mergeKnowledgeFolders(left, right, output)
+    assert.equal(results[0].warnings.length, 1)
+    assert.equal(JSON.parse(fs.readFileSync(path.join(output, 'learned.json'))).experiences[0].id, 'valid')
+    assert.equal(fs.readdirSync(output).some(name => name.endsWith('.tmp')), false)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+})

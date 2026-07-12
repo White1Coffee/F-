@@ -1,0 +1,58 @@
+{
+  "id": "169.155.122.124_9065_default",
+  "host": "169.155.122.124",
+  "port": 9065,
+  "updatedAt": "2026-06-11T23:11:34+02:00",
+  "home": null,
+  "villages": [],
+  "mines": [],
+  "strongholds": [],
+  "storage": [],
+  "dangerZones": [
+    {
+      "x": 218,
+      "y": 53,
+      "z": 163,
+      "at": "2026-06-11T23:06:19+02:00",
+      "dimension": "overworld",
+      "block": "lava",
+      "source": "auto_scan",
+      "lastSeenAt": "2026-06-11T23:10:31+02:00",
+      "lastValidatedAt": "2026-06-11T23:11:34+02:00",
+      "validationMisses": 1,
+      "stale": true
+    },
+    {
+      "x": 213,
+      "y": 63,
+      "z": 197,
+      "at": "2026-06-11T23:06:35+02:00",
+      "dimension": "overworld",
+      "block": "magma_block",
+      "source": "auto_scan",
+      "lastValidatedAt": "2026-06-11T23:11:34+02:00",
+      "validationMisses": 0,
+      "stale": false,
+      "lastSeenAt": "2026-06-11T23:11:34+02:00"
+    },
+    {
+      "x": 198,
+      "y": 43,
+      "z": 148,
+      "at": "2026-06-11T23:09:32+02:00",
+      "dimension": "overworld",
+      "block": "lava",
+      "source": "auto_scan",
+      "lastSeenAt": "2026-06-11T23:10:31+02:00",
+      "lastValidatedAt": "2026-06-11T23:10:33+02:00",
+      "validationMisses": 0,
+      "stale": false
+    }
+  ],
+  "deathLocations": [],
+  "caves": [],
+  "bases": [],
+  "farms": [],
+  "utilities": {},
+  "oreChunks": {}
+}

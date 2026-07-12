@@ -2,7 +2,7 @@
   "id": "192.168.2.28_25565_default",
   "host": "192.168.2.28",
   "port": 25565,
-  "updatedAt": "2026-07-10T19:38:53+02:00",
+  "updatedAt": "2026-07-12T22:07:38+02:00",
   "home": null,
   "villages": [],
   "mines": [],
@@ -16,7 +16,17 @@
       "dimension": "overworld",
       "block": "chest",
       "source": "auto_scan",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
+    },
+    {
+      "x": -132,
+      "y": 51,
+      "z": -163,
+      "at": "2026-07-12T22:01:48+02:00",
+      "dimension": "overworld",
+      "block": "chest",
+      "source": "auto_scan",
+      "lastSeenAt": "2026-07-12T22:01:49+02:00"
     }
   ],
   "workstations": [
@@ -28,7 +38,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -77,
@@ -38,7 +48,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:56:33+02:00"
     },
     {
       "x": -83,
@@ -48,7 +58,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -113,
@@ -58,7 +68,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -116,
@@ -78,7 +88,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:00:37+02:00"
     },
     {
       "x": -80,
@@ -88,7 +98,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -81,
@@ -98,7 +108,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:57:20+02:00"
     },
     {
       "x": -66,
@@ -108,7 +118,7 @@
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -96,
@@ -127,13 +137,82 @@
       "at": "2026-07-10T19:38:44+02:00",
       "dimension": "overworld",
       "block": "crafting_table",
-      "source": "world_scanner"
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
     },
     {
       "x": -103,
       "y": 81,
       "z": -133,
       "at": "2026-07-10T19:38:44+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner"
+    },
+    {
+      "x": -139,
+      "y": 65,
+      "z": -124,
+      "at": "2026-07-12T21:49:06+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -140,
+      "y": 64,
+      "z": -137,
+      "at": "2026-07-12T21:49:06+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    {
+      "x": -155,
+      "y": 63,
+      "z": -111,
+      "at": "2026-07-12T21:58:59+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -150,
+      "y": 63,
+      "z": -124,
+      "at": "2026-07-12T21:58:59+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -165,
+      "y": 63,
+      "z": -108,
+      "at": "2026-07-12T21:58:59+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -138,
+      "y": 65,
+      "z": -158,
+      "at": "2026-07-12T22:01:48+02:00",
+      "dimension": "overworld",
+      "block": "crafting_table",
+      "source": "world_scanner"
+    },
+    {
+      "x": -130,
+      "y": 54,
+      "z": -162,
+      "at": "2026-07-12T22:01:48+02:00",
       "dimension": "overworld",
       "block": "crafting_table",
       "source": "world_scanner"
@@ -150,7 +229,7 @@
       "dimension": "overworld",
       "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -96,
@@ -160,7 +239,7 @@
       "dimension": "overworld",
       "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -90,
@@ -170,7 +249,7 @@
       "dimension": "overworld",
       "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -81,
@@ -180,7 +259,7 @@
       "dimension": "overworld",
       "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -109,
@@ -188,9 +267,9 @@
       "z": -110,
       "at": "2026-07-10T16:27:38+02:00",
       "dimension": "overworld",
-      "block": "iron_ore",
+      "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -102,
@@ -228,9 +307,9 @@
       "z": -99,
       "at": "2026-07-10T16:29:10+02:00",
       "dimension": "overworld",
-      "block": "copper_ore",
+      "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T16:29:10+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     {
       "x": -103,
@@ -250,7 +329,7 @@
       "dimension": "overworld",
       "block": "copper_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T16:29:41+02:00"
+      "lastSeenAt": "2026-07-12T22:06:02+02:00"
     },
     {
       "x": -75,
@@ -260,7 +339,7 @@
       "dimension": "overworld",
       "block": "copper_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     {
       "x": -86,
@@ -290,7 +369,7 @@
       "dimension": "overworld",
       "block": "copper_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
     },
     {
       "x": -122,
@@ -300,7 +379,7 @@
       "dimension": "overworld",
       "block": "copper_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T21:58:27+02:00"
     },
     {
       "x": -125,
@@ -310,7 +389,214 @@
       "dimension": "overworld",
       "block": "coal_ore",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
+    },
+    {
+      "x": -132,
+      "y": 53,
+      "z": -119,
+      "at": "2026-07-12T21:49:06+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -112,
+      "y": 44,
+      "z": -103,
+      "at": "2026-07-12T21:50:48+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
+    },
+    {
+      "x": -139,
+      "y": 55,
+      "z": -109,
+      "at": "2026-07-12T21:58:59+02:00",
+      "dimension": "overworld",
+      "block": "coal_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -151,
+      "y": 53,
+      "z": -112,
+      "at": "2026-07-12T21:58:59+02:00",
+      "dimension": "overworld",
+      "block": "coal_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    {
+      "x": -114,
+      "y": 58,
+      "z": -138,
+      "at": "2026-07-12T22:01:15+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
+    },
+    {
+      "x": -132,
+      "y": 53,
+      "z": -157,
+      "at": "2026-07-12T22:01:48+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    {
+      "x": -135,
+      "y": 60,
+      "z": -142,
+      "at": "2026-07-12T22:01:48+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner"
+    },
+    {
+      "x": -87,
+      "y": 45,
+      "z": -52,
+      "at": "2026-07-12T22:03:02+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:06:02+02:00"
+    },
+    {
+      "x": -70,
+      "y": 44,
+      "z": -58,
+      "at": "2026-07-12T22:03:02+02:00",
+      "dimension": "overworld",
+      "block": "coal_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:03:02+02:00"
+    },
+    {
+      "x": -77,
+      "y": 39,
+      "z": -46,
+      "at": "2026-07-12T22:03:02+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner"
+    },
+    {
+      "x": -134,
+      "y": 48,
+      "z": -42,
+      "at": "2026-07-12T22:06:33+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:06:33+02:00"
+    },
+    {
+      "x": -144,
+      "y": 46,
+      "z": -35,
+      "at": "2026-07-12T22:06:33+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:06:33+02:00"
+    },
+    {
+      "x": -154,
+      "y": 49,
+      "z": -41,
+      "at": "2026-07-12T22:06:33+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner"
+    },
+    {
+      "x": -158,
+      "y": 38,
+      "z": 8,
+      "at": "2026-07-12T22:07:03+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:03+02:00"
+    },
+    {
+      "x": -172,
+      "y": 39,
+      "z": 28,
+      "at": "2026-07-12T22:07:03+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    {
+      "x": -165,
+      "y": 34,
+      "z": 19,
+      "at": "2026-07-12T22:07:03+02:00",
+      "dimension": "overworld",
+      "block": "iron_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:04+02:00"
+    },
+    {
+      "x": -156,
+      "y": 36,
+      "z": 30,
+      "at": "2026-07-12T22:07:03+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:04+02:00"
+    },
+    {
+      "x": -202,
+      "y": 43,
+      "z": 18,
+      "at": "2026-07-12T22:07:35+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    {
+      "x": -182,
+      "y": 36,
+      "z": 14,
+      "at": "2026-07-12T22:07:35+02:00",
+      "dimension": "overworld",
+      "block": "coal_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    {
+      "x": -180,
+      "y": 46,
+      "z": 1,
+      "at": "2026-07-12T22:07:35+02:00",
+      "dimension": "overworld",
+      "block": "coal_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    {
+      "x": -184,
+      "y": 35,
+      "z": 38,
+      "at": "2026-07-12T22:07:35+02:00",
+      "dimension": "overworld",
+      "block": "copper_ore",
+      "source": "world_scanner",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
     }
   ],
   "foodSources": [],
@@ -332,13 +618,24 @@
       "z": -92,
       "at": "2026-07-10T19:17:05+02:00",
       "dimension": "overworld",
-      "cause": "unknown, possibly fall or environmental damage",
-      "category": "fall",
-      "source": "death"
+      "cause": "environment damage",
+      "category": "unknown",
+      "source": "death",
+      "lastSeenAt": "2026-07-12T21:50:19+02:00"
     }
   ],
   "caves": [],
-  "bases": [],
+  "bases": [
+    {
+      "x": -129,
+      "y": 65,
+      "z": -156,
+      "at": "2026-07-12T22:01:48+02:00",
+      "dimension": "overworld",
+      "source": "storage_cluster",
+      "lastSeenAt": "2026-07-12T22:01:49+02:00"
+    }
+  ],
   "farms": [
     {
       "x": -107,
@@ -346,9 +643,9 @@
       "z": -120,
       "at": "2026-07-10T16:27:22+02:00",
       "dimension": "overworld",
-      "block": "farmland",
-      "source": "crop_seen",
-      "lastSeenAt": "2026-07-10T19:38:53+02:00",
+      "block": "wheat",
+      "source": "auto_scan",
+      "lastSeenAt": "2026-07-12T22:02:17+02:00",
       "crop": "wheat"
     },
     {
@@ -359,7 +656,8 @@
       "dimension": "overworld",
       "block": "farmland",
       "source": "world_scanner",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00",
+      "crop": "wheat"
     }
   ],
   "utilities": {},
@@ -369,62 +667,64 @@
       "chunkX": -7,
       "chunkZ": -8,
       "blocks": {
-        "copper_ore": 20,
-        "coal_ore": 130,
-        "lapis_ore": 1
+        "copper_ore": 45,
+        "coal_ore": 798,
+        "lapis_ore": 34
       },
-      "sightings": 151,
+      "sightings": 877,
       "firstSeenAt": "2026-07-10T16:27:22+02:00",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     "overworld:-6,-8": {
       "dimension": "overworld",
       "chunkX": -6,
       "chunkZ": -8,
       "blocks": {
-        "coal_ore": 31,
-        "copper_ore": 14,
+        "coal_ore": 42,
+        "copper_ore": 17,
         "lapis_ore": 2
       },
-      "sightings": 47,
+      "sightings": 61,
       "firstSeenAt": "2026-07-10T16:27:22+02:00",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T21:50:40+02:00"
     },
     "overworld:-6,-9": {
       "dimension": "overworld",
       "chunkX": -6,
       "chunkZ": -9,
       "blocks": {
-        "coal_ore": 40,
+        "coal_ore": 44,
         "copper_ore": 1
       },
-      "sightings": 41,
+      "sightings": 45,
       "firstSeenAt": "2026-07-10T16:27:22+02:00",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     "overworld:-5,-8": {
       "dimension": "overworld",
       "chunkX": -5,
       "chunkZ": -8,
       "blocks": {
-        "copper_ore": 62,
-        "coal_ore": 78
+        "copper_ore": 74,
+        "coal_ore": 99
       },
-      "sightings": 140,
+      "sightings": 173,
       "firstSeenAt": "2026-07-10T16:27:22+02:00",
-      "lastSeenAt": "2026-07-10T19:17:09+02:00"
+      "lastSeenAt": "2026-07-12T21:50:27+02:00"
     },
     "overworld:-7,-7": {
       "dimension": "overworld",
       "chunkX": -7,
       "chunkZ": -7,
       "blocks": {
-        "copper_ore": 19,
-        "coal_ore": 86
+        "copper_ore": 241,
+        "coal_ore": 688,
+        "iron_ore": 20,
+        "lapis_ore": 1
       },
-      "sightings": 105,
+      "sightings": 950,
       "firstSeenAt": "2026-07-10T16:27:38+02:00",
-      "lastSeenAt": "2026-07-10T19:14:38+02:00"
+      "lastSeenAt": "2026-07-12T22:02:17+02:00"
     },
     "overworld:-7,-6": {
       "dimension": "overworld",
@@ -478,11 +778,11 @@
       "chunkX": -7,
       "chunkZ": -9,
       "blocks": {
-        "coal_ore": 14
+        "coal_ore": 44
       },
-      "sightings": 14,
+      "sightings": 44,
       "firstSeenAt": "2026-07-10T19:14:38+02:00",
-      "lastSeenAt": "2026-07-10T19:38:44+02:00"
+      "lastSeenAt": "2026-07-12T22:00:37+02:00"
     },
     "overworld:-6,-7": {
       "dimension": "overworld",
@@ -500,34 +800,278 @@
       "chunkX": -8,
       "chunkZ": -8,
       "blocks": {
-        "copper_ore": 9,
-        "iron_ore": 10
+        "copper_ore": 34,
+        "iron_ore": 11
       },
-      "sightings": 19,
+      "sightings": 45,
       "firstSeenAt": "2026-07-10T19:17:28+02:00",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
     },
     "overworld:-8,-7": {
       "dimension": "overworld",
       "chunkX": -8,
       "chunkZ": -7,
       "blocks": {
-        "copper_ore": 6
+        "copper_ore": 44
       },
-      "sightings": 6,
+      "sightings": 44,
       "firstSeenAt": "2026-07-10T19:17:28+02:00",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "lastSeenAt": "2026-07-12T21:58:27+02:00"
     },
     "overworld:-8,-9": {
       "dimension": "overworld",
       "chunkX": -8,
       "chunkZ": -9,
       "blocks": {
-        "coal_ore": 2
+        "coal_ore": 38,
+        "copper_ore": 20
+      },
+      "sightings": 58,
+      "firstSeenAt": "2026-07-10T19:17:28+02:00",
+      "lastSeenAt": "2026-07-12T22:01:15+02:00"
+    },
+    "overworld:-9,-8": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -8,
+      "blocks": {
+        "iron_ore": 2,
+        "coal_ore": 12
+      },
+      "sightings": 14,
+      "firstSeenAt": "2026-07-12T21:49:06+02:00",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    "overworld:-9,-7": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -7,
+      "blocks": {
+        "copper_ore": 27
+      },
+      "sightings": 27,
+      "firstSeenAt": "2026-07-12T21:58:59+02:00",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    "overworld:-10,-7": {
+      "dimension": "overworld",
+      "chunkX": -10,
+      "chunkZ": -7,
+      "blocks": {
+        "coal_ore": 52
+      },
+      "sightings": 52,
+      "firstSeenAt": "2026-07-12T21:58:59+02:00",
+      "lastSeenAt": "2026-07-12T21:59:31+02:00"
+    },
+    "overworld:-10,-8": {
+      "dimension": "overworld",
+      "chunkX": -10,
+      "chunkZ": -8,
+      "blocks": {
+        "coal_ore": 7
+      },
+      "sightings": 7,
+      "firstSeenAt": "2026-07-12T21:58:59+02:00",
+      "lastSeenAt": "2026-07-12T21:58:59+02:00"
+    },
+    "overworld:-9,-10": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -10,
+      "blocks": {
+        "copper_ore": 8,
+        "lapis_ore": 8,
+        "iron_ore": 4
+      },
+      "sightings": 20,
+      "firstSeenAt": "2026-07-12T22:01:48+02:00",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    "overworld:-9,-11": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -11,
+      "blocks": {
+        "coal_ore": 22
+      },
+      "sightings": 22,
+      "firstSeenAt": "2026-07-12T22:01:48+02:00",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    "overworld:-8,-10": {
+      "dimension": "overworld",
+      "chunkX": -8,
+      "chunkZ": -10,
+      "blocks": {
+        "iron_ore": 3,
+        "copper_ore": 2
+      },
+      "sightings": 5,
+      "firstSeenAt": "2026-07-12T22:01:48+02:00",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    "overworld:-9,-9": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -9,
+      "blocks": {
+        "copper_ore": 1
+      },
+      "sightings": 1,
+      "firstSeenAt": "2026-07-12T22:01:48+02:00",
+      "lastSeenAt": "2026-07-12T22:01:48+02:00"
+    },
+    "overworld:-6,-4": {
+      "dimension": "overworld",
+      "chunkX": -6,
+      "chunkZ": -4,
+      "blocks": {
+        "iron_ore": 59,
+        "copper_ore": 161
+      },
+      "sightings": 220,
+      "firstSeenAt": "2026-07-12T22:03:02+02:00",
+      "lastSeenAt": "2026-07-12T22:06:02+02:00"
+    },
+    "overworld:-5,-4": {
+      "dimension": "overworld",
+      "chunkX": -5,
+      "chunkZ": -4,
+      "blocks": {
+        "coal_ore": 18
+      },
+      "sightings": 18,
+      "firstSeenAt": "2026-07-12T22:03:02+02:00",
+      "lastSeenAt": "2026-07-12T22:03:02+02:00"
+    },
+    "overworld:-5,-3": {
+      "dimension": "overworld",
+      "chunkX": -5,
+      "chunkZ": -3,
+      "blocks": {
+        "iron_ore": 1
+      },
+      "sightings": 1,
+      "firstSeenAt": "2026-07-12T22:03:02+02:00",
+      "lastSeenAt": "2026-07-12T22:03:02+02:00"
+    },
+    "overworld:-5,-5": {
+      "dimension": "overworld",
+      "chunkX": -5,
+      "chunkZ": -5,
+      "blocks": {
+        "copper_ore": 1
+      },
+      "sightings": 1,
+      "firstSeenAt": "2026-07-12T22:03:02+02:00",
+      "lastSeenAt": "2026-07-12T22:03:02+02:00"
+    },
+    "overworld:-9,-3": {
+      "dimension": "overworld",
+      "chunkX": -9,
+      "chunkZ": -3,
+      "blocks": {
+        "copper_ore": 21,
+        "iron_ore": 5,
+        "coal_ore": 18
+      },
+      "sightings": 44,
+      "firstSeenAt": "2026-07-12T22:06:33+02:00",
+      "lastSeenAt": "2026-07-12T22:06:33+02:00"
+    },
+    "overworld:-10,-3": {
+      "dimension": "overworld",
+      "chunkX": -10,
+      "chunkZ": -3,
+      "blocks": {
+        "iron_ore": 4
+      },
+      "sightings": 4,
+      "firstSeenAt": "2026-07-12T22:06:33+02:00",
+      "lastSeenAt": "2026-07-12T22:06:33+02:00"
+    },
+    "overworld:-10,0": {
+      "dimension": "overworld",
+      "chunkX": -10,
+      "chunkZ": 0,
+      "blocks": {
+        "copper_ore": 2
       },
       "sightings": 2,
-      "firstSeenAt": "2026-07-10T19:17:28+02:00",
-      "lastSeenAt": "2026-07-10T19:17:28+02:00"
+      "firstSeenAt": "2026-07-12T22:07:04+02:00",
+      "lastSeenAt": "2026-07-12T22:07:04+02:00"
+    },
+    "overworld:-11,1": {
+      "dimension": "overworld",
+      "chunkX": -11,
+      "chunkZ": 1,
+      "blocks": {
+        "copper_ore": 22,
+        "coal_ore": 28
+      },
+      "sightings": 50,
+      "firstSeenAt": "2026-07-12T22:07:04+02:00",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    "overworld:-10,1": {
+      "dimension": "overworld",
+      "chunkX": -10,
+      "chunkZ": 1,
+      "blocks": {
+        "copper_ore": 3,
+        "iron_ore": 1
+      },
+      "sightings": 4,
+      "firstSeenAt": "2026-07-12T22:07:04+02:00",
+      "lastSeenAt": "2026-07-12T22:07:04+02:00"
+    },
+    "overworld:-13,1": {
+      "dimension": "overworld",
+      "chunkX": -13,
+      "chunkZ": 1,
+      "blocks": {
+        "copper_ore": 13
+      },
+      "sightings": 13,
+      "firstSeenAt": "2026-07-12T22:07:35+02:00",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    "overworld:-12,2": {
+      "dimension": "overworld",
+      "chunkX": -12,
+      "chunkZ": 2,
+      "blocks": {
+        "copper_ore": 6
+      },
+      "sightings": 6,
+      "firstSeenAt": "2026-07-12T22:07:35+02:00",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    "overworld:-12,0": {
+      "dimension": "overworld",
+      "chunkX": -12,
+      "chunkZ": 0,
+      "blocks": {
+        "iron_ore": 3,
+        "copper_ore": 3,
+        "lapis_ore": 3,
+        "coal_ore": 9
+      },
+      "sightings": 18,
+      "firstSeenAt": "2026-07-12T22:07:35+02:00",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
+    },
+    "overworld:-12,1": {
+      "dimension": "overworld",
+      "chunkX": -12,
+      "chunkZ": 1,
+      "blocks": {
+        "copper_ore": 3
+      },
+      "sightings": 3,
+      "firstSeenAt": "2026-07-12T22:07:35+02:00",
+      "lastSeenAt": "2026-07-12T22:07:35+02:00"
     }
   }
 }

@@ -4,7 +4,7 @@ const path = require('path')
 const ROOT = path.resolve(__dirname, '..', '..')
 const newKnowledgeDir = path.resolve(process.argv[2] || path.join(ROOT, 'new knowledge'))
 const botsRoot = path.join(ROOT, 'Bots')
-const mergeEngine = ['bot1', 'bot2', 'WC_Tester', 'official-bot']
+const mergeEngine = ['official-bot', 'WC_Tester', 'bot1', 'bot2']
   .map(name => path.join(botsRoot, name, 'src', 'knowledge-merge.js'))
   .find(file => fs.existsSync(file))
 if (!mergeEngine) throw new Error('Could not find a bot knowledge merge engine.')

@@ -1,5 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+// Keep the Hub on the production bot's versioned, schema-aware merge engine.
+// The public API stays identical for existing Hub routes.
+const productionMerge = require('../../Bots/official-bot/src/knowledge-merge')
 
 const COUNT_KEYS = new Set([
   'attempts', 'successes', 'failures', 'uses', 'sightings', 'mined',
@@ -160,4 +163,4 @@ function mergeKnowledgeFoldersMany(sourceDirectories, outputDirectory) {
   return results
 }
 
-module.exports = { mergeKnowledgeDocuments, mergeKnowledgeFolders, mergeKnowledgeFoldersMany }
+module.exports = productionMerge
