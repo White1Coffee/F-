@@ -7,13 +7,22 @@ Bots/*
 !Bots/
 !Bots/package.json
 !Bots/package-lock.json
-!Bots/WC_Tester/
-!Bots/WC_Tester/**
-!Bots/wc-tester/
-!Bots/wc-tester/**
 !Bots/official-bot/
 !Bots/official-bot/**
 !Bots/official-bot/**/*
+
+# Keep every bot private except the production official-bot.
+Bots/*/
+!Bots/official-bot/
+!Bots/official-bot/**
+
+# Generated backups are local runtime data and must never be tracked.
+**/backup/
+**/backup/**
+**/backups/
+**/backups/**
+**/*-backups/
+**/*-backups/**
 
 # Secrets, local auth and machine-specific state
 .env
