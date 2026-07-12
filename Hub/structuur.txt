@@ -1,0 +1,5589 @@
+Folder PATH listing
+Volume serial number is 00000002 CC6B:537A
+C:.
+¦   .gitattributes
+¦   .gitignore
+¦   hub-settings.json
+¦   hub.js
+¦   package-lock.json
+¦   package.json
+¦   README.md
+¦   start-hub.cmd
+¦   structuur.txt
+¦   
++---.picker
++---logs
+¦       11e6a44b-bc7c-4cbb-939c-0feb42b6ccfb.log
+¦       1d3361e8-0d93-496d-8cba-17fb4f935fb8.log
+¦       358e9cb4-04b7-4872-8d1f-a0d195445819.log
+¦       446ff49c-610d-4ccd-ace5-52656957c830.log
+¦       4600f35b-14e2-4bf5-8d8a-ec713e93db24.log
+¦       46e84e49-53b9-49bd-b139-d7ea11cae630.log
+¦       4d6f5ea4-9855-4f9e-ad51-b37e29910907.log
+¦       55a7fda6-d4e1-4d87-9ccc-5958c331d2cd.log
+¦       60c30d9d-eae1-4c75-88d1-cea069ef2a5f.log
+¦       650273f7-6dd2-4a58-8721-ffa612f16d42.log
+¦       71881310-2951-456b-b140-4da2ca0fbe6f.log
+¦       73ac5583-4cc6-4f1a-9c4b-01565ce8c4e3.log
+¦       7c6c72f0-6d7f-4445-8403-12521b01ec95.log
+¦       8fe0977f-e2c0-40bc-8748-3b61d2a800c7.log
+¦       9f4d24cd-f5f6-42f0-affa-6ba887dbd13b.log
+¦       b428b614-c6ee-4588-9c2d-e3844a2013c7.log
+¦       bb97ee7b-5db8-472e-89e2-e6df9fd7f03a.log
+¦       cad6c9bb-48f1-4fc7-8f87-56f4bff999d3.log
+¦       dcffc37f-c4f3-4080-bd9b-50b986aef7dc.log
+¦       e3c3f0da-34a5-4286-b673-bb409f98f309.log
+¦       e5ffb8d0-279d-44ff-b35d-a69e49f57ea8.log
+¦       ea7db11e-6c49-4013-b061-7abf5e313b19.log
+¦       eb951138-f92b-429a-80a0-3ec889946548.log
+¦       runner-direct-test.log
+¦       
++---logs-backups
+¦   +---2026-06-18-after-health-fixes
+¦           11e6a44b-bc7c-4cbb-939c-0feb42b6ccfb.log
+¦           1d3361e8-0d93-496d-8cba-17fb4f935fb8.log
+¦           358e9cb4-04b7-4872-8d1f-a0d195445819.log
+¦           446ff49c-610d-4ccd-ace5-52656957c830.log
+¦           4600f35b-14e2-4bf5-8d8a-ec713e93db24.log
+¦           46e84e49-53b9-49bd-b139-d7ea11cae630.log
+¦           4d6f5ea4-9855-4f9e-ad51-b37e29910907.log
+¦           55a7fda6-d4e1-4d87-9ccc-5958c331d2cd.log
+¦           60c30d9d-eae1-4c75-88d1-cea069ef2a5f.log
+¦           650273f7-6dd2-4a58-8721-ffa612f16d42.log
+¦           71881310-2951-456b-b140-4da2ca0fbe6f.log
+¦           73ac5583-4cc6-4f1a-9c4b-01565ce8c4e3.log
+¦           7c6c72f0-6d7f-4445-8403-12521b01ec95.log
+¦           8fe0977f-e2c0-40bc-8748-3b61d2a800c7.log
+¦           9f4d24cd-f5f6-42f0-affa-6ba887dbd13b.log
+¦           b428b614-c6ee-4588-9c2d-e3844a2013c7.log
+¦           bb97ee7b-5db8-472e-89e2-e6df9fd7f03a.log
+¦           cad6c9bb-48f1-4fc7-8f87-56f4bff999d3.log
+¦           dcffc37f-c4f3-4080-bd9b-50b986aef7dc.log
+¦           e3c3f0da-34a5-4286-b673-bb409f98f309.log
+¦           e5ffb8d0-279d-44ff-b35d-a69e49f57ea8.log
+¦           ea7db11e-6c49-4013-b061-7abf5e313b19.log
+¦           eb951138-f92b-429a-80a0-3ec889946548.log
+¦           runner-direct-test.log
+¦           
++---merged-knowledge
+¦   +---2026-06-13T20-16-01-746Z
+¦           combat.json
+¦           crafting.json
+¦           items.json
+¦           mining.json
+¦           movement.json
+¦           
++---node_modules
+¦   ¦   .package-lock.json
+¦   ¦   
+¦   +---@socket.io
+¦   ¦   +---component-emitter
+¦   ¦       ¦   LICENSE
+¦   ¦       ¦   package.json
+¦   ¦       ¦   Readme.md
+¦   ¦       ¦   
+¦   ¦       +---lib
+¦   ¦           +---cjs
+¦   ¦           ¦       index.d.ts
+¦   ¦           ¦       index.js
+¦   ¦           ¦       package.json
+¦   ¦           ¦       
+¦   ¦           +---esm
+¦   ¦                   index.d.ts
+¦   ¦                   index.js
+¦   ¦                   package.json
+¦   ¦                   
+¦   +---accepts
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---body-parser
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦       ¦   read.js
+¦   ¦       ¦   utils.js
+¦   ¦       ¦   
+¦   ¦       +---types
+¦   ¦               json.js
+¦   ¦               raw.js
+¦   ¦               text.js
+¦   ¦               urlencoded.js
+¦   ¦               
+¦   +---bytes
+¦   ¦       History.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       Readme.md
+¦   ¦       
+¦   +---call-bind-apply-helpers
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   actualApply.d.ts
+¦   ¦   ¦   actualApply.js
+¦   ¦   ¦   applyBind.d.ts
+¦   ¦   ¦   applyBind.js
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   functionApply.d.ts
+¦   ¦   ¦   functionApply.js
+¦   ¦   ¦   functionCall.d.ts
+¦   ¦   ¦   functionCall.js
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   reflectApply.d.ts
+¦   ¦   ¦   reflectApply.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---call-bound
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---content-disposition
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---content-type
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---cookie
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       SECURITY.md
+¦   ¦       
+¦   +---cookie-signature
+¦   ¦       History.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       Readme.md
+¦   ¦       
+¦   +---debug
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---src
+¦   ¦           browser.js
+¦   ¦           common.js
+¦   ¦           index.js
+¦   ¦           node.js
+¦   ¦           
+¦   +---depd
+¦   ¦   ¦   History.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   Readme.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦       +---browser
+¦   ¦               index.js
+¦   ¦               
+¦   +---dunder-proto
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   get.d.ts
+¦   ¦   ¦   get.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   set.d.ts
+¦   ¦   ¦   set.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           get.js
+¦   ¦           index.js
+¦   ¦           set.js
+¦   ¦           
+¦   +---ee-first
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---encodeurl
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---engine.io-client
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---build
+¦   ¦   ¦   +---cjs
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.d.ts
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.js
+¦   ¦   ¦   ¦   ¦   globals.d.ts
+¦   ¦   ¦   ¦   ¦   globals.js
+¦   ¦   ¦   ¦   ¦   globals.node.d.ts
+¦   ¦   ¦   ¦   ¦   globals.node.js
+¦   ¦   ¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   ¦   package.json
+¦   ¦   ¦   ¦   ¦   socket.d.ts
+¦   ¦   ¦   ¦   ¦   socket.js
+¦   ¦   ¦   ¦   ¦   transport.d.ts
+¦   ¦   ¦   ¦   ¦   transport.js
+¦   ¦   ¦   ¦   ¦   util.d.ts
+¦   ¦   ¦   ¦   ¦   util.js
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---contrib
+¦   ¦   ¦   ¦   ¦       has-cors.d.ts
+¦   ¦   ¦   ¦   ¦       has-cors.js
+¦   ¦   ¦   ¦   ¦       parseqs.d.ts
+¦   ¦   ¦   ¦   ¦       parseqs.js
+¦   ¦   ¦   ¦   ¦       parseuri.d.ts
+¦   ¦   ¦   ¦   ¦       parseuri.js
+¦   ¦   ¦   ¦   ¦       
+¦   ¦   ¦   ¦   +---transports
+¦   ¦   ¦   ¦           index.d.ts
+¦   ¦   ¦   ¦           index.js
+¦   ¦   ¦   ¦           polling-fetch.d.ts
+¦   ¦   ¦   ¦           polling-fetch.js
+¦   ¦   ¦   ¦           polling-xhr.d.ts
+¦   ¦   ¦   ¦           polling-xhr.js
+¦   ¦   ¦   ¦           polling-xhr.node.d.ts
+¦   ¦   ¦   ¦           polling-xhr.node.js
+¦   ¦   ¦   ¦           polling.d.ts
+¦   ¦   ¦   ¦           polling.js
+¦   ¦   ¦   ¦           websocket.d.ts
+¦   ¦   ¦   ¦           websocket.js
+¦   ¦   ¦   ¦           websocket.node.d.ts
+¦   ¦   ¦   ¦           websocket.node.js
+¦   ¦   ¦   ¦           webtransport.d.ts
+¦   ¦   ¦   ¦           webtransport.js
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---esm
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.d.ts
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.js
+¦   ¦   ¦   ¦   ¦   globals.d.ts
+¦   ¦   ¦   ¦   ¦   globals.js
+¦   ¦   ¦   ¦   ¦   globals.node.d.ts
+¦   ¦   ¦   ¦   ¦   globals.node.js
+¦   ¦   ¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   ¦   package.json
+¦   ¦   ¦   ¦   ¦   socket.d.ts
+¦   ¦   ¦   ¦   ¦   socket.js
+¦   ¦   ¦   ¦   ¦   transport.d.ts
+¦   ¦   ¦   ¦   ¦   transport.js
+¦   ¦   ¦   ¦   ¦   util.d.ts
+¦   ¦   ¦   ¦   ¦   util.js
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---contrib
+¦   ¦   ¦   ¦   ¦       has-cors.d.ts
+¦   ¦   ¦   ¦   ¦       has-cors.js
+¦   ¦   ¦   ¦   ¦       parseqs.d.ts
+¦   ¦   ¦   ¦   ¦       parseqs.js
+¦   ¦   ¦   ¦   ¦       parseuri.d.ts
+¦   ¦   ¦   ¦   ¦       parseuri.js
+¦   ¦   ¦   ¦   ¦       
+¦   ¦   ¦   ¦   +---transports
+¦   ¦   ¦   ¦           index.d.ts
+¦   ¦   ¦   ¦           index.js
+¦   ¦   ¦   ¦           polling-fetch.d.ts
+¦   ¦   ¦   ¦           polling-fetch.js
+¦   ¦   ¦   ¦           polling-xhr.d.ts
+¦   ¦   ¦   ¦           polling-xhr.js
+¦   ¦   ¦   ¦           polling-xhr.node.d.ts
+¦   ¦   ¦   ¦           polling-xhr.node.js
+¦   ¦   ¦   ¦           polling.d.ts
+¦   ¦   ¦   ¦           polling.js
+¦   ¦   ¦   ¦           websocket.d.ts
+¦   ¦   ¦   ¦           websocket.js
+¦   ¦   ¦   ¦           websocket.node.d.ts
+¦   ¦   ¦   ¦           websocket.node.js
+¦   ¦   ¦   ¦           webtransport.d.ts
+¦   ¦   ¦   ¦           webtransport.js
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---esm-debug
+¦   ¦   ¦       ¦   browser-entrypoint.d.ts
+¦   ¦   ¦       ¦   browser-entrypoint.js
+¦   ¦   ¦       ¦   globals.d.ts
+¦   ¦   ¦       ¦   globals.js
+¦   ¦   ¦       ¦   globals.node.d.ts
+¦   ¦   ¦       ¦   globals.node.js
+¦   ¦   ¦       ¦   index.d.ts
+¦   ¦   ¦       ¦   index.js
+¦   ¦   ¦       ¦   package.json
+¦   ¦   ¦       ¦   socket.d.ts
+¦   ¦   ¦       ¦   socket.js
+¦   ¦   ¦       ¦   transport.d.ts
+¦   ¦   ¦       ¦   transport.js
+¦   ¦   ¦       ¦   util.d.ts
+¦   ¦   ¦       ¦   util.js
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---contrib
+¦   ¦   ¦       ¦       has-cors.d.ts
+¦   ¦   ¦       ¦       has-cors.js
+¦   ¦   ¦       ¦       parseqs.d.ts
+¦   ¦   ¦       ¦       parseqs.js
+¦   ¦   ¦       ¦       parseuri.d.ts
+¦   ¦   ¦       ¦       parseuri.js
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---transports
+¦   ¦   ¦               index.d.ts
+¦   ¦   ¦               index.js
+¦   ¦   ¦               polling-fetch.d.ts
+¦   ¦   ¦               polling-fetch.js
+¦   ¦   ¦               polling-xhr.d.ts
+¦   ¦   ¦               polling-xhr.js
+¦   ¦   ¦               polling-xhr.node.d.ts
+¦   ¦   ¦               polling-xhr.node.js
+¦   ¦   ¦               polling.d.ts
+¦   ¦   ¦               polling.js
+¦   ¦   ¦               websocket.d.ts
+¦   ¦   ¦               websocket.js
+¦   ¦   ¦               websocket.node.d.ts
+¦   ¦   ¦               websocket.node.js
+¦   ¦   ¦               webtransport.d.ts
+¦   ¦   ¦               webtransport.js
+¦   ¦   ¦               
+¦   ¦   +---dist
+¦   ¦           engine.io.esm.min.js
+¦   ¦           engine.io.esm.min.js.map
+¦   ¦           engine.io.js
+¦   ¦           engine.io.js.map
+¦   ¦           engine.io.min.js
+¦   ¦           engine.io.min.js.map
+¦   ¦           
+¦   +---engine.io-parser
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   Readme.md
+¦   ¦   ¦   
+¦   ¦   +---build
+¦   ¦       +---cjs
+¦   ¦       ¦   ¦   commons.d.ts
+¦   ¦       ¦   ¦   commons.js
+¦   ¦       ¦   ¦   decodePacket.browser.d.ts
+¦   ¦       ¦   ¦   decodePacket.browser.js
+¦   ¦       ¦   ¦   decodePacket.d.ts
+¦   ¦       ¦   ¦   decodePacket.js
+¦   ¦       ¦   ¦   encodePacket.browser.d.ts
+¦   ¦       ¦   ¦   encodePacket.browser.js
+¦   ¦       ¦   ¦   encodePacket.d.ts
+¦   ¦       ¦   ¦   encodePacket.js
+¦   ¦       ¦   ¦   index.d.ts
+¦   ¦       ¦   ¦   index.js
+¦   ¦       ¦   ¦   package.json
+¦   ¦       ¦   ¦   
+¦   ¦       ¦   +---contrib
+¦   ¦       ¦           base64-arraybuffer.d.ts
+¦   ¦       ¦           base64-arraybuffer.js
+¦   ¦       ¦           
+¦   ¦       +---esm
+¦   ¦           ¦   commons.d.ts
+¦   ¦           ¦   commons.js
+¦   ¦           ¦   decodePacket.browser.d.ts
+¦   ¦           ¦   decodePacket.browser.js
+¦   ¦           ¦   decodePacket.d.ts
+¦   ¦           ¦   decodePacket.js
+¦   ¦           ¦   encodePacket.browser.d.ts
+¦   ¦           ¦   encodePacket.browser.js
+¦   ¦           ¦   encodePacket.d.ts
+¦   ¦           ¦   encodePacket.js
+¦   ¦           ¦   index.d.ts
+¦   ¦           ¦   index.js
+¦   ¦           ¦   package.json
+¦   ¦           ¦   
+¦   ¦           +---contrib
+¦   ¦                   base64-arraybuffer.d.ts
+¦   ¦                   base64-arraybuffer.js
+¦   ¦                   
+¦   +---es-define-property
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---es-errors
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   eval.d.ts
+¦   ¦   ¦   eval.js
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   range.d.ts
+¦   ¦   ¦   range.js
+¦   ¦   ¦   README.md
+¦   ¦   ¦   ref.d.ts
+¦   ¦   ¦   ref.js
+¦   ¦   ¦   syntax.d.ts
+¦   ¦   ¦   syntax.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   type.d.ts
+¦   ¦   ¦   type.js
+¦   ¦   ¦   uri.d.ts
+¦   ¦   ¦   uri.js
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---es-object-atoms
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   isObject.d.ts
+¦   ¦   ¦   isObject.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   RequireObjectCoercible.d.ts
+¦   ¦   ¦   RequireObjectCoercible.js
+¦   ¦   ¦   ToObject.d.ts
+¦   ¦   ¦   ToObject.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---escape-html
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       Readme.md
+¦   ¦       
+¦   +---etag
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---express
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   Readme.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦           application.js
+¦   ¦           express.js
+¦   ¦           request.js
+¦   ¦           response.js
+¦   ¦           utils.js
+¦   ¦           view.js
+¦   ¦           
+¦   +---finalhandler
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---forwarded
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---fresh
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---function-bind
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   implementation.js
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       SECURITY.md
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           .eslintrc
+¦   ¦           index.js
+¦   ¦           
+¦   +---get-intrinsic
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           GetIntrinsic.js
+¦   ¦           
+¦   +---get-proto
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   Object.getPrototypeOf.d.ts
+¦   ¦   ¦   Object.getPrototypeOf.js
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   Reflect.getPrototypeOf.d.ts
+¦   ¦   ¦   Reflect.getPrototypeOf.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---gopd
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   gOPD.d.ts
+¦   ¦   ¦   gOPD.js
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---has-symbols
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   shams.d.ts
+¦   ¦   ¦   shams.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦       ¦   index.js
+¦   ¦       ¦   tests.js
+¦   ¦       ¦   
+¦   ¦       +---shams
+¦   ¦               core-js.js
+¦   ¦               get-own-property-symbols.js
+¦   ¦               
+¦   +---hasown
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   eslint.config.mjs
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦           FUNDING.yml
+¦   ¦           
+¦   +---http-errors
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---iconv-lite
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---encodings
+¦   ¦   ¦   ¦   dbcs-codec.js
+¦   ¦   ¦   ¦   dbcs-data.js
+¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   internal.js
+¦   ¦   ¦   ¦   sbcs-codec.js
+¦   ¦   ¦   ¦   sbcs-data-generated.js
+¦   ¦   ¦   ¦   sbcs-data.js
+¦   ¦   ¦   ¦   utf16.js
+¦   ¦   ¦   ¦   utf32.js
+¦   ¦   ¦   ¦   utf7.js
+¦   ¦   ¦   ¦   
+¦   ¦   ¦   +---tables
+¦   ¦   ¦           big5-added.json
+¦   ¦   ¦           cp936.json
+¦   ¦   ¦           cp949.json
+¦   ¦   ¦           cp950.json
+¦   ¦   ¦           eucjp.json
+¦   ¦   ¦           gb18030-ranges.json
+¦   ¦   ¦           gbk-added.json
+¦   ¦   ¦           shiftjis.json
+¦   ¦   ¦           
+¦   ¦   +---lib
+¦   ¦   ¦   ¦   bom-handling.js
+¦   ¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   streams.js
+¦   ¦   ¦   ¦   
+¦   ¦   ¦   +---helpers
+¦   ¦   ¦           merge-exports.js
+¦   ¦   ¦           
+¦   ¦   +---types
+¦   ¦           encodings.d.ts
+¦   ¦           
+¦   +---inherits
+¦   ¦       inherits.js
+¦   ¦       inherits_browser.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---ipaddr.js
+¦   ¦   ¦   ipaddr.min.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦           ipaddr.js
+¦   ¦           ipaddr.js.d.ts
+¦   ¦           
+¦   +---is-promise
+¦   ¦       index.d.ts
+¦   ¦       index.js
+¦   ¦       index.mjs
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       readme.md
+¦   ¦       
+¦   +---math-intrinsics
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   abs.d.ts
+¦   ¦   ¦   abs.js
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   floor.d.ts
+¦   ¦   ¦   floor.js
+¦   ¦   ¦   isFinite.d.ts
+¦   ¦   ¦   isFinite.js
+¦   ¦   ¦   isInteger.d.ts
+¦   ¦   ¦   isInteger.js
+¦   ¦   ¦   isNaN.d.ts
+¦   ¦   ¦   isNaN.js
+¦   ¦   ¦   isNegativeZero.d.ts
+¦   ¦   ¦   isNegativeZero.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   max.d.ts
+¦   ¦   ¦   max.js
+¦   ¦   ¦   min.d.ts
+¦   ¦   ¦   min.js
+¦   ¦   ¦   mod.d.ts
+¦   ¦   ¦   mod.js
+¦   ¦   ¦   package.json
+¦   ¦   ¦   pow.d.ts
+¦   ¦   ¦   pow.js
+¦   ¦   ¦   README.md
+¦   ¦   ¦   round.d.ts
+¦   ¦   ¦   round.js
+¦   ¦   ¦   sign.d.ts
+¦   ¦   ¦   sign.js
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---constants
+¦   ¦   ¦       maxArrayLength.d.ts
+¦   ¦   ¦       maxArrayLength.js
+¦   ¦   ¦       maxSafeInteger.d.ts
+¦   ¦   ¦       maxSafeInteger.js
+¦   ¦   ¦       maxValue.d.ts
+¦   ¦   ¦       maxValue.js
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---media-typer
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---merge-descriptors
+¦   ¦       index.d.ts
+¦   ¦       index.js
+¦   ¦       license
+¦   ¦       package.json
+¦   ¦       readme.md
+¦   ¦       
+¦   +---mime-db
+¦   ¦       db.json
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---mime-types
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       mimeScore.js
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---ms
+¦   ¦       index.js
+¦   ¦       license.md
+¦   ¦       package.json
+¦   ¦       readme.md
+¦   ¦       
+¦   +---negotiator
+¦   ¦   ¦   HISTORY.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦           charset.js
+¦   ¦           encoding.js
+¦   ¦           language.js
+¦   ¦           mediaType.js
+¦   ¦           
+¦   +---object-inspect
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package-support.json
+¦   ¦   ¦   package.json
+¦   ¦   ¦   readme.markdown
+¦   ¦   ¦   test-core-js.js
+¦   ¦   ¦   util.inspect.js
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---example
+¦   ¦   ¦       all.js
+¦   ¦   ¦       circular.js
+¦   ¦   ¦       fn.js
+¦   ¦   ¦       inspect.js
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦       ¦   bigint.js
+¦   ¦       ¦   circular.js
+¦   ¦       ¦   deep.js
+¦   ¦       ¦   element.js
+¦   ¦       ¦   err.js
+¦   ¦       ¦   fakes.js
+¦   ¦       ¦   fn.js
+¦   ¦       ¦   global.js
+¦   ¦       ¦   has.js
+¦   ¦       ¦   holes.js
+¦   ¦       ¦   indent-option.js
+¦   ¦       ¦   inspect.js
+¦   ¦       ¦   lowbyte.js
+¦   ¦       ¦   number.js
+¦   ¦       ¦   quoteStyle.js
+¦   ¦       ¦   toStringTag.js
+¦   ¦       ¦   undef.js
+¦   ¦       ¦   values.js
+¦   ¦       ¦   
+¦   ¦       +---browser
+¦   ¦               dom.js
+¦   ¦               
+¦   +---on-finished
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---once
+¦   ¦       LICENSE
+¦   ¦       once.js
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---parseurl
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---path-to-regexp
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   Readme.md
+¦   ¦   ¦   
+¦   ¦   +---dist
+¦   ¦           index.d.ts
+¦   ¦           index.js
+¦   ¦           index.js.map
+¦   ¦           
+¦   +---proxy-addr
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---qs
+¦   ¦   ¦   .editorconfig
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   eslint.config.mjs
+¦   ¦   ¦   LICENSE.md
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       SECURITY.md
+¦   ¦   ¦       THREAT_MODEL.md
+¦   ¦   ¦       
+¦   ¦   +---dist
+¦   ¦   ¦       qs.js
+¦   ¦   ¦       
+¦   ¦   +---lib
+¦   ¦   ¦       formats.js
+¦   ¦   ¦       index.js
+¦   ¦   ¦       parse.js
+¦   ¦   ¦       stringify.js
+¦   ¦   ¦       utils.js
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           empty-keys-cases.js
+¦   ¦           parse.js
+¦   ¦           stringify.js
+¦   ¦           utils.js
+¦   ¦           
+¦   +---range-parser
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---raw-body
+¦   ¦       index.d.ts
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---router
+¦   ¦   ¦   HISTORY.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦           layer.js
+¦   ¦           route.js
+¦   ¦           
+¦   +---safer-buffer
+¦   ¦       dangerous.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       Porting-Buffer.md
+¦   ¦       Readme.md
+¦   ¦       safer.js
+¦   ¦       tests.js
+¦   ¦       
+¦   +---send
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---serve-static
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---setprototypeof
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---side-channel
+¦   ¦   ¦   .editorconfig
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---side-channel-list
+¦   ¦   ¦   .editorconfig
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   list.d.ts
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---side-channel-map
+¦   ¦   ¦   .editorconfig
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---side-channel-weakmap
+¦   ¦   ¦   .editorconfig
+¦   ¦   ¦   .eslintrc
+¦   ¦   ¦   .nycrc
+¦   ¦   ¦   CHANGELOG.md
+¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   tsconfig.json
+¦   ¦   ¦   
+¦   ¦   +---.github
+¦   ¦   ¦       FUNDING.yml
+¦   ¦   ¦       
+¦   ¦   +---test
+¦   ¦           index.js
+¦   ¦           
+¦   +---socket.io-client
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---build
+¦   ¦   ¦   +---cjs
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.d.ts
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.js
+¦   ¦   ¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   ¦   manager.d.ts
+¦   ¦   ¦   ¦   ¦   manager.js
+¦   ¦   ¦   ¦   ¦   on.d.ts
+¦   ¦   ¦   ¦   ¦   on.js
+¦   ¦   ¦   ¦   ¦   socket.d.ts
+¦   ¦   ¦   ¦   ¦   socket.js
+¦   ¦   ¦   ¦   ¦   url.d.ts
+¦   ¦   ¦   ¦   ¦   url.js
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---contrib
+¦   ¦   ¦   ¦           backo2.d.ts
+¦   ¦   ¦   ¦           backo2.js
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---esm
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.d.ts
+¦   ¦   ¦   ¦   ¦   browser-entrypoint.js
+¦   ¦   ¦   ¦   ¦   index.d.ts
+¦   ¦   ¦   ¦   ¦   index.js
+¦   ¦   ¦   ¦   ¦   manager.d.ts
+¦   ¦   ¦   ¦   ¦   manager.js
+¦   ¦   ¦   ¦   ¦   on.d.ts
+¦   ¦   ¦   ¦   ¦   on.js
+¦   ¦   ¦   ¦   ¦   package.json
+¦   ¦   ¦   ¦   ¦   socket.d.ts
+¦   ¦   ¦   ¦   ¦   socket.js
+¦   ¦   ¦   ¦   ¦   url.d.ts
+¦   ¦   ¦   ¦   ¦   url.js
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---contrib
+¦   ¦   ¦   ¦           backo2.d.ts
+¦   ¦   ¦   ¦           backo2.js
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---esm-debug
+¦   ¦   ¦       ¦   browser-entrypoint.d.ts
+¦   ¦   ¦       ¦   browser-entrypoint.js
+¦   ¦   ¦       ¦   index.d.ts
+¦   ¦   ¦       ¦   index.js
+¦   ¦   ¦       ¦   manager.d.ts
+¦   ¦   ¦       ¦   manager.js
+¦   ¦   ¦       ¦   on.d.ts
+¦   ¦   ¦       ¦   on.js
+¦   ¦   ¦       ¦   package.json
+¦   ¦   ¦       ¦   socket.d.ts
+¦   ¦   ¦       ¦   socket.js
+¦   ¦   ¦       ¦   url.d.ts
+¦   ¦   ¦       ¦   url.js
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---contrib
+¦   ¦   ¦               backo2.d.ts
+¦   ¦   ¦               backo2.js
+¦   ¦   ¦               
+¦   ¦   +---dist
+¦   ¦           socket.io.esm.min.js
+¦   ¦           socket.io.esm.min.js.map
+¦   ¦           socket.io.js
+¦   ¦           socket.io.js.map
+¦   ¦           socket.io.min.js
+¦   ¦           socket.io.min.js.map
+¦   ¦           socket.io.msgpack.min.js
+¦   ¦           socket.io.msgpack.min.js.map
+¦   ¦           
+¦   +---socket.io-parser
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   Readme.md
+¦   ¦   ¦   
+¦   ¦   +---build
+¦   ¦       +---cjs
+¦   ¦       ¦       binary.d.ts
+¦   ¦       ¦       binary.js
+¦   ¦       ¦       index.d.ts
+¦   ¦       ¦       index.js
+¦   ¦       ¦       is-binary.d.ts
+¦   ¦       ¦       is-binary.js
+¦   ¦       ¦       package.json
+¦   ¦       ¦       
+¦   ¦       +---esm
+¦   ¦       ¦       binary.d.ts
+¦   ¦       ¦       binary.js
+¦   ¦       ¦       index.d.ts
+¦   ¦       ¦       index.js
+¦   ¦       ¦       is-binary.d.ts
+¦   ¦       ¦       is-binary.js
+¦   ¦       ¦       package.json
+¦   ¦       ¦       
+¦   ¦       +---esm-debug
+¦   ¦               binary.d.ts
+¦   ¦               binary.js
+¦   ¦               index.d.ts
+¦   ¦               index.js
+¦   ¦               is-binary.d.ts
+¦   ¦               is-binary.js
+¦   ¦               package.json
+¦   ¦               
+¦   +---statuses
+¦   ¦       codes.json
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---toidentifier
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---type-is
+¦   ¦   ¦   HISTORY.md
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   
+¦   ¦   +---node_modules
+¦   ¦       +---content-type
+¦   ¦           ¦   LICENSE
+¦   ¦           ¦   package.json
+¦   ¦           ¦   README.md
+¦   ¦           ¦   
+¦   ¦           +---dist
+¦   ¦                   index.d.ts
+¦   ¦                   index.js
+¦   ¦                   index.js.map
+¦   ¦                   
+¦   +---unpipe
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---vary
+¦   ¦       HISTORY.md
+¦   ¦       index.js
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       
+¦   +---wrappy
+¦   ¦       LICENSE
+¦   ¦       package.json
+¦   ¦       README.md
+¦   ¦       wrappy.js
+¦   ¦       
+¦   +---ws
+¦   ¦   ¦   browser.js
+¦   ¦   ¦   index.js
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   package.json
+¦   ¦   ¦   README.md
+¦   ¦   ¦   wrapper.mjs
+¦   ¦   ¦   
+¦   ¦   +---lib
+¦   ¦           buffer-util.js
+¦   ¦           constants.js
+¦   ¦           event-target.js
+¦   ¦           extension.js
+¦   ¦           limiter.js
+¦   ¦           permessage-deflate.js
+¦   ¦           receiver.js
+¦   ¦           sender.js
+¦   ¦           stream.js
+¦   ¦           subprotocol.js
+¦   ¦           validation.js
+¦   ¦           websocket-server.js
+¦   ¦           websocket.js
+¦   ¦           
+¦   +---xmlhttprequest-ssl
+¦       ¦   LICENSE
+¦       ¦   package.json
+¦       ¦   README.md
+¦       ¦   
+¦       +---lib
+¦               XMLHttpRequest.js
+¦               
++---public
+¦       hub.html
+¦       
++---src
+¦       knowledge-merge.js
+¦       
++---update-backups
+    +---11e6a44b-bc7c-4cbb-939c-0feb42b6ccfb
+    ¦   +---2026-06-14T14-52-52-657Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-576Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-288Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-730Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-248Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-816Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-232Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-729Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-149Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---1d3361e8-0d93-496d-8cba-17fb4f935fb8
+    ¦   +---2026-06-14T14-52-52-683Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-598Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-309Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-790Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-269Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-836Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-253Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-751Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-174Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---358e9cb4-04b7-4872-8d1f-a0d195445819
+    ¦   +---2026-06-14T14-52-52-465Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-370Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-110Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-544Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-068Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-640Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-047Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-515Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-969Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---446ff49c-610d-4ccd-ace5-52656957c830
+    ¦   +---2026-06-14T14-52-52-782Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-683Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-398Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-936Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-431Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-920Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-357Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-841Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-277Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---4600f35b-14e2-4bf5-8d8a-ec713e93db24
+    ¦   +---2026-06-14T14-52-52-536Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-448Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-181Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-615Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-138Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-709Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-117Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-592Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-035Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---46e84e49-53b9-49bd-b139-d7ea11cae630
+    ¦   +---2026-06-14T14-52-52-729Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-639Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-353Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-896Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-313Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-879Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-304Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-795Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-231Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---4d6f5ea4-9855-4f9e-ad51-b37e29910907
+    ¦   +---2026-06-14T14-52-52-807Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-704Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-417Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-956Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-491Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-941Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-383Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-863Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-299Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---55a7fda6-d4e1-4d87-9ccc-5958c331d2cd
+    ¦   +---2026-06-14T14-52-52-396Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-293Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-041Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-476Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-000Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-570Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-987Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-438Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-906Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---60c30d9d-eae1-4c75-88d1-cea069ef2a5f
+    ¦   +---2026-06-14T14-52-52-442Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-345Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-087Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-521Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-046Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-617Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-027Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-492Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-947Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---71881310-2951-456b-b140-4da2ca0fbe6f
+    ¦   +---2026-06-14T14-52-52-560Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-476Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-202Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-637Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-160Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-730Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-141Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-627Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-058Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---73ac5583-4cc6-4f1a-9c4b-01565ce8c4e3
+    ¦   +---2026-06-14T14-52-52-586Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-505Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-223Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-659Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-184Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-752Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-166Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-654Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-083Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---7c6c72f0-6d7f-4445-8403-12521b01ec95
+    ¦   +---2026-06-14T14-52-52-512Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-423Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-156Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-594Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-117Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-689Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-096Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-567Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-013Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---8fe0977f-e2c0-40bc-8748-3b61d2a800c7
+    ¦   +---2026-06-14T14-52-52-490Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-397Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-134Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-572Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-094Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-664Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-070Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-541Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-991Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---9f4d24cd-f5f6-42f0-affa-6ba887dbd13b
+    ¦   +---2026-06-14T14-52-52-754Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-663Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-374Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-916Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-370Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-899Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-334Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-815Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-253Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---b428b614-c6ee-4588-9c2d-e3844a2013c7
+    ¦   +---2026-06-14T14-52-52-706Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-619Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-330Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-870Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-292Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-857Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-277Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-774Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-205Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---bb97ee7b-5db8-472e-89e2-e6df9fd7f03a
+    ¦   +---2026-06-14T14-52-52-362Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-261Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-012Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-451Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-979Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-543Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-964Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-411Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-886Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---cad6c9bb-48f1-4fc7-8f87-56f4bff999d3
+    ¦   +---2026-06-14T14-52-52-419Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-318Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-065Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-498Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-023Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-591Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-007Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-462Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-927Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---e3c3f0da-34a5-4286-b673-bb409f98f309
+    ¦   +---2026-06-12T18-58-45-456Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---e5ffb8d0-279d-44ff-b35d-a69e49f57ea8
+    ¦   +---2026-06-14T14-52-52-610Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-528Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-244Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-681Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-204Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-775Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-190Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-678Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-104Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---eb951138-f92b-429a-80a0-3ec889946548
+    ¦   +---2026-06-14T14-52-52-633Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-26-551Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-265Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-27-702Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-225Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-28-796Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-211Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-29-704Z
+    ¦   ¦   ¦   bot-error.log
+    ¦   ¦   ¦   bot-output.log
+    ¦   ¦   ¦   bot.js
+    ¦   ¦   ¦   package-lock.json
+    ¦   ¦   ¦   package.json
+    ¦   ¦   ¦   README.md
+    ¦   ¦   ¦   
+    ¦   ¦   +---public
+    ¦   ¦   ¦       index.html
+    ¦   ¦   ¦       
+    ¦   ¦   +---src
+    ¦   ¦   ¦       knowledge-merge.js
+    ¦   ¦   ¦       runtime-storage.js
+    ¦   ¦   ¦       task-controller.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---test
+    ¦   ¦   ¦       knowledge-merge.test.js
+    ¦   ¦   ¦       runtime-storage.test.js
+    ¦   ¦   ¦       task-controller.test.js
+    ¦   ¦   ¦       
+    ¦   ¦   +---tools
+    ¦   ¦           merge-knowledge.js
+    ¦   ¦           merge-knowledge.md
+    ¦   ¦           
+    ¦   +---2026-06-14T14-53-30-128Z
+    ¦       ¦   bot-error.log
+    ¦       ¦   bot-output.log
+    ¦       ¦   bot.js
+    ¦       ¦   package-lock.json
+    ¦       ¦   package.json
+    ¦       ¦   README.md
+    ¦       ¦   
+    ¦       +---public
+    ¦       ¦       index.html
+    ¦       ¦       
+    ¦       +---src
+    ¦       ¦       knowledge-merge.js
+    ¦       ¦       runtime-storage.js
+    ¦       ¦       task-controller.js
+    ¦       ¦       
+    ¦       +---test
+    ¦       ¦       knowledge-merge.test.js
+    ¦       ¦       runtime-storage.test.js
+    ¦       ¦       task-controller.test.js
+    ¦       ¦       
+    ¦       +---tools
+    ¦               merge-knowledge.js
+    ¦               merge-knowledge.md
+    ¦               
+    +---hub-health-fixes
+        +---2026-06-18
+                hub.js
+                

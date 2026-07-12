@@ -13,6 +13,7 @@ Bots/*
 !Bots/wc-tester/**
 !Bots/official-bot/
 !Bots/official-bot/**
+!Bots/official-bot/**/*
 
 # Secrets, local auth and machine-specific state
 .env
@@ -39,6 +40,12 @@ Data/backups/
 **/*.tmp
 **/bot-output.log
 **/bot-error.log
+**/knowledge-backups/
+**/knowledge-backups/**
+**/ai-memory.json
+**/ai-recipes.json
+**/ai-memory.json.*
+**/ai-recipes.json.*
 
 # Minecraft server local/player state
 minecraft-java-server/logs/

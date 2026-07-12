@@ -1,0 +1,173 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minecraft AI Bot Hub</title>
+  <link rel="stylesheet" href="/hub.css">
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><small>Local controller</small><strong>Minecraft AI Bot Hub</strong></div>
+      <nav>
+        <button type="button" class="active" data-tab="overview">Overview</button>
+        <button type="button" data-tab="bots">Bots</button>
+        <button type="button" data-tab="chat">Chat</button>
+        <button type="button" data-tab="presets">Presets</button>
+        <button type="button" data-tab="merge">Merge Knowledge</button>
+        <button type="button" data-tab="manage">Manage</button>
+        <button type="button" data-tab="health">System Health</button>
+        <button type="button" data-tab="discordHealth">Discord Health</button>
+        <button type="button" data-tab="logs">Console Logs</button>
+        <button type="button" data-tab="viewers">Viewers</button>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <div><span class="eyebrow">Multi-bot control</span><h1 id="title">Overview</h1></div>
+        <div class="top-status">
+          <div class="status"><i class="dot"></i><span id="hubStatus">Hub online</span></div>
+          <span id="discordTopStatus" class="status-chip">Discord unknown</span>
+          <span id="botsTopStatus" class="status-chip">0 bots online</span>
+        </div>
+      </header>
+
+      <section id="overview" class="tab active">
+        <div class="card-head"><div><h2>All bots</h2><p>Live status received from every available bot dashboard.</p></div><span id="overviewCount" class="pill">0 bots</span></div>
+        <div class="overview-actions">
+          <button type="button" id="startAllBots">Start all bots</button>
+          <button type="button" id="stopAllBots" class="secondary">Stop all bots</button>
+        </div>
+        <form id="broadcastForm" class="broadcast">
+          <input id="broadcastInput" placeholder="Send chat or AI command to all online bots">
+          <button type="submit">Send to all bots</button>
+          <span id="broadcastStatus" class="broadcast-status">Normal text becomes HUD chat. Text starting with ai becomes a command.</span>
+        </form>
+        <div id="overviewTable" class="overview-wrap"></div>
+      </section>
+
+      <section id="bots" class="tab">
+        <div class="toolbar">
+          <input id="folderPath" placeholder="Bot folder, for example C:\bot2">
+          <button type="button" id="browseFolder" class="secondary">Choose folder</button>
+          <button type="button" id="addFolder">Add bot</button>
+          <button type="button" id="addAllFolders" class="secondary">Add all bots in folder</button>
+        </div>
+        <form id="bulkSettingsForm" class="broadcast">
+          <input id="bulkHost" placeholder="Server host for all stopped bots">
+          <input id="bulkPort" type="number" min="1" max="65535" value="25565" placeholder="Server port">
+          <select id="bulkVersion"></select>
+          <button type="submit">Apply to all stopped bots</button>
+          <span id="bulkSettingsStatus" class="broadcast-status">Running bots are skipped so their active connection is not interrupted.</span>
+        </form>
+        <div id="botGrid" class="bot-grid"></div>
+      </section>
+
+      <section id="merge" class="tab">
+        <div class="merge-layout">
+          <div>
+            <div class="card-head"><div><h2>Select bots</h2><p>Choose between 2 and 5 stopped bots.</p></div><span id="mergeCount" class="pill">0 selected</span></div>
+            <div id="mergeList" class="merge-list"></div>
+          </div>
+          <div class="merge-side">
+            <button type="button" id="mergeButton">Merge selected knowledge</button>
+            <button type="button" id="openMerged" class="secondary" disabled>Open merged folder</button>
+            <div id="mergeResult" class="notice">Merged knowledge is written to a new folder. Source bots are never modified.</div>
+          </div>
+        </div>
+        <div class="card-head" style="margin-top:22px"><div><h2>Merged knowledge</h2><p>Apply a merge directly to one stopped bot. A backup is created first.</p></div><span id="mergedCount" class="pill">0 merges</span></div>
+        <div id="mergedList" class="merged-list"></div>
+      </section>
+
+      <section id="manage" class="tab">
+        <div class="manage-steps">
+          <div class="manage-step"><span class="step-number">1</span><div><strong>Make teams</strong><span>Put bots in a group, like Elite or Builders, so you can control that team together.</span></div></div>
+          <div class="manage-step"><span class="step-number">2</span><div><strong>Save servers</strong><span>Save a Minecraft server once, then apply it to the bots you choose.</span></div></div>
+          <div class="manage-step"><span class="step-number">3</span><div><strong>Use tools</strong><span>Make a bot copy, update code, compare knowledge, or restore a backup when you need it.</span></div></div>
+        </div>
+        <div class="manage-grid">
+          <div class="manage-block stack"><h2>1. Groups</h2><p>A group is a team of bots. Make a group, then start or stop the whole team.</p><input id="groupName" placeholder="Example: Miners or Builders"><button id="addGroup" type="button">Create group</button><div id="groupList"></div></div>
+          <div class="manage-block stack"><h2>2. Server profiles</h2><p>Save a server address and Minecraft version. First tick target bots under Code update, then apply the server.</p><input id="profileName" placeholder="Example: Aternos"><input id="profileHost" placeholder="Server address"><input id="profilePort" type="number" value="25565" placeholder="Server port"><select id="profileVersion"></select><button id="addProfile" type="button">Save server</button><div id="profileList"></div></div>
+          <div class="manage-block stack"><h2>3. Daily schedule</h2><p>Let the Hub start, stop, or command a group every day at this time.</p><input id="scheduleTime" type="time"><select id="scheduleAction"><option value="start">Start group</option><option value="stop">Stop group</option><option value="command">Send command to group</option></select><select id="scheduleGroup"></select><input id="scheduleCommand" placeholder="Only needed for a command"><button id="addSchedule" type="button">Add daily action</button><div id="scheduleList"></div></div>
+          <div class="manage-block stack"><h2>4. Make new bot</h2><p>Copy a stopped bot into a new bot folder. The Hub gives it fresh ports.</p><label>Copy from<select id="cloneSource"></select></label><input id="cloneName" placeholder="New bot folder name"><button id="cloneBot" type="button">Make new bot</button></div>
+          <div class="manage-block stack"><h2>5. Code update</h2><p>Pick the newest bot as Source. Tick stopped bots below, then copy only the program code.</p><label>Source bot<select id="updateSource"></select></label><div id="updateTargets"></div><button id="runUpdate" type="button">Copy code to selected bots</button></div>
+          <div class="manage-block stack"><h2>6. Knowledge tools</h2><p>Compare what bots learned, see merge history, or restore the latest backup for one stopped bot.</p><button id="refreshScores" type="button">Compare knowledge</button><div id="scoreList"></div><div id="historyList"></div><select id="restoreBot"></select><button id="restoreKnowledge" type="button">Restore latest backup</button></div>
+          <div class="manage-block stack"><h2>7. Copy knowledge</h2><p>Copy learned knowledge from a smarter bot to a stopped, less trained bot. The target gets a backup first.</p><label>Smarter source bot<select id="knowledgeSource"></select></label><label>Dumber target bot<select id="knowledgeTarget"></select></label><button id="copyKnowledge" type="button">Copy knowledge to target</button></div>
+        </div>
+      </section>
+
+      <section id="presets" class="tab">
+        <div class="preset-grid">
+          <div class="manage-block stack">
+            <h2>Apply preset</h2>
+            <label>Preset<select id="presetSelect"></select></label>
+            <div id="presetTargets" class="chat-targets"></div>
+            <input id="presetPlayer" placeholder="Player name for Guard preset">
+            <button id="applyPreset" type="button">Apply preset</button>
+          </div>
+          <div class="manage-block stack">
+            <h2>Preset library</h2>
+            <input id="customPresetId" type="hidden">
+            <input id="customPresetName" placeholder="Custom preset name">
+            <textarea id="customPresetCommands" rows="4" placeholder="One command per line"></textarea>
+            <label>Delay between commands<select id="customPresetDelay"><option value="0">No delay</option><option value="500">0.5 seconds</option><option value="1000">1 second</option><option value="2000">2 seconds</option><option value="5000">5 seconds</option></select></label>
+            <div class="inline"><button id="savePreset" type="button">Save custom preset</button><button id="clearPresetEditor" type="button" class="secondary">Clear editor</button></div>
+            <div id="presetList" class="preset-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="chat" class="tab">
+        <div class="chat-layout">
+          <div id="chatConsole" class="chat-console"></div>
+          <form id="chatForm" class="chat-form">
+            <div id="chatTargets" class="chat-targets"></div>
+            <input id="chatInput" placeholder="Type chat or AI command">
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="health" class="tab">
+        <div class="toolbar">
+          <button id="refreshHealth" type="button">Refresh health</button>
+          <button id="restartHub" type="button" class="secondary">Restart Hub</button>
+          <button id="backupConfigNow" type="button" class="secondary">Backup config now</button>
+          <button id="restoreConfigLatest" type="button" class="secondary">Restore previous config</button>
+          <a href="/api/config/export" class="pill">Download settings</a>
+          <span id="healthChecked" class="pill">Not checked yet</span>
+        </div>
+        <div id="healthGrid" class="health-grid"></div>
+      </section>
+
+      <section id="discordHealth" class="tab">
+        <div class="toolbar">
+          <button id="refreshDiscord" type="button">Refresh Discord</button>
+          <button id="restartDiscord" type="button" class="secondary">Restart Discord bridge</button>
+          <button id="testDiscord" type="button" class="secondary">Send test message</button>
+          <span id="discordChecked" class="pill">Not checked yet</span>
+        </div>
+        <div id="discordGrid" class="health-grid"></div>
+      </section>
+
+      <section id="logs" class="tab">
+        <div class="toolbar"><select id="logBot"></select><input id="logSearch" placeholder="Search console"><button id="refreshLogs" type="button">Refresh</button></div>
+        <div id="consoleLog" class="console">Select a bot.</div>
+      </section>
+
+      <section id="viewers" class="tab">
+        <div class="viewer-toolbar">
+          <button id="allViewersOn" type="button">Turn all viewers on</button>
+          <button id="allViewersOff" type="button" class="secondary">Turn all viewers off</button>
+          <label>Camera columns<select id="viewerColumns"><option value="1">1 column</option><option value="2">2 columns</option><option value="3">3 columns</option><option value="4">4 columns</option></select></label>
+        </div>
+        <div id="viewerGrid" class="viewer-grid"></div>
+        <div id="hiddenCameras" class="hidden-camera-list"></div>
+      </section>
+    </main>
+  </div>
+  <script src="/hub.js" defer></script>
+</body>
+</html>
+
