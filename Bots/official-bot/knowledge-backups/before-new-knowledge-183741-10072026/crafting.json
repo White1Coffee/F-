@@ -1,0 +1,853 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-10T18:21:55+02:00",
+  "survivalCrafts": [
+    {
+      "item": "shield",
+      "reason": "reduces damage from skeletons and melee mobs",
+      "priority": 100
+    },
+    {
+      "item": "iron_sword",
+      "reason": "defeats hostile mobs faster",
+      "priority": 90
+    },
+    {
+      "item": "iron_pickaxe",
+      "reason": "opens resource gathering and recovery routes",
+      "priority": 85
+    },
+    {
+      "item": "boat",
+      "reason": "safe and fast water travel",
+      "priority": 60
+    },
+    {
+      "item": "bucket",
+      "reason": "carry water for falls, lava and climbing",
+      "priority": 55
+    }
+  ],
+  "endgamePlans": [
+    {
+      "item": "enchanting_table",
+      "action": "find obsidian, diamonds and books for an enchanting_table",
+      "reason": "unlock enchantments"
+    },
+    {
+      "item": "lapis_lazuli",
+      "action": "find lapis in caves and ore heatmaps",
+      "reason": "enchantments need lapis"
+    },
+    {
+      "item": "obsidian",
+      "count": 10,
+      "action": "find lava and water for obsidian",
+      "reason": "prepare Nether portal"
+    },
+    {
+      "item": "flint_and_steel",
+      "action": "collect iron and flint",
+      "reason": "activate Nether portal"
+    },
+    {
+      "item": null,
+      "action": "explore the Nether for fortress signs",
+      "reason": "find blaze rods"
+    },
+    {
+      "item": "blaze_rod",
+      "action": "find blaze rods in a known fortress",
+      "reason": "brewing and End route"
+    },
+    {
+      "item": "ancient_debris",
+      "action": "find ancient debris at a good Nether height",
+      "reason": "netherite upgrades"
+    },
+    {
+      "item": "netherite_sword",
+      "action": "collect templates, scraps and gold for netherite upgrades",
+      "reason": "finish netherite gear"
+    }
+  ],
+  "foodRules": {
+    "cooked_beef": {
+      "score": 10,
+      "safe": true
+    },
+    "cooked_porkchop": {
+      "score": 10,
+      "safe": true
+    },
+    "golden_carrot": {
+      "score": 9,
+      "safe": true
+    },
+    "cooked_mutton": {
+      "score": 8,
+      "safe": true
+    },
+    "cooked_chicken": {
+      "score": 7,
+      "safe": true
+    },
+    "cooked_salmon": {
+      "score": 7,
+      "safe": true
+    },
+    "cooked_rabbit": {
+      "score": 7,
+      "safe": true
+    },
+    "cooked_cod": {
+      "score": 6,
+      "safe": true
+    },
+    "bread": {
+      "score": 6,
+      "safe": true
+    },
+    "baked_potato": {
+      "score": 5,
+      "safe": true
+    },
+    "apple": {
+      "score": 4,
+      "safe": true
+    },
+    "carrot": {
+      "score": 3,
+      "safe": true
+    },
+    "beef": {
+      "score": 3,
+      "safe": true
+    },
+    "porkchop": {
+      "score": 3,
+      "safe": true
+    },
+    "mutton": {
+      "score": 2,
+      "safe": true
+    },
+    "rabbit": {
+      "score": 2,
+      "safe": true
+    },
+    "cod": {
+      "score": 2,
+      "safe": true
+    },
+    "salmon": {
+      "score": 2,
+      "safe": true
+    },
+    "potato": {
+      "score": 1,
+      "safe": true
+    },
+    "chicken": {
+      "score": 1,
+      "safe": false
+    },
+    "rotten_flesh": {
+      "score": 0,
+      "safe": false
+    },
+    "poisonous_potato": {
+      "score": 0,
+      "safe": false
+    }
+  },
+  "discoveredRecipes": {
+    "stick": {
+      "discoveredAt": "2026-06-02T23:42:23.776Z"
+    },
+    "oak_planks": {
+      "discoveredAt": "2026-06-02T23:45:35.359Z"
+    },
+    "crafting_table": {
+      "discoveredAt": "2026-06-02T23:45:35.426Z"
+    },
+    "wooden_pickaxe": {
+      "discoveredAt": "2026-06-02T23:45:36.690Z"
+    },
+    "stone_pickaxe": {
+      "discoveredAt": "2026-06-02T23:46:26.556Z"
+    },
+    "wooden_axe": {
+      "discoveredAt": "2026-06-02T23:45:36.690Z"
+    },
+    "birch_planks": {
+      "discoveredAt": "2026-06-03T09:12:22.479Z"
+    },
+    "furnace": {
+      "discoveredAt": "2026-06-03T16:57:41.664Z"
+    },
+    "iron_pickaxe": {
+      "discoveredAt": "2026-06-03T19:30:05.050Z"
+    },
+    "spruce_planks": {
+      "discoveredAt": "2026-06-04T19:02:07.536Z"
+    },
+    "shears": {
+      "discoveredAt": "2026-06-07T17:36:34+02:00"
+    },
+    "torch": {
+      "discoveredAt": "2026-06-08T11:19:24+02:00"
+    },
+    "jungle_planks": {
+      "discoveredAt": "2026-06-11T15:54:15+02:00"
+    },
+    "chest": {
+      "discoveredAt": "2026-06-14T23:08:25+02:00"
+    }
+  },
+  "stats": {
+    "crafted": {
+      "oak_planks": 5391,
+      "crafting_table": 1433,
+      "stone_pickaxe": 465,
+      "stick": 857,
+      "furnace": 169,
+      "wooden_pickaxe": 1368,
+      "iron_pickaxe": 85,
+      "birch_planks": 425,
+      "spruce_planks": 168,
+      "shears": 42,
+      "torch": 133,
+      "jungle_planks": 110,
+      "chest": 2
+    },
+    "failedCrafts": {
+      "stone_pickaxe": 195082,
+      "furnace": 4889,
+      "wooden_sword": 42,
+      "wooden_sword 1": 42,
+      "crafting_table": 84,
+      "white_bed": 84,
+      "chest": 3780,
+      "wooden_pickaxe": 126,
+      "bucket 1": 42,
+      "bucket": 84,
+      "stick": 25158,
+      "oak_planks": 42,
+      "sheers": 42,
+      "bread": 21,
+      "iron_sword": 3,
+      "wooden_axe": 1
+    }
+  },
+  "learning": {
+    "items": {
+      "oak_planks": {
+        "score": 100,
+        "attempts": 5391,
+        "successes": 5349,
+        "failures": 42,
+        "notes": [
+          {
+            "at": "2026-07-08T15:31:42+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:31:42+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:31:42+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:31:42+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:30:33+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:18:48+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:16:12+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:16:12+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-07-08T15:31:42+02:00"
+      },
+      "stick": {
+        "score": -42,
+        "attempts": 26015,
+        "successes": 857,
+        "failures": 25158,
+        "notes": [
+          {
+            "at": "2026-07-08T14:59:18+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T04:50:43+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T01:08:04+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T11:36:51+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T10:04:32+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T09:29:05+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T09:12:49+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-18T23:32:21+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-07-08T14:59:18+02:00"
+      },
+      "crafting_table": {
+        "score": 100,
+        "attempts": 1475,
+        "successes": 1391,
+        "failures": 84,
+        "notes": [
+          {
+            "at": "2026-07-08T15:18:48+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:17:31+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T15:04:32+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-04T23:40:31+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T04:53:11+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T03:14:31+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T03:10:01+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T01:08:07+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-07-08T15:18:48+02:00"
+      },
+      "stone_pickaxe": {
+        "score": -49,
+        "attempts": 195505,
+        "successes": 423,
+        "failures": 195082,
+        "notes": [
+          {
+            "at": "2026-06-18T23:44:22+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-14T18:01:48+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-13T20:00:00+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:57:17+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:57:12+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:56:58+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:45+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:16+02:00",
+            "note": "missing table recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-18T23:44:22+02:00"
+      },
+      "furnace": {
+        "score": -50,
+        "attempts": 5058,
+        "successes": 169,
+        "failures": 4889,
+        "notes": [
+          {
+            "at": "2026-06-21T22:42:00+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-13T19:52:38+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:30+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:16+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:13+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:09+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:52:03+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-13T19:51:56+02:00",
+            "note": "missing table recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-21T22:42:00+02:00"
+      },
+      "wooden_pickaxe": {
+        "score": 100,
+        "attempts": 1494,
+        "successes": 1368,
+        "failures": 126,
+        "notes": [
+          {
+            "at": "2026-07-08T15:09:18+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-07-05T00:10:10+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T04:51:23+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T04:47:54+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T03:15:16+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T02:48:09+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T01:23:54+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-26T00:35:23+02:00",
+            "note": "crafted with table"
+          }
+        ],
+        "updatedAt": "2026-07-08T15:09:18+02:00"
+      },
+      "wooden_sword": {
+        "score": -42,
+        "attempts": 42,
+        "successes": 0,
+        "failures": 42,
+        "notes": [
+          {
+            "at": "2026-06-03T18:32:25.325Z",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-03T18:32:25.325Z"
+      },
+      "wooden_sword 1": {
+        "score": -84,
+        "attempts": 42,
+        "successes": 0,
+        "failures": 42,
+        "notes": [
+          {
+            "at": "2026-06-03T18:32:42.743Z",
+            "note": "unknown item"
+          }
+        ],
+        "updatedAt": "2026-06-03T18:32:42.750Z"
+      },
+      "white_bed": {
+        "score": -84,
+        "attempts": 84,
+        "successes": 0,
+        "failures": 84,
+        "notes": [
+          {
+            "at": "2026-06-03T18:59:50.400Z",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-03T18:59:36.329Z",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-03T18:59:50.401Z"
+      },
+      "iron_pickaxe": {
+        "score": 100,
+        "attempts": 85,
+        "successes": 85,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-06-14T22:24:42+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-07T01:43:25+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-03T19:30:05.034Z",
+            "note": "crafted with table"
+          }
+        ],
+        "updatedAt": "2026-06-14T22:24:42+02:00"
+      },
+      "birch_planks": {
+        "score": 100,
+        "attempts": 425,
+        "successes": 425,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-07-04T23:40:31+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T02:59:49+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-26T02:48:08+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-14T22:49:38+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-14T22:19:41+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-08T02:57:14+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-08T01:03:25+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-07T17:01:59+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-07-04T23:40:31+02:00"
+      },
+      "chest": {
+        "score": -49,
+        "attempts": 3782,
+        "successes": 2,
+        "failures": 3780,
+        "notes": [
+          {
+            "at": "2026-07-08T02:43:45+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-07-08T02:40:13+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T23:08:25+02:00",
+            "note": "crafted with table"
+          },
+          {
+            "at": "2026-06-14T22:49:38+02:00",
+            "note": "missing table recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T18:02:27+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T18:01:44+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T16:33:23+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T03:12:01+02:00",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-07-08T02:43:45+02:00"
+      },
+      "spruce_planks": {
+        "score": 100,
+        "attempts": 168,
+        "successes": 168,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-06-08T20:49:16+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-08T19:51:19+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-08T17:55:06+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-04T19:02:07.500Z",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-06-08T20:49:16+02:00"
+      },
+      "bucket 1": {
+        "score": -84,
+        "attempts": 42,
+        "successes": 0,
+        "failures": 42,
+        "notes": [
+          {
+            "at": "2026-06-07T01:40:28+02:00",
+            "note": "unknown item"
+          }
+        ],
+        "updatedAt": "2026-06-07T01:40:28+02:00"
+      },
+      "bucket": {
+        "score": -84,
+        "attempts": 84,
+        "successes": 0,
+        "failures": 84,
+        "notes": [
+          {
+            "at": "2026-06-08T11:45:19+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-07T01:40:38+02:00",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-08T11:45:19+02:00"
+      },
+      "sheers": {
+        "score": -84,
+        "attempts": 42,
+        "successes": 0,
+        "failures": 42,
+        "notes": [
+          {
+            "at": "2026-06-07T17:36:29+02:00",
+            "note": "unknown item"
+          }
+        ],
+        "updatedAt": "2026-06-07T17:36:29+02:00"
+      },
+      "shears": {
+        "score": 84,
+        "attempts": 42,
+        "successes": 42,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-06-07T17:36:34+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-06-07T17:36:34+02:00"
+      },
+      "torch": {
+        "score": 100,
+        "attempts": 133,
+        "successes": 133,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-06-26T00:24:45+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T10:51:02+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T10:50:48+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T09:33:44+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-22T09:18:05+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-14T22:16:46+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-14T20:42:23+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-06-08T20:53:03+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-06-26T00:24:45+02:00"
+      },
+      "jungle_planks": {
+        "score": 100,
+        "attempts": 110,
+        "successes": 110,
+        "failures": 0,
+        "notes": [
+          {
+            "at": "2026-07-09T20:10:20+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-09T00:56:05+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T03:29:33+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T03:29:33+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T02:43:44+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T02:40:30+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-08T02:40:13+02:00",
+            "note": "crafted without table"
+          },
+          {
+            "at": "2026-07-07T23:29:11+02:00",
+            "note": "crafted without table"
+          }
+        ],
+        "updatedAt": "2026-07-09T20:10:20+02:00"
+      },
+      "bread": {
+        "score": -21,
+        "attempts": 21,
+        "successes": 0,
+        "failures": 21,
+        "notes": [
+          {
+            "at": "2026-06-12T22:45:53+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-12T22:45:23+02:00",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-12T22:45:53+02:00"
+      },
+      "iron_sword": {
+        "score": -3,
+        "attempts": 3,
+        "successes": 0,
+        "failures": 3,
+        "notes": [
+          {
+            "at": "2026-06-14T20:05:04+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T19:56:22+02:00",
+            "note": "missing recipe or ingredients"
+          },
+          {
+            "at": "2026-06-14T19:54:11+02:00",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-14T20:05:04+02:00"
+      },
+      "wooden_axe": {
+        "score": -1,
+        "attempts": 1,
+        "successes": 0,
+        "failures": 1,
+        "notes": [
+          {
+            "at": "2026-06-14T21:03:54+02:00",
+            "note": "missing recipe or ingredients"
+          }
+        ],
+        "updatedAt": "2026-06-14T21:03:54+02:00"
+      }
+    }
+  }
+}

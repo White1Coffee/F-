@@ -1,0 +1,74 @@
+0 verbose cli F:\Node\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.2.0
+2 info using node@v22.14.0
+3 silly config load:file:C:\Users\admin\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:F:\Updates\bot-deps\.npmrc
+5 silly config load:file:C:\Users\admin\.npmrc
+6 silly config load:file:C:\Users\admin\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--no-audit" "--no-fund" "--cache" "F:\\Updates\\npm-cache"
+9 verbose logfile logs-max:10 dir:F:\Updates\npm-cache\_logs\2026-07-04T22_57_55_272Z-
+10 verbose logfile F:\Updates\npm-cache\_logs\2026-07-04T22_57_55_272Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest canvas@^3.2.3
+15 silly packumentCache full:https://registry.npmjs.org/canvas cache-miss
+16 http fetch GET https://registry.npmjs.org/canvas attempt 1 failed with EACCES
+17 http fetch GET https://registry.npmjs.org/canvas attempt 2 failed with EACCES
+18 http fetch GET https://registry.npmjs.org/canvas attempt 3 failed with EACCES
+19 http fetch GET 200 https://registry.npmjs.org/canvas 70224ms (cache stale)
+20 silly packumentCache full:https://registry.npmjs.org/canvas set size:372046 disposed:false
+21 silly fetch manifest express@^5.2.1
+22 silly packumentCache full:https://registry.npmjs.org/express cache-miss
+23 http fetch GET https://registry.npmjs.org/express attempt 1 failed with EACCES
+24 http fetch GET https://registry.npmjs.org/express attempt 2 failed with EACCES
+25 http fetch GET https://registry.npmjs.org/express attempt 3 failed with EACCES
+26 http fetch GET 200 https://registry.npmjs.org/express 70117ms (cache stale)
+27 silly packumentCache full:https://registry.npmjs.org/express set size:804933 disposed:false
+28 silly fetch manifest mineflayer@^4.37.1
+29 silly packumentCache full:https://registry.npmjs.org/mineflayer cache-miss
+30 http fetch GET https://registry.npmjs.org/mineflayer attempt 1 failed with EACCES
+31 http fetch GET https://registry.npmjs.org/mineflayer attempt 2 failed with EACCES
+32 http fetch GET https://registry.npmjs.org/mineflayer attempt 3 failed with EACCES
+33 http fetch GET 200 https://registry.npmjs.org/mineflayer 70098ms (cache stale)
+34 silly packumentCache full:https://registry.npmjs.org/mineflayer set size:499010 disposed:false
+35 silly fetch manifest mineflayer-armor-manager@^2.0.1
+36 silly packumentCache full:https://registry.npmjs.org/mineflayer-armor-manager cache-miss
+37 http fetch GET https://registry.npmjs.org/mineflayer-armor-manager attempt 1 failed with EACCES
+38 http fetch GET https://registry.npmjs.org/mineflayer-armor-manager attempt 2 failed with EACCES
+39 http fetch GET https://registry.npmjs.org/mineflayer-armor-manager attempt 3 failed with EACCES
+40 http fetch GET 200 https://registry.npmjs.org/mineflayer-armor-manager 72814ms (cache stale)
+41 silly packumentCache full:https://registry.npmjs.org/mineflayer-armor-manager set size:28822 disposed:false
+42 silly fetch manifest mineflayer-collectblock@^1.6.0
+43 silly packumentCache full:https://registry.npmjs.org/mineflayer-collectblock cache-miss
+44 http fetch GET https://registry.npmjs.org/mineflayer-collectblock attempt 1 failed with EACCES
+45 http fetch GET https://registry.npmjs.org/mineflayer-collectblock attempt 2 failed with EACCES
+46 http fetch GET https://registry.npmjs.org/mineflayer-collectblock attempt 3 failed with EACCES
+47 http fetch GET 200 https://registry.npmjs.org/mineflayer-collectblock 70207ms (cache stale)
+48 silly packumentCache full:https://registry.npmjs.org/mineflayer-collectblock set size:44824 disposed:false
+49 silly fetch manifest mineflayer-pathfinder@^2.4.5
+50 silly packumentCache full:https://registry.npmjs.org/mineflayer-pathfinder cache-miss
+51 http fetch GET https://registry.npmjs.org/mineflayer-pathfinder attempt 1 failed with EACCES
+52 http fetch GET https://registry.npmjs.org/mineflayer-pathfinder attempt 2 failed with EACCES
+53 http fetch GET https://registry.npmjs.org/mineflayer-pathfinder attempt 3 failed with EACCES
+54 http fetch GET 200 https://registry.npmjs.org/mineflayer-pathfinder 71400ms (cache stale)
+55 silly packumentCache full:https://registry.npmjs.org/mineflayer-pathfinder set size:191418 disposed:false
+56 silly fetch manifest mineflayer-pvp@^1.3.2
+57 silly packumentCache full:https://registry.npmjs.org/mineflayer-pvp cache-miss
+58 http fetch GET https://registry.npmjs.org/mineflayer-pvp attempt 1 failed with EACCES
+59 http fetch GET https://registry.npmjs.org/mineflayer-pvp attempt 2 failed with EACCES
+60 http fetch GET https://registry.npmjs.org/mineflayer-pvp attempt 3 failed with EACCES
+61 http fetch GET 200 https://registry.npmjs.org/mineflayer-pvp 72995ms (cache stale)
+62 silly packumentCache full:https://registry.npmjs.org/mineflayer-pvp set size:23339 disposed:false
+63 silly fetch manifest mineflayer-tool@^1.2.0
+64 silly packumentCache full:https://registry.npmjs.org/mineflayer-tool cache-miss
+65 http fetch GET https://registry.npmjs.org/mineflayer-tool attempt 1 failed with EACCES
+66 http fetch GET https://registry.npmjs.org/mineflayer-tool attempt 2 failed with EACCES
+67 http fetch GET https://registry.npmjs.org/mineflayer-tool attempt 3 failed with EACCES
+68 http fetch GET 200 https://registry.npmjs.org/mineflayer-tool 70471ms (cache stale)
+69 silly packumentCache full:https://registry.npmjs.org/mineflayer-tool set size:13054 disposed:false
+70 silly fetch manifest prismarine-viewer@^1.33.0
+71 silly packumentCache full:https://registry.npmjs.org/prismarine-viewer cache-miss
+72 http fetch GET https://registry.npmjs.org/prismarine-viewer attempt 1 failed with EACCES
+73 http fetch GET https://registry.npmjs.org/prismarine-viewer attempt 2 failed with EACCES

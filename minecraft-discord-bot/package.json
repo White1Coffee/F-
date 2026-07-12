@@ -1,0 +1,11 @@
+{
+  "name": "minecraft-ai-discord-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Discord bridge for the local Minecraft AI Bot Hub.",
+  "main": "index.js",
+  "scripts": {
+    "start": "..\\Node\\node.exe index.js",
+    "check": "..\\Node\\node.exe --check index.js"
+  }
+}

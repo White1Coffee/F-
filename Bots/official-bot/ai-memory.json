@@ -1,0 +1,36 @@
+{
+  "skills": {
+    "woodcutting": 2058,
+    "combat": 10244,
+    "crafting": 553,
+    "mining": 130
+  },
+  "autonomy": {
+    "enabled": true,
+    "focus": null
+  },
+  "utilities": {
+    "furnace": {
+      "x": 14,
+      "y": 87,
+      "z": -24,
+      "validationMisses": 0,
+      "lastSeenAt": "2026-06-08T06:56:15+02:00",
+      "occupied": true,
+      "input": "beef",
+      "output": null,
+      "fuel": null,
+      "lastUsedAt": "2026-06-08T06:56:15+02:00",
+      "lastCheckedAt": "2026-06-08T05:49:33+02:00",
+      "inputFailures": 0,
+      "lastInputError": null,
+      "stale": true
+    }
+  },
+  "planner": {
+    "goal": "general survival",
+    "nextAction": "produce a stable food reserve",
+    "reason": "food reserve below 24",
+    "updatedAt": "2026-07-10T19:17:11+02:00"
+  }
+}

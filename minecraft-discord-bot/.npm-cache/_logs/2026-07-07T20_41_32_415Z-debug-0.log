@@ -1,0 +1,47 @@
+0 verbose cli F:\Node\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.2.0
+2 info using node@v22.14.0
+3 silly config load:file:C:\Users\admin\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:F:\minecraft-discord-bot\.npmrc
+5 silly config load:file:C:\Users\admin\.npmrc
+6 silly config load:file:C:\Users\admin\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install discord.js@14.16.3
+8 verbose argv "install" "discord.js@14.16.3" "--cache" "F:\\minecraft-discord-bot\\.npm-cache" "--prefer-online" "--no-audit" "--no-fund"
+9 verbose logfile logs-max:10 dir:F:\minecraft-discord-bot\.npm-cache\_logs\2026-07-07T20_41_32_415Z-
+10 verbose logfile F:\minecraft-discord-bot\.npm-cache\_logs\2026-07-07T20_41_32_415Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest discord.js@14.16.3
+15 silly packumentCache full:https://registry.npmjs.org/discord.js cache-miss
+16 verbose shrinkwrap failed to load node_modules/.package-lock.json missing from node_modules: node_modules/discord.js
+17 http fetch GET 200 https://registry.npmjs.org/npm 2301ms
+18 http fetch GET 200 https://registry.npmjs.org/discord.js 7974ms (cache miss)
+19 silly packumentCache full:https://registry.npmjs.org/discord.js set size:undefined disposed:false
+20 silly placeDep ROOT discord.js@14.16.3 REPLACE for: minecraft-ai-discord-bridge@1.0.0 want: 14.16.3
+21 silly reify mark retired [ 'F:\\minecraft-discord-bot\\node_modules\\undici' ]
+22 silly reify moves {
+22 silly reify   'F:\\minecraft-discord-bot\\node_modules\\undici': 'F:\\minecraft-discord-bot\\node_modules\\.undici-BB1OfvHQ'
+22 silly reify }
+23 http fetch GET 200 https://registry.npmjs.org/@discordjs/formatters/-/formatters-0.5.0.tgz 32118ms (cache miss)
+24 http fetch GET 200 https://registry.npmjs.org/undici/-/undici-6.19.8.tgz 194696ms (cache miss)
+25 http fetch GET 200 https://registry.npmjs.org/discord.js/-/discord.js-14.16.3.tgz 352125ms (cache miss)
+26 warn deprecated discord.js@14.16.3: This version is deprecated. Please use a newer version
+27 http fetch GET 200 https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.100.tgz 772733ms (cache miss)
+28 http fetch GET 200 https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.97.tgz 795822ms (cache miss)
+29 silly ADD node_modules/discord.js
+30 silly ADD node_modules/discord.js/node_modules/discord-api-types
+31 silly ADD node_modules/discord.js/node_modules/@discordjs/formatters
+32 silly ADD node_modules/discord.js/node_modules/@discordjs/formatters/node_modules/discord-api-types
+33 silly CHANGE node_modules/undici
+34 verbose cwd F:\minecraft-discord-bot
+35 verbose os Windows_NT 10.0.26200
+36 verbose node v22.14.0
+37 verbose npm  v11.2.0
+38 notice
+38 notice New minor version of npm available! 11.2.0 -> 11.18.0
+38 notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0
+38 notice To update run: npm install -g npm@11.18.0
+38 notice  { force: true, [Symbol(proc-log.meta)]: true }
+39 verbose exit 0
+40 info ok

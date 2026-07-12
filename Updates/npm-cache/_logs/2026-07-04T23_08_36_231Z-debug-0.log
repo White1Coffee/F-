@@ -1,0 +1,14 @@
+0 verbose cli F:\Node\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.2.0
+2 info using node@v22.14.0
+3 silly config load:file:C:\Users\admin\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:F:\.npmrc
+5 silly config load:file:C:\Users\admin\.npmrc
+6 silly config load:file:C:\Users\admin\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm view mineflayer version
+8 verbose argv "view" "mineflayer" "version" "--cache" "F:\\Updates\\npm-cache"
+9 verbose logfile logs-max:10 dir:F:\Updates\npm-cache\_logs\2026-07-04T23_08_36_231Z-
+10 verbose logfile F:\Updates\npm-cache\_logs\2026-07-04T23_08_36_231Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET https://registry.npmjs.org/mineflayer attempt 1 failed with EACCES
+13 http fetch GET https://registry.npmjs.org/mineflayer attempt 2 failed with EACCES

@@ -1,0 +1,192 @@
+{
+  "bots": [
+    {
+      "id": "ea7db11e-6c49-4013-b061-7abf5e313b19",
+      "name": "bot1",
+      "folder": "@/Bots\\bot1",
+      "host": "192.168.2.28",
+      "port": 25565,
+      "version": "1.21.4",
+      "hudPort": 3110,
+      "viewerPort": 3111,
+      "group": "Ungrouped",
+      "autoRestart": true,
+      "disabledUntil": null,
+      "stats": {
+        "starts": 158,
+        "crashes": 2,
+        "totalRuntimeMs": 133400762,
+        "lastExit": "2026-07-10T14:02:38.147Z",
+        "lastError": "Worker exited (3221225786).",
+        "recentCrashes": []
+      }
+    },
+    {
+      "id": "eb951138-f92b-429a-80a0-3ec889946548",
+      "name": "WC_Tester",
+      "folder": "@/Bots\\WC_Tester",
+      "host": "192.168.2.28",
+      "port": 25565,
+      "version": "1.21.4",
+      "hudPort": 3112,
+      "viewerPort": 3113,
+      "group": "Ungrouped",
+      "autoRestart": true,
+      "disabledUntil": null,
+      "stats": {
+        "starts": 287,
+        "crashes": 3,
+        "totalRuntimeMs": 158755495,
+        "lastExit": "2026-07-10T16:31:45.347Z",
+        "lastError": "Worker exited (1073807364).",
+        "recentCrashes": []
+      }
+    },
+    {
+      "id": "6b67741a-b6ee-4b6f-82c6-a3065d3fdd24",
+      "name": "bot2",
+      "folder": "@/Bots\\bot2",
+      "host": "192.168.2.28",
+      "port": 25565,
+      "version": "1.21.4",
+      "hudPort": 3114,
+      "viewerPort": 3115,
+      "group": "Ungrouped",
+      "autoRestart": true,
+      "disabledUntil": null,
+      "stats": {
+        "starts": 81,
+        "crashes": 2,
+        "totalRuntimeMs": 82613253,
+        "lastExit": "2026-07-10T16:31:48.002Z",
+        "lastError": "Worker exited (1).",
+        "recentCrashes": [
+          "2026-07-09T17:05:28.185Z"
+        ]
+      }
+    },
+    {
+      "id": "c3dac9d2-7414-43b2-9200-7d0f52d9d465",
+      "name": "official-bot",
+      "folder": "@/Bots\\official-bot",
+      "host": "192.168.2.28",
+      "port": 25565,
+      "version": "1.21.4",
+      "hudPort": 3116,
+      "viewerPort": 3117,
+      "group": "Ungrouped",
+      "autoRestart": true,
+      "disabledUntil": null,
+      "stats": {
+        "starts": 93,
+        "crashes": 0,
+        "totalRuntimeMs": 82956212,
+        "lastExit": "2026-07-10T14:29:50.869Z",
+        "lastError": "",
+        "recentCrashes": []
+      }
+    }
+  ],
+  "groups": [
+    "Ungrouped"
+  ],
+  "serverProfiles": [
+    {
+      "id": "local-lan",
+      "name": "Local LAN",
+      "host": "192.168.2.77",
+      "port": 25565,
+      "version": "1.21.4"
+    },
+    {
+      "id": "aternos",
+      "name": "Aternos",
+      "host": "Davey0.aternos.me",
+      "port": 25565,
+      "version": "1.21.4"
+    },
+    {
+      "id": "usb-java-server",
+      "name": "USB Java Server",
+      "host": "192.168.2.28",
+      "port": 25565,
+      "version": "1.21.4"
+    }
+  ],
+  "schedules": [],
+  "presets": [
+    {
+      "id": "survival",
+      "name": "Survival",
+      "commands": [
+        "ai stop",
+        "ai auto progression"
+      ],
+      "delayMs": 1000,
+      "builtIn": true
+    },
+    {
+      "id": "miner",
+      "name": "Miner",
+      "commands": [
+        "ai stop",
+        "ai auto mine"
+      ],
+      "delayMs": 1000,
+      "builtIn": true
+    },
+    {
+      "id": "explorer",
+      "name": "Explorer",
+      "commands": [
+        "ai stop",
+        "ai explore"
+      ],
+      "delayMs": 1000,
+      "builtIn": true
+    },
+    {
+      "id": "pvp",
+      "name": "PvP",
+      "commands": [
+        "ai stop",
+        "ai pvp",
+        "ai auto combat"
+      ],
+      "delayMs": 1000,
+      "builtIn": true
+    },
+    {
+      "id": "guard",
+      "name": "Guard",
+      "commands": [
+        "ai stop",
+        "ai guard {player}"
+      ],
+      "delayMs": 1000,
+      "requiresPlayer": true,
+      "builtIn": true
+    }
+  ],
+  "mergeHistory": [
+    {
+      "at": "164626 07072026",
+      "action": "knowledge copied",
+      "bots": [
+        "WC_Tester",
+        "official-bot"
+      ],
+      "backup": "F:\\Bots\\official-bot\\knowledge-backups\\copy-164626-07072026"
+    }
+  ],
+  "viewerLayout": {
+    "columns": 4,
+    "order": [
+      "ea7db11e-6c49-4013-b061-7abf5e313b19",
+      "eb951138-f92b-429a-80a0-3ec889946548",
+      "6b67741a-b6ee-4b6f-82c6-a3065d3fdd24",
+      "c3dac9d2-7414-43b2-9200-7d0f52d9d465"
+    ],
+    "hidden": []
+  }
+}

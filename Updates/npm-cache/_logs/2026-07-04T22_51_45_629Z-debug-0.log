@@ -1,0 +1,520 @@
+0 verbose cli F:\Node\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.2.0
+2 info using node@v22.14.0
+3 silly config load:file:C:\Users\admin\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:F:\Bots\.npmrc
+5 silly config load:file:C:\Users\admin\.npmrc
+6 silly config load:file:C:\Users\admin\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--prefer-offline" "--no-audit" "--no-fund" "--cache" "F:\\Updates\\npm-cache"
+9 verbose logfile logs-max:10 dir:F:\Updates\npm-cache\_logs\2026-07-04T22_51_45_629Z-
+10 verbose logfile F:\Updates\npm-cache\_logs\2026-07-04T22_51_45_629Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+14 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+15 silly idealTree buildDeps
+16 silly fetch manifest canvas@^3.2.3
+17 silly packumentCache full:https://registry.npmjs.org/canvas cache-miss
+18 http fetch GET 200 https://registry.npmjs.org/canvas 485ms (cache stale)
+19 silly packumentCache full:https://registry.npmjs.org/canvas set size:372046 disposed:false
+20 silly fetch manifest mineflayer@^4.37.1
+21 silly packumentCache full:https://registry.npmjs.org/mineflayer cache-miss
+22 http fetch GET 200 https://registry.npmjs.org/mineflayer 467ms (cache stale)
+23 silly packumentCache full:https://registry.npmjs.org/mineflayer set size:499010 disposed:false
+24 silly fetch manifest mineflayer-collectblock@^1.6.0
+25 silly packumentCache full:https://registry.npmjs.org/mineflayer-collectblock cache-miss
+26 http fetch GET 200 https://registry.npmjs.org/mineflayer-collectblock 521ms (cache stale)
+27 silly packumentCache full:https://registry.npmjs.org/mineflayer-collectblock set size:44824 disposed:false
+28 silly fetch manifest mineflayer-pathfinder@^2.4.5
+29 silly packumentCache full:https://registry.npmjs.org/mineflayer-pathfinder cache-miss
+30 http fetch GET 200 https://registry.npmjs.org/mineflayer-pathfinder 457ms (cache stale)
+31 silly packumentCache full:https://registry.npmjs.org/mineflayer-pathfinder set size:191418 disposed:false
+32 silly fetch manifest prismarine-viewer@^1.33.0
+33 silly packumentCache full:https://registry.npmjs.org/prismarine-viewer cache-miss
+34 http fetch GET 200 https://registry.npmjs.org/prismarine-viewer 511ms (cache stale)
+35 silly packumentCache full:https://registry.npmjs.org/prismarine-viewer set size:172273 disposed:false
+36 silly fetch manifest socket.io@^4.8.3
+37 silly packumentCache full:https://registry.npmjs.org/socket.io cache-miss
+38 http fetch GET 200 https://registry.npmjs.org/socket.io 606ms (cache stale)
+39 silly packumentCache full:https://registry.npmjs.org/socket.io set size:379231 disposed:false
+40 silly placeDep ROOT canvas@3.2.3 REPLACE for: minecraft-ai-bots-shared@1.0.0 want: ^3.2.3
+41 silly placeDep ROOT mineflayer@4.37.1 REPLACE for: minecraft-ai-bots-shared@1.0.0 want: ^4.37.1
+42 silly placeDep ROOT mineflayer-collectblock@1.6.0 REPLACE for: minecraft-ai-bots-shared@1.0.0 want: ^1.6.0
+43 silly placeDep ROOT mineflayer-pathfinder@2.4.5 OK for: minecraft-ai-bots-shared@1.0.0 want: ^2.4.5
+44 silly placeDep ROOT prismarine-viewer@1.33.0 REPLACE for: minecraft-ai-bots-shared@1.0.0 want: ^1.33.0
+45 silly placeDep ROOT socket.io@4.8.3 OK for: minecraft-ai-bots-shared@1.0.0 want: ^4.8.3
+46 silly fetch manifest node-addon-api@^7.0.0
+47 silly packumentCache full:https://registry.npmjs.org/node-addon-api cache-miss
+48 silly fetch manifest prebuild-install@^7.1.3
+49 silly packumentCache full:https://registry.npmjs.org/prebuild-install cache-miss
+50 silly fetch manifest minecraft-data@^3.108.0
+51 silly packumentCache full:https://registry.npmjs.org/minecraft-data cache-miss
+52 silly fetch manifest minecraft-protocol@^1.66.0
+53 silly packumentCache full:https://registry.npmjs.org/minecraft-protocol cache-miss
+54 silly fetch manifest prismarine-chat@^1.7.1
+55 silly packumentCache full:https://registry.npmjs.org/prismarine-chat cache-miss
+56 silly fetch manifest prismarine-chunk@^1.39.0
+57 silly packumentCache full:https://registry.npmjs.org/prismarine-chunk cache-miss
+58 silly fetch manifest prismarine-nbt@^2.0.0
+59 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt cache-miss
+60 silly fetch manifest prismarine-physics@^1.9.0
+61 silly packumentCache full:https://registry.npmjs.org/prismarine-physics cache-miss
+62 silly fetch manifest prismarine-recipe@^1.5.0
+63 silly packumentCache full:https://registry.npmjs.org/prismarine-recipe cache-miss
+64 silly fetch manifest prismarine-world@^3.6.0
+65 silly packumentCache full:https://registry.npmjs.org/prismarine-world cache-miss
+66 silly fetch manifest protodef@^1.18.0
+67 silly packumentCache full:https://registry.npmjs.org/protodef cache-miss
+68 http fetch GET 200 https://registry.npmjs.org/minecraft-protocol 4099ms (cache stale)
+69 silly packumentCache full:https://registry.npmjs.org/minecraft-protocol set size:593587 disposed:false
+70 silly fetch manifest mineflayer-pathfinder@^2.1.1
+71 silly packumentCache full:https://registry.npmjs.org/mineflayer-pathfinder cache-hit
+72 silly fetch manifest minecraft-data@^3.5.1
+73 silly packumentCache full:https://registry.npmjs.org/minecraft-data cache-miss
+74 http fetch GET 200 https://registry.npmjs.org/minecraft-data 4107ms (cache stale)
+75 silly packumentCache full:https://registry.npmjs.org/minecraft-data set size:854005 disposed:false
+76 silly fetch manifest prismarine-nbt@^2.2.1
+77 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt cache-miss
+78 http fetch GET 200 https://registry.npmjs.org/prismarine-nbt 4112ms (cache stale)
+79 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt set size:53732 disposed:false
+80 silly fetch manifest prismarine-physics@^1.5.2
+81 silly packumentCache full:https://registry.npmjs.org/prismarine-physics cache-miss
+82 http fetch GET 200 https://registry.npmjs.org/prismarine-physics 4146ms (cache stale)
+83 silly packumentCache full:https://registry.npmjs.org/prismarine-physics set size:84490 disposed:false
+84 silly fetch manifest express@^4.17.1
+85 silly packumentCache full:https://registry.npmjs.org/express cache-miss
+86 http fetch GET 200 https://registry.npmjs.org/prismarine-chat 4149ms (cache stale)
+87 silly packumentCache full:https://registry.npmjs.org/prismarine-chat set size:87433 disposed:false
+88 silly fetch manifest minecraft-data@^3.0.0
+89 silly packumentCache full:https://registry.npmjs.org/minecraft-data cache-hit
+90 silly fetch manifest prismarine-chunk@^1.22.0
+91 silly packumentCache full:https://registry.npmjs.org/prismarine-chunk cache-miss
+92 http fetch GET 200 https://registry.npmjs.org/prismarine-recipe 4150ms (cache stale)
+93 silly packumentCache full:https://registry.npmjs.org/prismarine-recipe set size:20994 disposed:false
+94 silly fetch manifest prismarine-world@^3.3.1
+95 silly packumentCache full:https://registry.npmjs.org/prismarine-world cache-miss
+96 http fetch GET 200 https://registry.npmjs.org/prismarine-chunk 4154ms (cache stale)
+97 silly packumentCache full:https://registry.npmjs.org/prismarine-chunk set size:171934 disposed:false
+98 silly fetch manifest socket.io@^4.0.0
+99 silly packumentCache full:https://registry.npmjs.org/socket.io cache-hit
+100 silly fetch manifest socket.io-client@^4.0.0
+101 silly packumentCache full:https://registry.npmjs.org/socket.io-client cache-miss
+102 http fetch GET 200 https://registry.npmjs.org/prismarine-world 4162ms (cache stale)
+103 silly packumentCache full:https://registry.npmjs.org/prismarine-world set size:76217 disposed:false
+104 silly fetch manifest three@0.128.0
+105 silly packumentCache full:https://registry.npmjs.org/three cache-miss
+106 http fetch GET 200 https://registry.npmjs.org/node-addon-api 4168ms (cache stale)
+107 silly packumentCache full:https://registry.npmjs.org/node-addon-api set size:365991 disposed:false
+108 silly fetch manifest accepts@~1.3.4
+109 silly packumentCache full:https://registry.npmjs.org/accepts cache-miss
+110 http fetch GET 200 https://registry.npmjs.org/protodef 4171ms (cache stale)
+111 silly packumentCache full:https://registry.npmjs.org/protodef set size:130023 disposed:false
+112 http fetch GET 200 https://registry.npmjs.org/prebuild-install 4177ms (cache stale)
+113 silly packumentCache full:https://registry.npmjs.org/prebuild-install set size:184615 disposed:false
+114 http fetch GET 200 https://registry.npmjs.org/minecraft-data 305ms (cache stale)
+115 silly packumentCache full:https://registry.npmjs.org/minecraft-data set size:854005 disposed:false
+116 silly packumentCache full:https://registry.npmjs.org/minecraft-data dispose
+117 http fetch GET 200 https://registry.npmjs.org/prismarine-nbt 312ms (cache stale)
+118 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt set size:53732 disposed:false
+119 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt dispose
+120 http fetch GET 200 https://registry.npmjs.org/prismarine-physics 311ms (cache stale)
+121 silly packumentCache full:https://registry.npmjs.org/prismarine-physics set size:84490 disposed:false
+122 silly packumentCache full:https://registry.npmjs.org/prismarine-physics dispose
+123 http fetch GET 200 https://registry.npmjs.org/prismarine-world 278ms (cache stale)
+124 silly packumentCache full:https://registry.npmjs.org/prismarine-world set size:76217 disposed:false
+125 silly packumentCache full:https://registry.npmjs.org/prismarine-world dispose
+126 http fetch GET 200 https://registry.npmjs.org/express 286ms (cache stale)
+127 silly packumentCache full:https://registry.npmjs.org/express set size:804933 disposed:false
+128 http fetch GET 200 https://registry.npmjs.org/prismarine-chunk 297ms (cache stale)
+129 silly packumentCache full:https://registry.npmjs.org/prismarine-chunk set size:171934 disposed:false
+130 silly packumentCache full:https://registry.npmjs.org/prismarine-chunk dispose
+131 http fetch GET 200 https://registry.npmjs.org/socket.io-client 302ms (cache stale)
+132 silly packumentCache full:https://registry.npmjs.org/socket.io-client set size:410355 disposed:false
+133 http fetch GET 200 https://registry.npmjs.org/accepts 293ms (cache stale)
+134 silly packumentCache full:https://registry.npmjs.org/accepts set size:77054 disposed:false
+135 http fetch GET 200 https://registry.npmjs.org/three 302ms (cache stale)
+136 silly packumentCache full:https://registry.npmjs.org/three set size:933563 disposed:false
+137 silly fetch manifest iconv-lite@^0.7.2
+138 silly packumentCache full:https://registry.npmjs.org/iconv-lite cache-miss
+139 http fetch GET 200 https://registry.npmjs.org/iconv-lite 61ms (cache stale)
+140 silly packumentCache full:https://registry.npmjs.org/iconv-lite set size:126478 disposed:false
+141 silly fetch manifest qs@^6.15.2
+142 silly packumentCache full:https://registry.npmjs.org/qs cache-miss
+143 http fetch GET 200 https://registry.npmjs.org/qs 64ms (cache stale)
+144 silly packumentCache full:https://registry.npmjs.org/qs set size:360318 disposed:false
+145 silly placeDep ROOT iconv-lite@0.7.3 OK for: body-parser@2.3.0 want: ^0.7.2
+146 silly placeDep ROOT qs@6.15.3 OK for: body-parser@2.3.0 want: ^6.15.2
+147 silly fetch manifest safer-buffer@>= 2.1.2 < 3.0.0
+148 silly packumentCache full:https://registry.npmjs.org/safer-buffer cache-miss
+149 http fetch GET 200 https://registry.npmjs.org/safer-buffer 154ms (cache stale)
+150 silly packumentCache full:https://registry.npmjs.org/safer-buffer set size:18521 disposed:false
+151 silly placeDep ROOT node-addon-api@7.1.1 OK for: canvas@3.2.3 want: ^7.0.0
+152 silly placeDep ROOT prebuild-install@7.1.3 OK for: canvas@3.2.3 want: ^7.1.3
+153 silly fetch manifest rc@^1.2.7
+154 silly packumentCache full:https://registry.npmjs.org/rc cache-miss
+155 silly fetch manifest tar-fs@^2.0.0
+156 silly packumentCache full:https://registry.npmjs.org/tar-fs cache-miss
+157 silly fetch manifest minimist@^1.2.3
+158 silly packumentCache full:https://registry.npmjs.org/minimist cache-miss
+159 http fetch GET 200 https://registry.npmjs.org/rc 105ms (cache stale)
+160 silly packumentCache full:https://registry.npmjs.org/rc set size:70417 disposed:false
+161 http fetch GET 200 https://registry.npmjs.org/minimist 184ms (cache stale)
+162 silly packumentCache full:https://registry.npmjs.org/minimist set size:77063 disposed:false
+163 http fetch GET 200 https://registry.npmjs.org/tar-fs 191ms (cache stale)
+164 silly packumentCache full:https://registry.npmjs.org/tar-fs set size:126231 disposed:false
+165 silly fetch manifest qs@^6.14.0
+166 silly packumentCache full:https://registry.npmjs.org/qs cache-hit
+167 silly placeDep ROOT qs@6.15.3 KEEP for: express@5.2.1 want: ^6.14.0
+168 silly placeDep ROOT safer-buffer@2.1.2 OK for: iconv-lite@0.7.3 want: >= 2.1.2 < 3.0.0
+169 silly fetch manifest prismarine-registry@^1.10.0
+170 silly packumentCache full:https://registry.npmjs.org/prismarine-registry cache-miss
+171 http fetch GET 200 https://registry.npmjs.org/prismarine-registry 93ms (cache stale)
+172 silly packumentCache full:https://registry.npmjs.org/prismarine-registry set size:37021 disposed:false
+173 silly placeDep ROOT minecraft-data@3.111.0 OK for: mineflayer@4.37.1 want: ^3.108.0
+174 silly placeDep ROOT minecraft-protocol@1.66.2 OK for: mineflayer@4.37.1 want: ^1.66.0
+175 silly placeDep ROOT prismarine-chat@1.13.0 OK for: mineflayer@4.37.1 want: ^1.7.1
+176 silly placeDep ROOT prismarine-chunk@1.40.0 OK for: mineflayer@4.37.1 want: ^1.39.0
+177 silly placeDep ROOT prismarine-nbt@2.8.0 OK for: mineflayer@4.37.1 want: ^2.0.0
+178 silly placeDep ROOT prismarine-physics@1.11.0 OK for: mineflayer@4.37.1 want: ^1.9.0
+179 silly placeDep ROOT prismarine-recipe@1.5.0 OK for: mineflayer@4.37.1 want: ^1.5.0
+180 silly placeDep ROOT prismarine-world@3.7.0 OK for: mineflayer@4.37.1 want: ^3.6.0
+181 silly placeDep ROOT protodef@1.19.0 OK for: mineflayer@4.37.1 want: ^1.18.0
+182 silly fetch manifest prismarine-auth@^3.1.1
+183 silly packumentCache full:https://registry.npmjs.org/prismarine-auth cache-miss
+184 silly fetch manifest prismarine-chat@^1.10.0
+185 silly packumentCache full:https://registry.npmjs.org/prismarine-chat cache-hit
+186 silly fetch manifest prismarine-nbt@^2.5.0
+187 silly packumentCache full:https://registry.npmjs.org/prismarine-nbt cache-hit
+188 silly fetch manifest prismarine-realms@^1.2.0
+189 silly packumentCache full:https://registry.npmjs.org/prismarine-realms cache-miss
+190 silly fetch manifest protodef@^1.17.0
+191 silly packumentCache full:https://registry.npmjs.org/protodef cache-hit
+192 silly fetch manifest readable-stream@^4.1.0
+193 silly packumentCache full:https://registry.npmjs.org/readable-stream cache-miss
+194 silly fetch manifest yggdrasil@^1.4.0
+195 silly packumentCache full:https://registry.npmjs.org/yggdrasil cache-miss
+196 silly fetch manifest protodef-validator@^1.3.0
+197 silly packumentCache full:https://registry.npmjs.org/protodef-validator cache-miss
+198 silly fetch manifest readable-stream@^4.4.0
+199 silly packumentCache full:https://registry.npmjs.org/readable-stream cache-miss
+200 http fetch GET 200 https://registry.npmjs.org/prismarine-auth 177ms (cache stale)
+201 silly packumentCache full:https://registry.npmjs.org/prismarine-auth set size:89716 disposed:false
+202 http fetch GET 200 https://registry.npmjs.org/readable-stream 177ms (cache stale)
+203 silly packumentCache full:https://registry.npmjs.org/readable-stream set size:261096 disposed:false
+204 http fetch GET 200 https://registry.npmjs.org/prismarine-realms 181ms (cache stale)
+205 silly packumentCache full:https://registry.npmjs.org/prismarine-realms set size:32440 disposed:false
+206 http fetch GET 200 https://registry.npmjs.org/protodef-validator 204ms (cache stale)
+207 silly packumentCache full:https://registry.npmjs.org/protodef-validator set size:36582 disposed:false
+208 http fetch GET 200 https://registry.npmjs.org/readable-stream 205ms (cache stale)
+209 silly packumentCache full:https://registry.npmjs.org/readable-stream set size:261096 disposed:false
+210 silly packumentCache full:https://registry.npmjs.org/readable-stream dispose
+211 http fetch GET 200 https://registry.npmjs.org/yggdrasil 209ms (cache stale)
+212 silly packumentCache full:https://registry.npmjs.org/yggdrasil set size:45681 disposed:false
+213 silly placeDep ROOT prismarine-auth@3.1.1 OK for: minecraft-protocol@1.66.2 want: ^3.1.1
+214 silly placeDep ROOT prismarine-realms@1.6.0 OK for: minecraft-protocol@1.66.2 want: ^1.2.0
+215 silly placeDep ROOT readable-stream@4.7.0 OK for: minecraft-protocol@1.66.2 want: ^4.1.0
+216 silly placeDep ROOT yggdrasil@1.8.0 OK for: minecraft-protocol@1.66.2 want: ^1.4.0
+217 silly fetch manifest @azure/msal-node@^2.0.2
+218 silly packumentCache full:https://registry.npmjs.org/@azure%2fmsal-node cache-miss
+219 silly fetch manifest @xboxreplay/xboxlive-auth@^5.1.0
+220 silly packumentCache full:https://registry.npmjs.org/@xboxreplay%2fxboxlive-auth cache-miss
+221 silly fetch manifest uuid@^10.0.0
+222 silly packumentCache full:https://registry.npmjs.org/uuid cache-miss
+223 http fetch GET 200 https://registry.npmjs.org/@azure%2fmsal-node 115ms (cache stale)
+224 silly packumentCache full:https://registry.npmjs.org/@azure%2fmsal-node set size:601729 disposed:false
+225 http fetch GET 200 https://registry.npmjs.org/@xboxreplay%2fxboxlive-auth 127ms (cache stale)
+226 silly packumentCache full:https://registry.npmjs.org/@xboxreplay%2fxboxlive-auth set size:109535 disposed:false
+227 http fetch GET 200 https://registry.npmjs.org/uuid 129ms (cache stale)
+228 silly packumentCache full:https://registry.npmjs.org/uuid set size:256419 disposed:false
+229 silly fetch manifest @types/node@^14.0.27
+230 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+231 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 90ms (cache stale)
+232 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:11066386 disposed:false
+233 silly fetch manifest mineflayer@^2.27.0
+234 silly packumentCache full:https://registry.npmjs.org/mineflayer cache-hit
+235 silly fetch manifest require-self@^0.2.3
+236 silly packumentCache full:https://registry.npmjs.org/require-self cache-miss
+237 http fetch GET 200 https://registry.npmjs.org/require-self 80ms (cache stale)
+238 silly packumentCache full:https://registry.npmjs.org/require-self set size:23847 disposed:false
+239 silly placeDep node_modules/mineflayer-utils @types/node@14.18.63 REPLACE for: mineflayer-utils@0.1.4 want: ^14.0.27
+240 silly placeDep node_modules/mineflayer-utils mineflayer@2.41.0 REPLACE for: mineflayer-utils@0.1.4 want: ^2.27.0
+241 silly placeDep node_modules/mineflayer-utils require-self@0.2.3 OK for: mineflayer-utils@0.1.4 want: ^0.2.3
+242 silly fetch manifest minecraft-data@^2.70.0
+243 silly packumentCache full:https://registry.npmjs.org/minecraft-data cache-hit
+244 silly fetch manifest prismarine-windows@^1.5.0
+245 silly packumentCache full:https://registry.npmjs.org/prismarine-windows cache-miss
+246 http fetch GET 200 https://registry.npmjs.org/prismarine-windows 63ms (cache stale)
+247 silly packumentCache full:https://registry.npmjs.org/prismarine-windows set size:61598 disposed:false
+248 silly placeDep node_modules/prebuild-install minimist@1.2.8 OK for: prebuild-install@7.1.3 want: ^1.2.3
+249 silly placeDep node_modules/prebuild-install rc@1.2.8 OK for: prebuild-install@7.1.3 want: ^1.2.7
+250 silly placeDep node_modules/prebuild-install tar-fs@2.1.5 OK for: prebuild-install@7.1.3 want: ^2.0.0
+251 silly fetch manifest chownr@^1.1.1
+252 silly packumentCache full:https://registry.npmjs.org/chownr cache-miss
+253 silly fetch manifest tar-stream@^2.1.4
+254 silly packumentCache full:https://registry.npmjs.org/tar-stream cache-miss
+255 http fetch GET 200 https://registry.npmjs.org/chownr 164ms (cache stale)
+256 silly packumentCache full:https://registry.npmjs.org/chownr set size:22157 disposed:false
+257 http fetch GET 200 https://registry.npmjs.org/tar-stream 171ms (cache stale)
+258 silly packumentCache full:https://registry.npmjs.org/tar-stream set size:137875 disposed:false
+259 silly placeDep ROOT @azure/msal-node@2.16.3 OK for: prismarine-auth@3.1.1 want: ^2.0.2
+260 silly placeDep ROOT @xboxreplay/xboxlive-auth@5.1.0 OK for: prismarine-auth@3.1.1 want: ^5.1.0
+261 silly fetch manifest uuid@^8.3.0
+262 silly packumentCache full:https://registry.npmjs.org/uuid cache-hit
+263 silly placeDep ROOT uuid@8.3.2 OK for: @azure/msal-node@2.16.3 want: ^8.3.0
+264 silly placeDep node_modules/prismarine-viewer express@4.22.2 OK for: prismarine-viewer@1.33.0 want: ^4.17.1
+265 silly placeDep ROOT socket.io-client@4.8.3 OK for: prismarine-viewer@1.33.0 want: ^4.0.0
+266 silly placeDep ROOT three@0.128.0 OK for: prismarine-viewer@1.33.0 want: 0.128.0
+267 silly fetch manifest send@~0.19.0
+268 silly packumentCache full:https://registry.npmjs.org/send cache-miss
+269 silly fetch manifest debug@2.6.9
+270 silly packumentCache full:https://registry.npmjs.org/debug cache-miss
+271 silly fetch manifest fresh@~0.5.2
+272 silly packumentCache full:https://registry.npmjs.org/fresh cache-miss
+273 silly fetch manifest accepts@~1.3.8
+274 silly packumentCache full:https://registry.npmjs.org/accepts cache-hit
+275 silly fetch manifest type-is@~1.6.18
+276 silly packumentCache full:https://registry.npmjs.org/type-is cache-miss
+277 silly fetch manifest body-parser@~1.20.5
+278 silly packumentCache full:https://registry.npmjs.org/body-parser cache-miss
+279 silly fetch manifest finalhandler@~1.3.1
+280 silly packumentCache full:https://registry.npmjs.org/finalhandler cache-miss
+281 silly fetch manifest range-parser@~1.2.1
+282 silly packumentCache full:https://registry.npmjs.org/range-parser cache-miss
+283 silly fetch manifest serve-static@~1.16.2
+284 silly packumentCache full:https://registry.npmjs.org/serve-static cache-miss
+285 silly fetch manifest path-to-regexp@~0.1.12
+286 silly packumentCache full:https://registry.npmjs.org/path-to-regexp cache-miss
+287 silly fetch manifest cookie-signature@~1.0.6
+288 silly packumentCache full:https://registry.npmjs.org/cookie-signature cache-miss
+289 silly fetch manifest merge-descriptors@1.0.3
+290 silly packumentCache full:https://registry.npmjs.org/merge-descriptors cache-miss
+291 http fetch GET 200 https://registry.npmjs.org/body-parser 356ms (cache stale)
+292 silly packumentCache full:https://registry.npmjs.org/body-parser set size:224273 disposed:false
+293 silly fetch manifest content-disposition@~0.5.4
+294 silly packumentCache full:https://registry.npmjs.org/content-disposition cache-miss
+295 http fetch GET 200 https://registry.npmjs.org/debug 364ms (cache stale)
+296 silly packumentCache full:https://registry.npmjs.org/debug set size:195840 disposed:false
+297 silly fetch manifest engine.io-client@~6.6.1
+298 silly packumentCache full:https://registry.npmjs.org/engine.io-client cache-miss
+299 http fetch GET 200 https://registry.npmjs.org/fresh 371ms (cache stale)
+300 silly packumentCache full:https://registry.npmjs.org/fresh set size:25427 disposed:false
+301 http fetch GET 200 https://registry.npmjs.org/send 372ms (cache stale)
+302 silly packumentCache full:https://registry.npmjs.org/send set size:152810 disposed:false
+303 http fetch GET 200 https://registry.npmjs.org/range-parser 373ms (cache stale)
+304 silly packumentCache full:https://registry.npmjs.org/range-parser set size:24852 disposed:false
+305 http fetch GET 200 https://registry.npmjs.org/path-to-regexp 374ms (cache stale)
+306 silly packumentCache full:https://registry.npmjs.org/path-to-regexp set size:216334 disposed:false
+307 http fetch GET 200 https://registry.npmjs.org/finalhandler 379ms (cache stale)
+308 silly packumentCache full:https://registry.npmjs.org/finalhandler set size:79291 disposed:false
+309 http fetch GET 200 https://registry.npmjs.org/serve-static 381ms (cache stale)
+310 silly packumentCache full:https://registry.npmjs.org/serve-static set size:150391 disposed:false
+311 http fetch GET 200 https://registry.npmjs.org/type-is 384ms (cache stale)
+312 silly packumentCache full:https://registry.npmjs.org/type-is set size:88614 disposed:false
+313 http fetch GET 200 https://registry.npmjs.org/merge-descriptors 380ms (cache stale)
+314 silly packumentCache full:https://registry.npmjs.org/merge-descriptors set size:16527 disposed:false
+315 http fetch GET 200 https://registry.npmjs.org/cookie-signature 385ms (cache stale)
+316 silly packumentCache full:https://registry.npmjs.org/cookie-signature set size:21777 disposed:false
+317 http fetch GET 200 https://registry.npmjs.org/content-disposition 121ms (cache stale)
+318 silly packumentCache full:https://registry.npmjs.org/content-disposition set size:42862 disposed:false
+319 http fetch GET 200 https://registry.npmjs.org/engine.io-client 115ms (cache stale)
+320 silly packumentCache full:https://registry.npmjs.org/engine.io-client set size:477205 disposed:false
+321 silly placeDep ROOT protodef-validator@1.4.0 OK for: protodef@1.19.0 want: ^1.3.0
+322 silly fetch manifest ajv@^6.5.4
+323 silly packumentCache full:https://registry.npmjs.org/ajv cache-miss
+324 http fetch GET 200 https://registry.npmjs.org/ajv 60ms (cache stale)
+325 silly packumentCache full:https://registry.npmjs.org/ajv set size:1142658 disposed:false
+326 silly placeDep ROOT ajv@6.15.0 OK for: protodef-validator@1.4.0 want: ^6.5.4
+327 silly fetch manifest iconv-lite@~0.7.0
+328 silly packumentCache full:https://registry.npmjs.org/iconv-lite cache-hit
+329 silly placeDep ROOT iconv-lite@0.7.3 KEEP for: raw-body@3.0.2 want: ~0.7.0
+330 silly placeDep node_modules/socket.io accepts@1.3.8 OK for: socket.io@4.8.3 want: ~1.3.4
+331 silly fetch manifest mime-types@~2.1.34
+332 silly packumentCache full:https://registry.npmjs.org/mime-types cache-miss
+333 silly fetch manifest negotiator@0.6.3
+334 silly packumentCache full:https://registry.npmjs.org/negotiator cache-miss
+335 http fetch GET 200 https://registry.npmjs.org/mime-types 98ms (cache stale)
+336 silly packumentCache full:https://registry.npmjs.org/mime-types set size:139110 disposed:false
+337 http fetch GET 200 https://registry.npmjs.org/negotiator 100ms (cache stale)
+338 silly packumentCache full:https://registry.npmjs.org/negotiator set size:48046 disposed:false
+339 silly placeDep ROOT engine.io-client@6.6.6 OK for: socket.io-client@4.8.3 want: ~6.6.1
+340 silly fetch manifest engine.io-parser@~5.2.1
+341 silly packumentCache full:https://registry.npmjs.org/engine.io-parser cache-miss
+342 http fetch GET 200 https://registry.npmjs.org/engine.io-parser 62ms (cache stale)
+343 silly packumentCache full:https://registry.npmjs.org/engine.io-parser set size:116455 disposed:false
+344 silly placeDep node_modules/engine.io-client engine.io-parser@5.2.3 OK for: engine.io-client@6.6.6 want: ~5.2.1
+345 silly placeDep node_modules/yggdrasil uuid@10.0.0 OK for: yggdrasil@1.8.0 want: ^10.0.0
+346 silly placeDep node_modules/mineflayer-utils minecraft-data@2.221.0 OK for: mineflayer@2.41.0 want: ^2.70.0
+347 silly placeDep node_modules/mineflayer-utils prismarine-windows@1.6.0 OK for: mineflayer@2.41.0 want: ^1.5.0
+348 silly placeDep ROOT chownr@1.1.4 OK for: tar-fs@2.1.5 want: ^1.1.1
+349 silly placeDep ROOT tar-stream@2.2.0 OK for: tar-fs@2.1.5 want: ^2.1.4
+350 silly fetch manifest bl@^4.0.3
+351 silly packumentCache full:https://registry.npmjs.org/bl cache-miss
+352 silly fetch manifest fs-constants@^1.0.0
+353 silly packumentCache full:https://registry.npmjs.org/fs-constants cache-miss
+354 silly fetch manifest readable-stream@^3.1.1
+355 silly packumentCache full:https://registry.npmjs.org/readable-stream cache-hit
+356 http fetch GET 200 https://registry.npmjs.org/fs-constants 121ms (cache stale)
+357 silly packumentCache full:https://registry.npmjs.org/fs-constants set size:3522 disposed:false
+358 http fetch GET 200 https://registry.npmjs.org/bl 152ms (cache stale)
+359 silly packumentCache full:https://registry.npmjs.org/bl set size:214299 disposed:false
+360 silly placeDep ROOT bl@4.1.0 OK for: tar-stream@2.2.0 want: ^4.0.3
+361 silly placeDep ROOT fs-constants@1.0.0 OK for: tar-stream@2.2.0 want: ^1.0.0
+362 silly placeDep node_modules/tar-stream readable-stream@3.6.2 OK for: tar-stream@2.2.0 want: ^3.1.1
+363 silly fetch manifest buffer@^5.5.0
+364 silly packumentCache full:https://registry.npmjs.org/buffer cache-miss
+365 silly fetch manifest readable-stream@^3.4.0
+366 silly packumentCache full:https://registry.npmjs.org/readable-stream cache-hit
+367 silly fetch manifest util-deprecate@^1.0.1
+368 silly packumentCache full:https://registry.npmjs.org/util-deprecate cache-miss
+369 http fetch GET 200 https://registry.npmjs.org/util-deprecate 176ms (cache stale)
+370 silly packumentCache full:https://registry.npmjs.org/util-deprecate set size:6674 disposed:false
+371 http fetch GET 200 https://registry.npmjs.org/buffer 177ms (cache stale)
+372 silly packumentCache full:https://registry.npmjs.org/buffer set size:280480 disposed:false
+373 silly placeDep node_modules/bl buffer@5.7.1 OK for: bl@4.1.0 want: ^5.5.0
+374 silly placeDep node_modules/bl readable-stream@3.6.2 OK for: bl@4.1.0 want: ^3.4.0
+375 silly placeDep ROOT util-deprecate@1.0.2 OK for: readable-stream@3.6.2 want: ^1.0.1
+376 silly placeDep node_modules/prismarine-viewer accepts@1.3.8 OK for: express@4.22.2 want: ~1.3.8
+377 silly placeDep node_modules/prismarine-viewer body-parser@1.20.5 OK for: express@4.22.2 want: ~1.20.5
+378 silly placeDep node_modules/prismarine-viewer content-disposition@0.5.4 OK for: express@4.22.2 want: ~0.5.4
+379 silly placeDep node_modules/prismarine-viewer cookie-signature@1.0.7 OK for: express@4.22.2 want: ~1.0.6
+380 silly placeDep node_modules/prismarine-viewer debug@2.6.9 OK for: express@4.22.2 want: 2.6.9
+381 silly placeDep node_modules/prismarine-viewer finalhandler@1.3.2 OK for: express@4.22.2 want: ~1.3.1
+382 silly placeDep node_modules/prismarine-viewer fresh@0.5.2 OK for: express@4.22.2 want: ~0.5.2
+383 silly placeDep node_modules/prismarine-viewer merge-descriptors@1.0.3 OK for: express@4.22.2 want: 1.0.3
+384 silly placeDep node_modules/prismarine-viewer path-to-regexp@0.1.13 OK for: express@4.22.2 want: ~0.1.12
+385 silly placeDep node_modules/prismarine-viewer range-parser@1.2.1 OK for: express@4.22.2 want: ~1.2.1
+386 silly placeDep node_modules/prismarine-viewer send@0.19.2 OK for: express@4.22.2 want: ~0.19.0
+387 silly placeDep node_modules/prismarine-viewer serve-static@1.16.3 OK for: express@4.22.2 want: ~1.16.2
+388 silly placeDep node_modules/prismarine-viewer type-is@1.6.18 OK for: express@4.22.2 want: ~1.6.18
+389 silly fetch manifest destroy@~1.2.0
+390 silly packumentCache full:https://registry.npmjs.org/destroy cache-miss
+391 silly fetch manifest raw-body@~2.5.3
+392 silly packumentCache full:https://registry.npmjs.org/raw-body cache-miss
+393 silly fetch manifest iconv-lite@~0.4.24
+394 silly packumentCache full:https://registry.npmjs.org/iconv-lite cache-hit
+395 silly fetch manifest ms@2.0.0
+396 silly packumentCache full:https://registry.npmjs.org/ms cache-miss
+397 silly fetch manifest mime@1.6.0
+398 silly packumentCache full:https://registry.npmjs.org/mime cache-miss
+399 silly fetch manifest destroy@1.2.0
+400 silly packumentCache full:https://registry.npmjs.org/destroy cache-miss
+401 silly fetch manifest mime-types@~2.1.24
+402 silly packumentCache full:https://registry.npmjs.org/mime-types cache-hit
+403 silly fetch manifest media-typer@0.3.0
+404 silly packumentCache full:https://registry.npmjs.org/media-typer cache-miss
+405 http fetch GET 200 https://registry.npmjs.org/ms 173ms (cache stale)
+406 silly packumentCache full:https://registry.npmjs.org/ms set size:92208 disposed:false
+407 http fetch GET 200 https://registry.npmjs.org/media-typer 173ms (cache stale)
+408 silly packumentCache full:https://registry.npmjs.org/media-typer set size:22678 disposed:false
+409 http fetch GET 200 https://registry.npmjs.org/raw-body 177ms (cache stale)
+410 silly packumentCache full:https://registry.npmjs.org/raw-body set size:117822 disposed:false
+411 http fetch GET 200 https://registry.npmjs.org/mime 215ms (cache stale)
+412 silly packumentCache full:https://registry.npmjs.org/mime set size:119236 disposed:false
+413 http fetch GET 200 https://registry.npmjs.org/destroy 255ms (cache stale)
+414 silly packumentCache full:https://registry.npmjs.org/destroy set size:15738 disposed:false
+415 http fetch GET 200 https://registry.npmjs.org/destroy 256ms (cache stale)
+416 silly packumentCache full:https://registry.npmjs.org/destroy set size:15738 disposed:false
+417 silly packumentCache full:https://registry.npmjs.org/destroy dispose
+418 silly placeDep node_modules/prismarine-viewer mime-types@2.1.35 OK for: accepts@1.3.8 want: ~2.1.34
+419 silly placeDep node_modules/prismarine-viewer negotiator@0.6.3 OK for: accepts@1.3.8 want: 0.6.3
+420 silly fetch manifest mime-db@1.52.0
+421 silly packumentCache full:https://registry.npmjs.org/mime-db cache-miss
+422 http fetch GET 200 https://registry.npmjs.org/mime-db 60ms (cache stale)
+423 silly packumentCache full:https://registry.npmjs.org/mime-db set size:164953 disposed:false
+424 silly placeDep ROOT destroy@1.2.0 OK for: body-parser@1.20.5 want: ~1.2.0
+425 silly placeDep node_modules/prismarine-viewer iconv-lite@0.4.24 OK for: body-parser@1.20.5 want: ~0.4.24
+426 silly placeDep node_modules/prismarine-viewer raw-body@2.5.3 OK for: body-parser@1.20.5 want: ~2.5.3
+427 silly placeDep node_modules/prismarine-viewer/node_modules/debug ms@2.0.0 OK for: debug@2.6.9 want: 2.0.0
+428 silly placeDep node_modules/prismarine-viewer mime-db@1.52.0 OK for: mime-types@2.1.35 want: 1.52.0
+429 silly placeDep node_modules/prismarine-viewer mime@1.6.0 OK for: send@0.19.2 want: 1.6.0
+430 silly placeDep node_modules/prismarine-viewer media-typer@0.3.0 OK for: type-is@1.6.18 want: 0.3.0
+431 silly placeDep node_modules/socket.io mime-types@2.1.35 OK for: accepts@1.3.8 want: ~2.1.34
+432 silly placeDep node_modules/socket.io negotiator@0.6.3 OK for: accepts@1.3.8 want: 0.6.3
+433 silly placeDep node_modules/socket.io mime-db@1.52.0 OK for: mime-types@2.1.35 want: 1.52.0
+434 silly reify mark retired [ 'F:\\Bots\\node_modules\\minimist' ]
+435 silly reify mark retired [ 'F:\\Bots\\node_modules\\tar-fs' ]
+436 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-chunk' ]
+437 silly reify mark retired [ 'F:\\Bots\\node_modules\\minecraft-data' ]
+438 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-world' ]
+439 silly reify mark retired [ 'F:\\Bots\\node_modules\\three' ]
+440 silly reify mark retired [ 'F:\\Bots\\node_modules\\mineflayer-pathfinder' ]
+441 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-nbt' ]
+442 silly reify mark retired [ 'F:\\Bots\\node_modules\\mineflayer-collectblock' ]
+443 silly reify mark retired [ 'F:\\Bots\\node_modules\\node-addon-api' ]
+444 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-chat' ]
+445 silly reify mark retired [ 'F:\\Bots\\node_modules\\canvas' ]
+446 silly reify mark retired [ 'F:\\Bots\\node_modules\\prebuild-install' ]
+447 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-physics' ]
+448 silly reify mark retired [ 'F:\\Bots\\node_modules\\mime' ]
+449 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-recipe' ]
+450 silly reify mark retired [ 'F:\\Bots\\node_modules\\rc' ]
+451 silly reify mark retired [ 'F:\\Bots\\node_modules\\require-self' ]
+452 silly reify mark retired [ 'F:\\Bots\\node_modules\\prismarine-viewer' ]
+453 silly reify mark retired [ 'F:\\Bots\\node_modules\\minecraft-protocol' ]
+454 silly reify mark retired [ 'F:\\Bots\\node_modules\\socket.io' ]
+455 silly reify mark retired [ 'F:\\Bots\\node_modules\\socket.io-client' ]
+456 silly reify mark retired [ 'F:\\Bots\\node_modules\\protodef' ]
+457 silly reify mark retired [ 'F:\\Bots\\node_modules\\mineflayer' ]
+458 silly reify mark retired [ 'F:\\Bots\\node_modules\\destroy' ]
+459 silly reify mark retired [
+459 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\mineflayer'
+459 silly reify ]
+460 silly reify mark retired [
+460 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\minecraft-data'
+460 silly reify ]
+461 silly reify mark retired [
+461 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\@types\\node'
+461 silly reify ]
+462 silly reify mark retired [
+462 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\prismarine-windows'
+462 silly reify ]
+463 silly reify mark retired [ 'F:\\Bots\\node_modules\\safer-buffer' ]
+464 silly reify mark retired [
+464 silly reify   'F:\\Bots\\node_modules\\typescript',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc.cmd',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc.ps1',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver.cmd',
+464 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver.ps1'
+464 silly reify ]
+465 silly reify moves {
+465 silly reify   'F:\\Bots\\node_modules\\minimist': 'F:\\Bots\\node_modules\\.minimist-uwLCws8k',
+465 silly reify   'F:\\Bots\\node_modules\\tar-fs': 'F:\\Bots\\node_modules\\.tar-fs-QB2pr4sT',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-chunk': 'F:\\Bots\\node_modules\\.prismarine-chunk-9Izf6gYu',
+465 silly reify   'F:\\Bots\\node_modules\\minecraft-data': 'F:\\Bots\\node_modules\\.minecraft-data-bciL7tZf',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-world': 'F:\\Bots\\node_modules\\.prismarine-world-Vpu3KnCg',
+465 silly reify   'F:\\Bots\\node_modules\\three': 'F:\\Bots\\node_modules\\.three-OYhYUpCm',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-pathfinder': 'F:\\Bots\\node_modules\\.mineflayer-pathfinder-pp66KcIm',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-nbt': 'F:\\Bots\\node_modules\\.prismarine-nbt-wp8HegdY',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-collectblock': 'F:\\Bots\\node_modules\\.mineflayer-collectblock-Ca93rYam',
+465 silly reify   'F:\\Bots\\node_modules\\node-addon-api': 'F:\\Bots\\node_modules\\.node-addon-api-Rp7DCkrw',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-chat': 'F:\\Bots\\node_modules\\.prismarine-chat-GD47jwxa',
+465 silly reify   'F:\\Bots\\node_modules\\canvas': 'F:\\Bots\\node_modules\\.canvas-k3N1BgQK',
+465 silly reify   'F:\\Bots\\node_modules\\prebuild-install': 'F:\\Bots\\node_modules\\.prebuild-install-nN93cmq7',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-physics': 'F:\\Bots\\node_modules\\.prismarine-physics-ItQCrFWw',
+465 silly reify   'F:\\Bots\\node_modules\\mime': 'F:\\Bots\\node_modules\\.mime-kzGiZUuq',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-recipe': 'F:\\Bots\\node_modules\\.prismarine-recipe-PL8jvk2A',
+465 silly reify   'F:\\Bots\\node_modules\\rc': 'F:\\Bots\\node_modules\\.rc-moq8AXRG',
+465 silly reify   'F:\\Bots\\node_modules\\require-self': 'F:\\Bots\\node_modules\\.require-self-StfuBqh2',
+465 silly reify   'F:\\Bots\\node_modules\\prismarine-viewer': 'F:\\Bots\\node_modules\\.prismarine-viewer-jTZ6zPXF',
+465 silly reify   'F:\\Bots\\node_modules\\minecraft-protocol': 'F:\\Bots\\node_modules\\.minecraft-protocol-2HkJVLFP',
+465 silly reify   'F:\\Bots\\node_modules\\socket.io': 'F:\\Bots\\node_modules\\.socket.io-AQQJqFLF',
+465 silly reify   'F:\\Bots\\node_modules\\socket.io-client': 'F:\\Bots\\node_modules\\.socket.io-client-1IyK80B8',
+465 silly reify   'F:\\Bots\\node_modules\\protodef': 'F:\\Bots\\node_modules\\.protodef-y9ksRdee',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer': 'F:\\Bots\\node_modules\\.mineflayer-oJ8tcC9N',
+465 silly reify   'F:\\Bots\\node_modules\\destroy': 'F:\\Bots\\node_modules\\.destroy-dvy0h9U1',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\mineflayer': 'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\.mineflayer-k9Q0FzMK',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\minecraft-data': 'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\.minecraft-data-ltcFkauX',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\@types\\node': 'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\@types\\.node-dUHjYNxM',
+465 silly reify   'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\prismarine-windows': 'F:\\Bots\\node_modules\\mineflayer-utils\\node_modules\\.prismarine-windows-Z030qn5j',
+465 silly reify   'F:\\Bots\\node_modules\\safer-buffer': 'F:\\Bots\\node_modules\\.safer-buffer-0hO8fQoQ',
+465 silly reify   'F:\\Bots\\node_modules\\typescript': 'F:\\Bots\\node_modules\\.typescript-8DOhGQXP',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc': 'F:\\Bots\\node_modules\\.bin\\.tsc-o9Z69Xj8',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc.cmd': 'F:\\Bots\\node_modules\\.bin\\.tsc.cmd-OCy0jZBT',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsc.ps1': 'F:\\Bots\\node_modules\\.bin\\.tsc.ps1-2IaPaZ83',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver': 'F:\\Bots\\node_modules\\.bin\\.tsserver-JAQgqJvm',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver.cmd': 'F:\\Bots\\node_modules\\.bin\\.tsserver.cmd-uyVEEpH9',
+465 silly reify   'F:\\Bots\\node_modules\\.bin\\tsserver.ps1': 'F:\\Bots\\node_modules\\.bin\\.tsserver.ps1-iavrBqKS'
+465 silly reify }
