@@ -1,6 +1,6 @@
 {
   "name": "minecraft-ai-bots-shared",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "Shared dependencies for portable Minecraft AI bot folders.",
   "type": "commonjs",

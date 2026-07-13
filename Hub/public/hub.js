@@ -126,9 +126,9 @@
         <div class="fields">
           <label class="wide">Display name<input data-field="name" value="${esc(bot.name)}"></label>
           <label>Minecraft username<input value="${esc(bot.username)}" readonly title="Wordt bij opslaan gelijkgemaakt aan de display name (maximaal 16 tekens)."></label>
+          <label>Minecraft version<select data-field="version">${versionOptions}</select></label>
           <label>Server host<input data-field="host" value="${esc(bot.host)}"></label>
           <label>Server port<input data-field="port" type="number" min="1" max="65535" value="${esc(bot.port)}"></label>
-          <label>Minecraft version<select data-field="version">${versionOptions}</select></label>
           <label>HUD port<input data-field="hudPort" type="number" min="1" max="65535" value="${esc(bot.hudPort)}"></label>
           <label>Viewer port<input data-field="viewerPort" type="number" min="1" max="65535" value="${esc(bot.viewerPort)}"></label>
           <label>Group<select data-field="group">${[...new Set([...(state.groups || []), bot.group || 'Ungrouped'])].map(group => `<option ${group === bot.group ? 'selected' : ''}>${esc(group)}</option>`).join('')}</select></label>

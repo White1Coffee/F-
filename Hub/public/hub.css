@@ -54,7 +54,7 @@
     .pill { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:5px 9px; color:var(--muted); font-size:.75rem; font-weight:900; white-space:nowrap; }
     .pill.online { color:var(--green); border-color:#29614d; }
     .pill.external { color:var(--yellow); border-color:#6b582a; }
-    .fields { display:grid; grid-template-columns:minmax(0,1fr) 100px; gap:9px; }
+    .fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
     label { display:grid; gap:5px; color:var(--muted); font-size:.74rem; font-weight:900; text-transform:uppercase; }
     label.wide { grid-column:1/-1; }
     .actions { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
@@ -180,4 +180,8 @@
       .bot-grid { grid-template-columns:1fr; }
       .task-board { grid-template-columns:repeat(2,minmax(210px,1fr)); }
       .event { grid-template-columns:75px 65px 1fr; }.event small { grid-column:1/-1; }
+    }
+    @media (max-width:520px) {
+      .fields { grid-template-columns:minmax(0,1fr); }
+      label.wide { grid-column:auto; }
     }
