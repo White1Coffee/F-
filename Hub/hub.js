@@ -65,7 +65,7 @@ function normalizeDashboardSettings(value={}){const number=(name,min,max)=>Math.
 
 function readJson(file, fallback = {}) {
   try {
-    return JSON.parse(fs.readFileSync(file, 'utf8'))
+    return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''))
   } catch {
     return fallback
   }
@@ -748,7 +748,9 @@ async function saveDiscordToken(token, remove = false) {
 function dashboardUpdateStatus() {
   const state = readJson(dashboardUpdateStateFile, {})
   const pid = fs.existsSync(dashboardUpdatePidFile) ? Number(fs.readFileSync(dashboardUpdatePidFile, 'utf8').trim()) : 0
-  return { appVersion, running:Boolean(pid&&processAlive(pid)), status:state.status||'idle', message:String(state.message||''), startedAt:state.startedAt||null, finishedAt:state.finishedAt||null }
+  const running=Boolean(pid&&processAlive(pid)),transitional=new Set(['starting','checking','applying','restarting'])
+  if(!running&&transitional.has(state.status))return{appVersion,running:false,status:'failed',message:'Het updateproces is onverwacht gestopt. Bekijk Logs/dashboard-update.err.log en Logs/update.log.',startedAt:state.startedAt||null,finishedAt:new Date().toISOString()}
+  return { appVersion, running, status:state.status||'idle', message:String(state.message||''), startedAt:state.startedAt||null, finishedAt:state.finishedAt||null }
 }
 
 function startDashboardUpdate() {
@@ -757,8 +759,9 @@ function startDashboardUpdate() {
   if (current.running) throw new Error('An update is already running.')
   fs.mkdirSync(path.dirname(dashboardUpdateStateFile), { recursive:true })
   fs.writeFileSync(dashboardUpdateStateFile, `${JSON.stringify({status:'starting',message:'Update wordt voorbereid.',startedAt:new Date().toISOString()},null,2)}\n`, 'utf8')
-  const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',dashboardUpdateScript],{cwd:portableRoot,detached:true,windowsHide:true,stdio:'ignore'})
-  fs.writeFileSync(dashboardUpdatePidFile,String(child.pid),'utf8');child.unref()
+  const out=fs.openSync(path.join(portableRoot,'Logs','dashboard-update.out.log'),'a'),err=fs.openSync(path.join(portableRoot,'Logs','dashboard-update.err.log'),'a')
+  const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',dashboardUpdateScript],{cwd:portableRoot,detached:true,windowsHide:true,stdio:['ignore',out,err]})
+  fs.closeSync(out);fs.closeSync(err);fs.writeFileSync(dashboardUpdatePidFile,String(child.pid),'utf8');child.once('error',error=>{try{fs.writeFileSync(dashboardUpdateStateFile,`${JSON.stringify({status:'failed',message:`Updater kon niet starten: ${error.message}`,startedAt:new Date().toISOString(),finishedAt:new Date().toISOString()},null,2)}\n`,'utf8');fs.rmSync(dashboardUpdatePidFile,{force:true})}catch{}});child.unref()
   return { ...dashboardUpdateStatus(), running:true }
 }
 

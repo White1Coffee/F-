@@ -95,7 +95,7 @@ function Install-FMNode {
 
 function Read-FMJson {
   param([Parameter(Mandatory=$true)][string]$Path)
-  return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+  return [IO.File]::ReadAllText($Path,[Text.Encoding]::UTF8) | ConvertFrom-Json
 }
 
 function Write-FMJsonAtomic {
@@ -104,7 +104,9 @@ function Write-FMJsonAtomic {
   New-Item -ItemType Directory -Path $directory -Force | Out-Null
   $temp = "$Path.$([guid]::NewGuid().ToString('N')).tmp"
   try {
-    $Value | ConvertTo-Json -Depth 30 | Set-Content -LiteralPath $temp -Encoding UTF8
+    # Info: UTF-8 zonder BOM blijft direct leesbaar door zowel PowerShell als Node.js.
+    $utf8NoBom=New-Object System.Text.UTF8Encoding($false)
+    [IO.File]::WriteAllText($temp,($Value | ConvertTo-Json -Depth 30),$utf8NoBom)
     Get-Content -LiteralPath $temp -Raw | ConvertFrom-Json | Out-Null
     Move-Item -LiteralPath $temp -Destination $Path -Force
   } finally {

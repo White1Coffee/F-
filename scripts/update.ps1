@@ -29,13 +29,13 @@ try{
     $remoteVersion=''
     if(-not $ReleaseTag){
       Write-FMLog 'Nieuwste GitHub-release bepalen.'
-      try{$release=Invoke-RestMethod -UseBasicParsing -Uri 'https://api.github.com/repos/White1Coffee/F-/releases/latest' -Headers @{'User-Agent'='F-Mineflayer-Updater'};$ReleaseTag=[string]$release.tag_name}catch{Write-FMLog 'Geen GitHub-release gevonden; gecontroleerde main-branch wordt gebruikt.' 'WARN'}
+      try{$release=Invoke-RestMethod -UseBasicParsing -TimeoutSec 30 -Uri 'https://api.github.com/repos/White1Coffee/F-/releases/latest' -Headers @{'User-Agent'='F-Mineflayer-Updater'};$ReleaseTag=[string]$release.tag_name}catch{Write-FMLog 'Geen GitHub-release gevonden; gecontroleerde main-branch wordt gebruikt.' 'WARN'}
     }
     if($ReleaseTag){
       if($ReleaseTag -notmatch '^v?[0-9]+\.[0-9]+\.[0-9]+([-.][A-Za-z0-9.]+)?$'){throw 'Ongeldige release-tag.'}
       $remoteVersion=$ReleaseTag.TrimStart('v');$archiveUri="https://github.com/White1Coffee/F-/archive/refs/tags/$ReleaseTag.zip"
     }else{
-      $remotePackage=Invoke-RestMethod -UseBasicParsing -Uri 'https://raw.githubusercontent.com/White1Coffee/F-/main/Bots/package.json' -Headers @{'User-Agent'='F-Mineflayer-Updater'}
+      $remotePackage=Invoke-RestMethod -UseBasicParsing -TimeoutSec 30 -Uri 'https://raw.githubusercontent.com/White1Coffee/F-/main/Bots/package.json' -Headers @{'User-Agent'='F-Mineflayer-Updater'}
       $remoteVersion=[string]$remotePackage.version;$archiveUri='https://github.com/White1Coffee/F-/archive/refs/heads/main.zip'
     }
     if($remoteVersion -notmatch '^[0-9]+\.[0-9]+\.[0-9]+([-.][A-Za-z0-9.]+)?$'){throw 'Remote versie is ongeldig.'}
@@ -45,7 +45,7 @@ try{
     foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot')){$source=Join-Path (Get-FMProjectRoot) $relative;if(Test-Path $source){$destination=Join-Path $programBackup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $destination -Recurse -Force}}
     $zip=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N')).zip";$stage=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N'))"
     try{
-      Invoke-WebRequest -UseBasicParsing -Uri $archiveUri -OutFile $zip
+      Invoke-WebRequest -UseBasicParsing -TimeoutSec 120 -Uri $archiveUri -OutFile $zip
       Expand-Archive -LiteralPath $zip -DestinationPath $stage
       $source=Get-ChildItem $stage -Directory|Select-Object -First 1
       foreach($required in @('Hub\hub.js','Bots\official-bot\bot.js','scripts\setup.ps1')){if(-not(Test-Path(Join-Path $source.FullName $required))){throw "Releasevalidatie mislukt: $required ontbreekt."}}

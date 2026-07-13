@@ -116,8 +116,8 @@ build-installer.bat
 Output:
 
 ```text
-dist/F-Mineflayer-Setup-1.0.4.exe
-dist/F-Mineflayer-Setup-1.0.4.exe.sha256
+dist/F-Mineflayer-Setup-1.0.5.exe
+dist/F-Mineflayer-Setup-1.0.5.exe.sha256
 ```
 
 De builder voert tests uit, maakt `installer/staging`, sluit `.git`, `node_modules`, Config, Data, logs, backups, auth, knowledge, worlds en secrets uit, compileert met Inno Setup en schrijft SHA-256. Gebruik `-IsccPath` als `ISCC.exe` niet op de standaardlocatie staat.
