@@ -40,6 +40,7 @@ Check (Test-Path (Join-Path $stage 'Hub\hub.js')) 'Staging bevat Hub'
 Check (Test-Path (Join-Path $stage 'Bots\official-bot\bot.js')) 'Staging bevat official-bot'
 Check (Test-Path (Join-Path $stage 'minecraft-discord-bot\index.js')) 'Staging bevat de Discord bot bridge'
 Check (Test-Path (Join-Path $stage 'scripts\dashboard-update.ps1')) 'Staging bevat de dashboard updater'
+Check (Test-Path (Join-Path $stage 'scripts\launch-dashboard-update.ps1')) 'Staging bevat de onafhankelijke update-launcher'
 Check (-not(Test-Path (Join-Path $stage 'Config\settings.json'))) 'Staging bevat geen persoonlijke settings'
 Check (-not(Get-ChildItem $stage -Recurse -Force|Where-Object{$_.FullName -match '(?i)(node_modules|microsoft-auth|\\worlds\\|\\knowledge\\|\.env$)'})) 'Staging bevat geen dependencies, auth, worlds of knowledge'
 $botFolders=@(Get-ChildItem (Join-Path $stage 'Bots') -Directory|Select-Object -ExpandProperty Name)
@@ -47,6 +48,22 @@ Check (($botFolders.Count -eq 1) -and ($botFolders[0] -eq 'official-bot')) 'Stag
 Check (-not(Get-ChildItem $stage -Recurse -Force|Where-Object{$_.FullName -match '(?i)(\.npm-cache|bot-output\.log|bot-error\.log)'})) 'Staging bevat geen lokale caches of botlogs'
 Check (-not(Test-Path (Join-Path $stage 'Node\node.exe'))) 'Staging bundelt geen onvolledige Node/npm-runtime'
 Check (Test-Path (Join-Path $stage '.nvmrc')) 'Staging legt de vereiste Node-versie vast'
+Check (-not((Get-Content -LiteralPath (Join-Path $stage 'scripts\stop.ps1') -Raw) -match '\$pid\s*=')) 'Stopscript overschrijft de gereserveerde PowerShell PID-variabele niet'
+
+# Test het werkelijke losgekoppelde update-startpad zonder netwerk, installatie of Hub-shutdown.
+$probeRoot=Join-Path $env:TEMP "F-update-probe-$([guid]::NewGuid().ToString('N'))"
+try{
+  New-Item -ItemType Directory -Path (Join-Path $probeRoot 'scripts') -Force|Out-Null
+  New-Item -ItemType Directory -Path (Join-Path $probeRoot 'Logs') -Force|Out-Null
+  Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'common.ps1') -Destination (Join-Path $probeRoot 'scripts\common.ps1')
+  Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'dashboard-update.ps1') -Destination (Join-Path $probeRoot 'scripts\dashboard-update.ps1')
+  Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'launch-dashboard-update.ps1') -Destination (Join-Path $probeRoot 'scripts\launch-dashboard-update.ps1')
+  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $probeRoot 'scripts\launch-dashboard-update.ps1') -ProbeOnly
+  $launcherCode=$LASTEXITCODE;$deadline=(Get-Date).AddSeconds(10);$probeStateFile=Join-Path $probeRoot 'Logs\dashboard-update.json'
+  while((-not(Test-Path $probeStateFile))-and (Get-Date)-lt $deadline){Start-Sleep -Milliseconds 100}
+  $probeState=if(Test-Path $probeStateFile){Get-Content -LiteralPath $probeStateFile -Raw|ConvertFrom-Json}else{$null}
+  Check (($launcherCode -eq 0)-and $probeState-and($probeState.status -eq 'completed')) 'Losgekoppelde dashboard-updater bereikt zijn entrypoint'
+}finally{Remove-Item $probeRoot -Recurse -Force -ErrorAction SilentlyContinue}
 
 if($failures.Count){Write-Host "$($failures.Count) installer-test(s) mislukt." -ForegroundColor Red;exit 1}
 Write-Host 'Alle installer-tests geslaagd.' -ForegroundColor Green;exit 0

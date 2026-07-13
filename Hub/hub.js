@@ -15,6 +15,7 @@ const { EventBuffer } = require('./src/dashboard/eventBuffer')
 const { DashboardService } = require('./src/dashboard/dashboardService')
 const { SchematicStore, transformBlocks, MAX_BYTES } = require('./src/schematics/schematicStore')
 process.env.TZ ||= 'Europe/Amsterdam'
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const HUB_PORT = Number(process.env.HUB_PORT || 3100)
 const HUB_HOST = process.env.HUB_HOST || '0.0.0.0'
@@ -42,6 +43,7 @@ const discordErrLog = path.join(portableRoot, 'Logs', 'discord-bridge.err.log')
 const dashboardUpdateStateFile = path.join(portableRoot, 'Logs', 'dashboard-update.json')
 const dashboardUpdatePidFile = path.join(portableRoot, 'Logs', 'dashboard-update.pid')
 const dashboardUpdateScript = path.join(portableRoot, 'scripts', 'dashboard-update.ps1')
+const dashboardUpdateLauncher = path.join(portableRoot, 'scripts', 'launch-dashboard-update.ps1')
 const schematicStore = new SchematicStore(schematicsRoot, require(path.join(portableRoot,'Bots','node_modules','prismarine-nbt')))
 // Info: Bouwopdrachten blijven begrensd in het geheugen; echte botresultaten bepalen de getoonde status.
 const schematicBuildJobs = new Map()
@@ -749,19 +751,40 @@ function dashboardUpdateStatus() {
   const state = readJson(dashboardUpdateStateFile, {})
   const pid = fs.existsSync(dashboardUpdatePidFile) ? Number(fs.readFileSync(dashboardUpdatePidFile, 'utf8').trim()) : 0
   const running=Boolean(pid&&processAlive(pid)),transitional=new Set(['starting','checking','applying','restarting'])
-  if(!running&&transitional.has(state.status))return{appVersion,running:false,status:'failed',message:'Het updateproces is onverwacht gestopt. Bekijk Logs/dashboard-update.err.log en Logs/update.log.',startedAt:state.startedAt||null,finishedAt:new Date().toISOString()}
+  const startupGrace=state.status==='starting'&&state.startedAt&&Date.now()-Date.parse(state.startedAt)<15000
+  if(startupGrace)return{appVersion,running:true,status:'starting',message:String(state.message||'Update wordt voorbereid.'),startedAt:state.startedAt,finishedAt:null}
+  if(!running&&transitional.has(state.status))return{appVersion,running:false,status:'failed',message:'Het updateproces is onverwacht gestopt. Bekijk Logs/dashboard-update-launcher.err.log, Logs/dashboard-update.err.log en Logs/update.log.',startedAt:state.startedAt||null,finishedAt:new Date().toISOString()}
   return { appVersion, running, status:state.status||'idle', message:String(state.message||''), startedAt:state.startedAt||null, finishedAt:state.finishedAt||null }
 }
 
-function startDashboardUpdate() {
+async function startDashboardUpdate() {
   if (!fs.existsSync(dashboardUpdateScript)) throw new Error('Dashboard update script is missing.')
+  if (!fs.existsSync(dashboardUpdateLauncher)) throw new Error('Dashboard update launcher is missing.')
   const current = dashboardUpdateStatus()
   if (current.running) throw new Error('An update is already running.')
   fs.mkdirSync(path.dirname(dashboardUpdateStateFile), { recursive:true })
   fs.writeFileSync(dashboardUpdateStateFile, `${JSON.stringify({status:'starting',message:'Update wordt voorbereid.',startedAt:new Date().toISOString()},null,2)}\n`, 'utf8')
-  const out=fs.openSync(path.join(portableRoot,'Logs','dashboard-update.out.log'),'a'),err=fs.openSync(path.join(portableRoot,'Logs','dashboard-update.err.log'),'a')
-  const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',dashboardUpdateScript],{cwd:portableRoot,detached:true,windowsHide:true,stdio:['ignore',out,err]})
-  fs.closeSync(out);fs.closeSync(err);fs.writeFileSync(dashboardUpdatePidFile,String(child.pid),'utf8');child.once('error',error=>{try{fs.writeFileSync(dashboardUpdateStateFile,`${JSON.stringify({status:'failed',message:`Updater kon niet starten: ${error.message}`,startedAt:new Date().toISOString(),finishedAt:new Date().toISOString()},null,2)}\n`,'utf8');fs.rmSync(dashboardUpdatePidFile,{force:true})}catch{}});child.unref()
+  try{fs.rmSync(dashboardUpdatePidFile,{force:true})}catch{}
+  // Info: antwoord zodra de launcher een echte updater-PID meldt; wacht niet op de volledige update.
+  let launchError=null
+  const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',dashboardUpdateLauncher],{cwd:portableRoot,windowsHide:true,stdio:'ignore'})
+  child.once('error',error=>{launchError=error})
+  child.unref()
+  let pid=0
+  for(let attempt=0;attempt<100&&!pid&&!launchError;attempt++){
+    await wait(50)
+    pid=fs.existsSync(dashboardUpdatePidFile)?Number(fs.readFileSync(dashboardUpdatePidFile,'utf8').trim()):0
+  }
+  if(launchError){
+    const message=`Updater kon niet starten: ${launchError.message}`
+    fs.writeFileSync(dashboardUpdateStateFile,`${JSON.stringify({status:'failed',message,startedAt:new Date().toISOString(),finishedAt:new Date().toISOString()},null,2)}\n`,'utf8')
+    throw new Error(message)
+  }
+  if(!pid){
+    const message='Updater kon niet starten: de launcher heeft binnen 5 seconden geen proces-ID teruggegeven.'
+    fs.writeFileSync(dashboardUpdateStateFile,`${JSON.stringify({status:'failed',message,startedAt:new Date().toISOString(),finishedAt:new Date().toISOString()},null,2)}\n`,'utf8')
+    throw new Error(message)
+  }
   return { ...dashboardUpdateStatus(), running:true }
 }
 
@@ -1317,7 +1340,7 @@ app.get('/api/team/inventory', (_request,response) => response.json({ok:true,inv
 app.get('/api/settings/integrations',(_request,response)=>response.json({ok:true,discord:{installed:fs.existsSync(discordBridgeFile),tokenConfigured:Boolean(readEnv(discordEnvFile).DISCORD_TOKEN),running:discordBridgeStatus().running},update:dashboardUpdateStatus()}))
 app.post('/api/settings/discord',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');saveDiscordToken(request.body?.token,request.body?.remove===true).then(discord=>response.json({ok:true,discord})).catch(next)}catch(error){next(error)}})
 app.get('/api/system/update/status',(_request,response)=>response.json({ok:true,update:dashboardUpdateStatus()}))
-app.post('/api/system/update',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');const update=startDashboardUpdate();dashboardEvent({type:'system.update',level:'warning',message:'System update started; Hub will restart automatically'});response.status(202).json({ok:true,update})}catch(error){next(error)}})
+app.post('/api/system/update',async(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');const update=await startDashboardUpdate();dashboardEvent({type:'system.update',level:'warning',message:'System update started; Hub will restart automatically'});response.status(202).json({ok:true,update})}catch(error){next(error)}})
 
 registerSupportRoutes(app, {
   fs,

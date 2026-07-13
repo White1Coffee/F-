@@ -631,7 +631,31 @@
     document.getElementById('dashboardSettingsForm').addEventListener('submit',async event=>{event.preventDefault();await api('/api/config',{method:'POST',body:JSON.stringify({dashboard:{enabled:document.getElementById('dashboardEnabled').value==='true',realtimeEnabled:document.getElementById('dashboardRealtime').value==='true',debugMode:document.getElementById('dashboardDebug').value==='true',allowControlActions:document.getElementById('dashboardControls').value==='true'}})});await refresh();connectDashboardStream();notify('Dashboard settings saved')})
     document.getElementById('discordTokenForm').addEventListener('submit',async event=>{event.preventDefault();const input=document.getElementById('discordBotToken'),status=document.getElementById('discordTokenStatus');if(!input.value.trim())return status.textContent='Paste a Discord bot token first.';if(!confirm('Save this Discord bot token locally and restart the Discord bridge?'))return;try{status.textContent='Saving token and connecting…';await api('/api/settings/discord',{method:'POST',body:JSON.stringify({token:input.value.trim(),confirmed:true})});input.value='';status.textContent='Discord token saved; bridge is restarting.';await refresh()}catch(error){input.value='';status.textContent=error.message}})
     document.getElementById('removeDiscordToken').addEventListener('click',async()=>{const status=document.getElementById('discordTokenStatus');if(!confirm('Remove the locally stored Discord token and stop the bridge?'))return;try{await api('/api/settings/discord',{method:'POST',body:JSON.stringify({remove:true,confirmed:true})});document.getElementById('discordBotToken').value='';status.textContent='Discord link removed.';await refresh()}catch(error){status.textContent=error.message}})
-    document.getElementById('systemUpdateButton').addEventListener('click',async()=>{const status=document.getElementById('systemUpdateStatus'),button=document.getElementById('systemUpdateButton');if(!confirm('Search for updates, create a backup, update the system and restart Hub and bots?'))return;button.disabled=true;try{await api('/api/system/update',{method:'POST',body:JSON.stringify({confirmed:true})});status.textContent='Update started. The Hub will disconnect and restart automatically…';const deadline=Date.now()+300000;const poll=setInterval(async()=>{if(Date.now()>deadline){clearInterval(poll);status.textContent='Update is taking longer than expected. Check Logs/update.log.';return}try{const result=await api('/api/system/update/status');settingsIntegrations={...(settingsIntegrations||{}),update:result.update};renderDashboardSettings();if(['completed','failed'].includes(result.update.status)){clearInterval(poll);status.textContent=result.update.message;if(result.update.status==='completed')setTimeout(()=>location.reload(),1500)}}catch{status.textContent='Hub is restarting; waiting for connection…'}},2000)}catch(error){button.disabled=false;status.textContent=error.message}})
+    document.getElementById('systemUpdateButton').addEventListener('click',async()=>{
+      const status=document.getElementById('systemUpdateStatus'),button=document.getElementById('systemUpdateButton')
+      if(!confirm('Search for updates, create a backup, update the system and restart Hub and bots?'))return
+      button.disabled=true
+      try{
+        await api('/api/system/update',{method:'POST',body:JSON.stringify({confirmed:true})})
+        status.textContent='Naar updates zoeken... De Hub wordt alleen herstart als een nieuwere versie beschikbaar is.'
+      }catch{
+        // Info: een verbroken startverbinding is normaal wanneer de updater de Hub al aan het herstarten is.
+        status.textContent='Updateproces gestart; wachten tot de Hub opnieuw verbonden is…'
+      }
+      const deadline=Date.now()+300000
+      const poll=setInterval(async()=>{
+        if(Date.now()>deadline){clearInterval(poll);button.disabled=false;status.textContent='Update is taking longer than expected. Check Logs/update.log.';return}
+        try{
+          const result=await api('/api/system/update/status')
+          settingsIntegrations={...(settingsIntegrations||{}),update:result.update}
+          renderDashboardSettings()
+          if(['completed','failed'].includes(result.update.status)){
+            clearInterval(poll);button.disabled=false;status.textContent=result.update.message
+            if(result.update.status==='completed')setTimeout(()=>location.reload(),1500)
+          }
+        }catch{status.textContent='Hub is restarting; waiting for connection…'}
+      },2000)
+    })
     document.getElementById('schematicUploadForm').addEventListener('submit',async event=>{event.preventDefault();const file=document.getElementById('schematicFile').files[0],status=document.getElementById('schematicUploadStatus');if(!file)return;try{status.textContent='Uploading and validating…';await api('/api/schematics/upload',{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Schematic-Name':encodeURIComponent(file.name)},body:await file.arrayBuffer()});document.getElementById('schematicFile').value='';status.textContent='Schematic saved.';await refresh()}catch(error){status.textContent=error.message}})
     document.getElementById('schematicList').addEventListener('click',async event=>{const button=event.target.closest('[data-delete-schematic]');if(!button||!confirm('Delete this stored schematic?'))return;await api(`/api/schematics/${encodeURIComponent(button.dataset.deleteSchematic)}`,{method:'DELETE',body:JSON.stringify({confirmed:true})});await refresh()})
     document.getElementById('schematicSelect').addEventListener('change',renderSchematicDetails)

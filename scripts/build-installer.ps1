@@ -20,7 +20,7 @@ try{
   foreach($file in @('Bots\package.json','Bots\package-lock.json','.gitignore','.nvmrc','README.md','install.bat','setup.bat','start.bat','stop.bat','doctor.bat','update.bat','uninstall.bat','build-installer.bat','Start.cmd','Stop.cmd','StartDiscord.cmd','StopDiscord.cmd')){
     $source=Join-Path $root $file;if(Test-Path $source){$destination=Join-Path $stage $file;New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $destination -Force}
   }
-  foreach($required in @('Hub\hub.js','Bots\official-bot\bot.js','minecraft-discord-bot\index.js','minecraft-discord-bot\package.json','scripts\setup.ps1','scripts\dashboard-update.ps1','setup.bat')){if(-not(Test-Path(Join-Path $stage $required))){throw "Staging mist $required"}}
+  foreach($required in @('Hub\hub.js','Bots\official-bot\bot.js','minecraft-discord-bot\index.js','minecraft-discord-bot\package.json','scripts\setup.ps1','scripts\dashboard-update.ps1','scripts\launch-dashboard-update.ps1','setup.bat')){if(-not(Test-Path(Join-Path $stage $required))){throw "Staging mist $required"}}
   $forbidden=Get-ChildItem $stage -Recurse -Force|Where-Object{$_.Name -match '(?i)(\.env|token|secret|credentials|microsoft-auth|node_modules|\.npm-cache)' }
   if($forbidden){throw "Gevoelige/runtimebestanden in staging: $($forbidden[0].FullName)"}
   $unexpectedBots=Get-ChildItem (Join-Path $stage 'Bots') -Directory|Where-Object{$_.Name -ne 'official-bot'}

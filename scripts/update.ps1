@@ -3,14 +3,20 @@ param([switch]$Yes,[string]$Branch='main',[string]$ReleaseTag='')
 . (Join-Path $PSScriptRoot 'common.ps1')
 Initialize-FMLog 'update'|Out-Null
 function Confirm-Update([string]$Text){if($Yes){return $true};return @('j','ja','y','yes') -contains (Read-Host "$Text [j/N]").Trim().ToLowerInvariant()}
+function Initialize-UpdateApplication {
+  # Info: stop en backup worden pas uitgevoerd nadat een nieuwere versie werkelijk is gevonden.
+  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'stop.ps1')|Out-Null
+  if($LASTEXITCODE -ne 0){throw 'Hub en bots konden niet veilig worden gestopt.'}
+  $updateBackup=New-FMDataBackup -Reason 'update'
+  foreach($relative in @('Data','Bots\official-bot\knowledge','Bots\official-bot\worlds')){
+    $source=Join-Path (Get-FMProjectRoot) $relative
+    if(Test-Path $source){$dest=Join-Path $updateBackup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $dest) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $dest -Recurse -Force}
+  }
+  return $updateBackup
+}
 try{
   Assert-FMProject
-  if(-not(Confirm-Update 'Hub en bots stoppen en naar updates zoeken?')){throw 'Update geannuleerd.'}
-  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'stop.ps1')|Out-Null
-  $backup=New-FMDataBackup -Reason 'update'
-  foreach($relative in @('Data','Bots\official-bot\knowledge','Bots\official-bot\worlds')){
-    $source=Join-Path (Get-FMProjectRoot) $relative;if(Test-Path $source){$dest=Join-Path $backup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $dest) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $dest -Recurse -Force}
-  }
+  if(-not(Confirm-Update 'Naar een nieuwere versie zoeken?')){throw 'Update geannuleerd.'}
   if(Test-Path (Join-Path (Get-FMProjectRoot) '.git')){
     $git=Get-Command git.exe -ErrorAction Stop
     Push-Location (Get-FMProjectRoot)
@@ -22,6 +28,7 @@ try{
       if($behind -eq 0){Write-FMLog 'Geen update beschikbaar.';exit 0}
       Write-Host "$behind commit(s) beschikbaar."
       if(-not(Confirm-Update 'Update met fast-forward toepassen?')){throw 'Update geannuleerd.'}
+      $backup=Initialize-UpdateApplication
       & $git.Source pull --ff-only origin $Branch;if($LASTEXITCODE -ne 0){throw 'git pull --ff-only mislukte.'}
     }finally{Pop-Location}
   }else{
@@ -41,6 +48,7 @@ try{
     if($remoteVersion -notmatch '^[0-9]+\.[0-9]+\.[0-9]+([-.][A-Za-z0-9.]+)?$'){throw 'Remote versie is ongeldig.'}
     $currentVersion=Get-FMAppVersion
     if(([version]($remoteVersion -split '-')[0]) -le ([version]($currentVersion -split '-')[0])){Write-FMLog "Versie $currentVersion is al up-to-date (remote: $remoteVersion).";exit 0}
+    $backup=Initialize-UpdateApplication
     $programBackup=Join-Path $backup 'program-rollback';New-Item -ItemType Directory -Path $programBackup -Force|Out-Null
     foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot')){$source=Join-Path (Get-FMProjectRoot) $relative;if(Test-Path $source){$destination=Join-Path $programBackup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $destination -Recurse -Force}}
     $zip=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N')).zip";$stage=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N'))"

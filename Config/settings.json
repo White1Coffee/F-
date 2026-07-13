@@ -3,6 +3,13 @@
     {
       "id": "ea7db11e-6c49-4013-b061-7abf5e313b19",
       "name": "bot1",
+      "username": "bot1",
+      "ownerPlayer": "WhiteCoffee01",
+      "whitelistedPlayers": [
+        "Horses_2008",
+        "nodeadline"
+      ],
+      "viewerEnabled": false,
       "folder": "@/Bots\\bot1",
       "host": "192.168.2.28",
       "port": 25565,
@@ -24,6 +31,14 @@
     {
       "id": "eb951138-f92b-429a-80a0-3ec889946548",
       "name": "WC_Tester",
+      "username": "WC_Tester",
+      "ownerPlayer": "WhiteCoffee01",
+      "whitelistedPlayers": [
+        "Supercoole_K",
+        "nodeadline",
+        "trollotje"
+      ],
+      "viewerEnabled": false,
       "folder": "@/Bots\\WC_Tester",
       "host": "192.168.2.28",
       "port": 25565,
@@ -45,6 +60,14 @@
     {
       "id": "6b67741a-b6ee-4b6f-82c6-a3065d3fdd24",
       "name": "bot2",
+      "username": "bot2",
+      "ownerPlayer": "WhiteCoffee01",
+      "whitelistedPlayers": [
+        "Supercoole_K",
+        "nodeadline",
+        "trollotje"
+      ],
+      "viewerEnabled": false,
       "folder": "@/Bots\\bot2",
       "host": "192.168.2.28",
       "port": 25565,
@@ -68,6 +91,14 @@
     {
       "id": "c3dac9d2-7414-43b2-9200-7d0f52d9d465",
       "name": "official-bot",
+      "username": "official_bot",
+      "ownerPlayer": "WhiteCoffee01",
+      "whitelistedPlayers": [
+        "Supercoole_K",
+        "nodeadline",
+        "trollotje"
+      ],
+      "viewerEnabled": false,
       "folder": "@/Bots\\official-bot",
       "host": "192.168.2.28",
       "port": 25565,
