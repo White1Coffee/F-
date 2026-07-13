@@ -6,7 +6,56 @@
     const loadedViewers = new Set()
     const hubChatLines = []
     const mergeTargets = new Map()
+    let dashboard = { overview:null,skills:[],experiences:[],logistics:{containers:[],reservations:[],botInventories:[]},events:[],schematics:[] }
+    let dashboardStream = null
+    let dashboardRefreshTimer = null
+    let lastDashboardDetailsAt = 0
+    let refreshInFlight = false
     const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]))
+    const coordinate = value => Number.isFinite(Number(value)) ? Number(value).toFixed(2) : '-'
+    const botName = botId => state.bots.find(bot => bot.id === botId)?.name || dashboard.overview?.bots?.find(bot => bot.botId === botId)?.displayName || botId || 'Unassigned'
+    const worldName = worldId => {
+      const teamBot = (state.team?.bots || []).find(bot => bot.worldId === worldId)
+      const dashboardBot = (dashboard.overview?.bots || []).find(bot => bot.worldId === worldId)
+      const server = teamBot?.minecraft || dashboardBot?.server
+      return server?.host ? `${server.host}${server.port ? `:${server.port}` : ''}` : worldId || 'Unknown server'
+    }
+    function addPanelInformation() {
+      const information = {
+        'All bots':'Live status, gezondheid, positie en huidige werkzaamheden van alle geconfigureerde bots.',
+        'Live bot details':'Task is de hoofdopdracht, Skill is de actieve vaardigheid en Retry toont de huidige herstelpoging.',
+        'Obtain iron ingots':'Kies een server, hoeveelheid en logistieke kist; de Hub maakt en verdeelt daarna de subtaken.',
+        'Active bots':'Bots die live bij de teamcoördinator geregistreerd zijn. Heartbeat toont hoe recent hun status is ontvangen.',
+        'Goals':'Gezamenlijke opdrachten. De voortgang stijgt alleen door gevalideerde, voltooide subtaken.',
+        'Tasks and reservations':'Een reservering voorkomt dat twee bots dezelfde taak, werkplek of container tegelijk gebruiken.',
+        'Verified inventory':'Voorraad die door een bot in een echte container is gecontroleerd.',
+        'available':'Wacht op een geschikte beschikbare bot.',
+        'reserved':'Tijdelijk aangeboden aan één bot; de bot moet de taak nog accepteren.',
+        'assigned':'Geaccepteerd en klaar om lokaal te starten.',
+        'running':'Wordt momenteel door de toegewezen bot uitgevoerd.',
+        'blocked':'Kan tijdelijk niet verder door gevaar, materiaaltekort of een andere fout.',
+        'completed':'Succes is door de echte speltoestand gevalideerd.',
+        'failed':'Definitief mislukt nadat de toegestane retries zijn gebruikt.',
+        'cancelled':'Handmatig of door een bovenliggende opdracht gestopt.',
+        'Skills & Learning':'Alleen echte uitvoeringen tellen mee voor succespercentage, duur en foutstatistieken.',
+        'Recent experiences':'Opgeslagen lessen uit relevante successen en mislukkingen; identieke fouten worden gededupliceerd.',
+        'Bot inventories':'Live samenvatting van wat iedere bot bij zich draagt.',
+        'Verified containers':'Werkelijke kist- of oveninhoud bij de laatste controle door een bot.',
+        'Reservations':'Materialen die tijdelijk voor een taak zijn apart gehouden en dus niet vrij beschikbaar zijn.',
+        'Dashboard configuration':'Realtime bestuurt live updates, Debug toont technische details en Control actions staat bediening toe.',
+        'Select bots':'Selecteer minimaal twee gestopte bots om hun kennis veilig in een nieuwe map te combineren.',
+        'Merged knowledge':'Pas gecombineerde kennis toe op gestopte bots; voor iedere doelbot wordt eerst een backup gemaakt.'
+      }
+      for (const heading of document.querySelectorAll('.tab h2')) {
+        const title = heading.textContent.replace(/\s+\d+$/, '').trim()
+        const text = information[title]
+        if (!text || heading.parentElement.querySelector(':scope > .block-info, :scope > p')) continue
+        const description = document.createElement('p')
+        description.className = 'block-info'
+        description.textContent = text
+        heading.insertAdjacentElement('afterend', description)
+      }
+    }
     const amsterdamTime = value => new Intl.DateTimeFormat('nl-NL', {
       timeZone:'Europe/Amsterdam',
       hour:'2-digit',
@@ -118,9 +167,10 @@
       const meter = value => Number.isFinite(Number(value)) ? `${Number(value).toFixed(1).replace('.0', '')} / 20` : '-'
       const rows = state.bots.map(bot => {
         const data = bot.telemetry
-        const position = data?.position ? `${data.position.x}, ${data.position.y}, ${data.position.z}` : '-'
+        const position = data?.position ? `${coordinate(data.position.x)}, ${coordinate(data.position.y)}, ${coordinate(data.position.z)}` : '-'
         const connection = data ? (data.connected ? 'ONLINE' : 'OFFLINE') : (bot.status?.hudOnline ? 'HUD ONLY' : 'OFFLINE')
         const connectionClass = data?.connected ? 'value-good' : 'value-bad'
+        const teamBot=dashboard.overview?.bots?.find(item=>item.botId===bot.id)
         return `<tr>
           <td><strong>${esc(bot.name)}</strong><br><a href="${esc(localServiceUrl(bot.hudPort))}" target="_blank" rel="noopener">Open dashboard</a></td>
           <td>${esc(data?.username || '-')}</td>
@@ -131,15 +181,43 @@
           <td>${data ? (data.pvp ? 'ON' : 'OFF') : '-'}</td>
           <td>${data?.xp ?? '-'}</td>
           <td>${esc(position)}</td>
+          <td>${esc(teamBot?.currentTask?.detail || teamBot?.currentTask || '-')}</td>
+          <td>${esc(teamBot?.activeSkill||'-')}</td>
+          <td>${esc(teamBot?.lastError||'-')}</td>
+          <td>${teamBot?.heartbeatAgeMs==null?'-':`${Math.round(teamBot.heartbeatAgeMs/1000)}s`}</td>
           <td class="${connectionClass}">${connection}</td>
           <td><form class="bot-send" data-bot-id="${esc(bot.id)}"><input placeholder="Chat or AI command" ${data?.connected ? '' : 'disabled'}><button type="submit" ${data?.connected ? '' : 'disabled'}>Send</button></form></td>
         </tr>`
       }).join('')
       document.getElementById('overviewTable').innerHTML = `<table>
-        <thead><tr><th>Bot</th><th>Username</th><th>HP</th><th>Food</th><th>Mode</th><th>Autonomy</th><th>PvP</th><th>XP</th><th>Position</th><th>Connection</th><th>Message / command</th></tr></thead>
+        <thead><tr><th>Bot</th><th>Username</th><th>HP</th><th>Food</th><th>Mode</th><th>Autonomy</th><th>PvP</th><th>XP</th><th>Position</th><th>Task</th><th>Skill</th><th>Error</th><th>Heartbeat</th><th>Connection</th><th>Message / command</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>`
     }
+
+    function renderTeam() {
+      const team=state.team||{bots:[],goals:[],tasks:[],reservations:[],inventory:{containers:{}}};const worlds=[...new Set((team.bots||[]).filter(bot=>bot.online).map(bot=>bot.worldId))]
+      const worldSelect=document.getElementById('teamWorld');const selected=worldSelect.value;worldSelect.innerHTML=worlds.map(world=>`<option value="${esc(world)}" ${world===selected?'selected':''}>${esc(worldName(world))}</option>`).join('')||'<option value="">No online team worlds</option>'
+      document.getElementById('teamBots').innerHTML=(team.bots||[]).map(bot=>`<div class="item"><strong>${esc(botName(bot.botId))}</strong><span class="pill ${bot.online?'online':''}">${bot.online?'ONLINE':'OFFLINE'}</span><small>${esc(bot.currentSkill||bot.state||'idle')} · ${esc(worldName(bot.worldId))} · heartbeat ${Math.max(0,Math.round((Date.now()-Number(bot.lastHeartbeatAt||0))/1000))}s ago</small></div>`).join('')||'<div class="empty">No team clients registered.</div>'
+      const goals=dashboard.goals||dashboard.overview?.goals||team.goals||[]
+      document.getElementById('teamGoals').innerHTML=goals.map(goal=>`<div class="item"><strong>${esc(goal.title||goal.type)} · ${esc(goal.requirements?.iron_ingot||'')}</strong><span class="pill">${esc(goal.status)}</span><div class="meter" title="Validated completed subtasks"><span style="width:${Math.round(Number(goal.progress||0)*100)}%"></span></div><small>${Math.round(Number(goal.progress||0)*100)}% · ${esc(goal.id)} · ${esc(goal.assignedBots?.join(', ')||'no owners')}</small><p>${Object.entries(goal.requirements||{}).map(([item,needed])=>`${esc(item)}: ${goal.collected?.[item]||0}/${needed} verified`).join(' · ')||'No material requirement'}<br>Remaining validated steps: ${esc(goal.estimatedRemainingSteps??'-')}</p>${(goal.blockers||[]).map(b=>`<span class="value-bad">${esc(b.taskId)}: ${esc(b.errorCode||'blocked')}</span>`).join('')}<div class="inline"><input data-goal-priority="${esc(goal.id)}" type="number" min="0" max="100" value="${esc(goal.priority)}" title="Goal priority"><button data-save-goal-priority="${esc(goal.id)}" class="secondary">Set priority</button>${goal.status==='blocked'?`<button data-goal-action="resume" data-goal-id="${esc(goal.id)}">Resume</button>`:`<button data-goal-action="pause" data-goal-id="${esc(goal.id)}" class="secondary">Pause</button>`}<button data-goal-action="replan" data-goal-id="${esc(goal.id)}" class="secondary">Replan</button><button data-goal-action="cancel" data-goal-id="${esc(goal.id)}" class="danger">Cancel</button></div></div>`).join('')||'<div class="empty">No team goals.</div>'
+      document.getElementById('teamTasks').innerHTML=(team.tasks||[]).map(task=>`<div class="item"><strong>${esc(task.skill)}</strong><span class="pill">${esc(task.status)}</span><small>${esc(botName(task.assignedBotId))} ${task.lastError?`· ${esc(task.lastError)}`:''}</small>${!['completed','cancelled'].includes(task.status)?`<button data-cancel-team-task="${esc(task.id)}" class="secondary">Cancel</button>`:''}</div>`).join('')||'<div class="empty">No tasks.</div>'
+      document.getElementById('teamReservations').innerHTML=`<p>${(team.reservations||[]).length} active reservations</p>`
+      document.getElementById('teamInventory').innerHTML=Object.values(team.inventory?.containers||{}).map(container=>`<div class="item"><strong>${esc(container.id)}</strong><small>${Object.entries(container.contents||{}).map(([name,count])=>`${esc(name)}: ${count}`).join(', ')||'empty'}</small></div>`).join('')||'<div class="empty">No verified logistics containers.</div>'
+    }
+
+    function metric(label,value,detail=''){return `<div class="metric-card"><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(detail)}</small></div>`}
+    function renderDashboard(){const overview=dashboard.overview;if(!overview)return;const c=overview.counts||{};document.getElementById('dashboardMetrics').innerHTML=[metric('Online bots',c.onlineBots),metric('Offline bots',c.offlineBots),metric('Idle bots',c.idleBots),metric('Active tasks',c.activeTasks),metric('Blocked tasks',c.blockedTasks),metric('Active goals',c.activeGoals),metric('Known skills',c.knownSkills),metric('Average success',overview.averageSkillSuccessRate==null?'Insufficient data':`${Math.round(overview.averageSkillSuccessRate*100)}%`)].join('');document.getElementById('dashboardWarnings').innerHTML=(overview.warnings||[]).map(w=>`<div class="notice warning">⚠ ${esc(w)}</div>`).join('');renderBotDetails();renderTaskBoard();renderLearning();renderLogistics();renderSchematics();renderEvents();renderDashboardSettings();addPanelInformation()}
+    function renderBotDetails(){const bots=dashboard.overview?.bots||[];document.getElementById('dashboardBotDetails').innerHTML=bots.map(bot=>`<article class="bot-detail"><div class="card-head"><div><h2>${esc(bot.displayName)}</h2><p>${esc(bot.botId)} · ${esc(bot.instanceId||'no runtime instance')}</p></div><span class="pill ${bot.online?'online':''}">${esc(bot.status)}</span></div><div class="detail-grid"><span>Health <strong>${esc(bot.health??'-')}</strong></span><span>Food <strong>${esc(bot.food??'-')}</strong></span><span>World <strong>${esc(bot.worldId||'-')}</strong></span><span>Position <strong>${bot.position?`${esc(bot.position.x)}, ${esc(bot.position.y)}, ${esc(bot.position.z)}`:'-'}</strong></span><span>Task <strong>${esc(bot.currentTask?.detail || bot.currentTask || '-')}</strong></span><span>Skill <strong>${esc(bot.activeSkill||'-')}</strong></span><span>Step <strong>${esc(bot.currentStep||'-')}</strong></span><span>Retry <strong>${esc(`${bot.retry?.attempt||0}/${bot.retry?.max||0}`)}</strong></span><span>Path <strong>${esc(bot.pathfinder?.status||'-')}</strong></span><span>Heartbeat <strong>${bot.heartbeatAgeMs==null?'-':`${Math.round(bot.heartbeatAgeMs/1000)}s`}</strong></span></div><details><summary>Inventory & capabilities</summary><p>${Object.entries(bot.inventorySummary||{}).map(([name,count])=>`${esc(name)}: ${count}`).join(', ')||'Empty or unknown'}</p><p>${(bot.capabilities||[]).map(esc).join(', ')||'No capabilities reported'}</p></details>${bot.debug?`<details><summary>Debug details</summary><pre>${esc(JSON.stringify(bot.debug,null,2))}</pre></details>`:''}<div class="inline bot-controls" data-bot-id="${esc(bot.botId)}"><button data-control="pause" class="secondary">Pause task</button><button data-control="resume">Resume</button><button data-control="cancel-task" class="secondary">Cancel task</button><button data-control="return-home" class="secondary">Return home</button><button data-control="idle" class="secondary">Idle</button><button data-control="reconnect" class="danger">Reconnect</button><button data-control="emergency-stop" class="danger">Emergency stop</button></div>${bot.lastError?`<div class="notice warning">${esc(bot.lastError)}</div>`:''}</article>`).join('')||'<div class="empty">No dashboard bot data.</div>'}
+    function filteredTasks(){const value=id=>document.getElementById(id).value.toLowerCase(),status=value('taskStatusFilter'),skill=value('taskSkillFilter'),bot=value('taskBotFilter'),goal=value('taskGoalFilter'),world=value('taskWorldFilter'),error=value('taskErrorFilter'),priority=value('taskPriorityFilter'),sort=value('taskSort');return (state.team?.tasks||[]).filter(t=>(!status||t.status===status)&&(!skill||String(t.skill).toLowerCase().includes(skill))&&(!bot||String(t.assignedBotId||'').toLowerCase().includes(bot))&&(!goal||String(t.teamGoalId||'').toLowerCase().includes(goal))&&(!world||String(t.worldId||'').toLowerCase().includes(world))&&(!error||String(t.lastError||'').toLowerCase().includes(error))&&(!priority||Number(t.priority)===Number(priority))).sort((a,b)=>sort==='newest'?Number(b.createdAt)-Number(a.createdAt):sort==='oldest'?Number(a.createdAt)-Number(b.createdAt):Number(b.priority)-Number(a.priority))}
+    function renderTaskBoard(){const groups=['available','reserved','assigned','running','blocked','completed','failed','cancelled'],tasks=filteredTasks();document.getElementById('dashboardTaskBoard').innerHTML=groups.map(status=>`<div class="task-column"><h2>${esc(status)} <span class="pill">${tasks.filter(t=>t.status===status).length}</span></h2>${tasks.filter(t=>t.status===status).map(t=>{const reservations=(state.team?.reservations||[]).filter(r=>r.taskId===t.id).length,duration=t.startedAt?Math.round(((t.completedAt||t.failedAt||Date.now())-t.startedAt)/1000):null;return `<article class="task-card"><strong>${esc(t.skill)}</strong><small>${esc(t.id)}</small><p>Goal: ${esc(t.teamGoalId||'-')}<br>Owner: ${esc(t.assignedBotId||'unassigned')}<br>Priority: ${esc(t.priority)} · Retry: ${esc(t.retryCount||0)}/${esc(t.maxRetries||0)}<br>Dependencies: ${(t.dependencies||[]).length} · Reservations: ${reservations}<br>Duration: ${duration==null?'-':`${duration}s`} · Lease: ${t.reservationExpiresAt?new Date(t.reservationExpiresAt).toLocaleTimeString():'-'}</p>${t.progress?`<small>Progress: ${esc(t.progress.skill||'active')} ${t.progress.position?`at ${esc(t.progress.position.x)}, ${esc(t.progress.position.z)}`:''}</small>`:''}${t.lastError?`<span class="value-bad">${esc(t.lastError)}</span>`:''}</article>`}).join('')||'<div class="empty">Empty</div>'}</div>`).join('')}
+    function renderLearning(){const skills=dashboard.skills||[];document.getElementById('skillSummary').innerHTML=[metric('Measured skills',skills.length),metric('Executions',skills.reduce((n,s)=>n+s.executions,0)),metric('Failures',skills.reduce((n,s)=>n+s.failures,0))].join('');document.getElementById('skillCharts').innerHTML=skills.filter(s=>s.executions>0).slice(0,12).map(s=>`<div class="skill-bar"><span>${esc(s.name)}</span><div class="meter"><span style="width:${Math.round(Number(s.successRate||0)*100)}%"></span></div><small>${Math.round(Number(s.successRate||0)*100)}% · ${s.executions} uses · ${s.failures} errors</small></div>`).join('')||'<div class="empty">Nog onvoldoende gegevens voor grafieken</div>';document.getElementById('skillTable').innerHTML=skills.length?`<table><thead><tr><th>Skill</th><th>Version</th><th>Executions</th><th>Success</th><th>Average</th><th>Trend</th><th>Best bot</th><th>Errors</th></tr></thead><tbody>${skills.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.version||'-')}</td><td>${s.executions}</td><td>${s.successRate==null?'Insufficient data':`${Math.round(s.successRate*100)}%`}</td><td>${s.averageDurationMs==null?'-':`${Math.round(s.averageDurationMs/1000)}s`}</td><td>${esc(s.recentTrend)}</td><td>${esc(s.bestBotId||'-')}</td><td>${(s.commonErrors||[]).map(e=>`${esc(e.errorCode)} (${e.count})`).join(', ')||'-'}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nog onvoldoende gegevens</div>';document.getElementById('experienceList').innerHTML=(dashboard.experiences||[]).map(e=>`<div class="item"><strong>${esc(e.skill||e.task)}</strong><span class="pill">${e.success?'SUCCESS':esc(e.errorCode||'FAILED')}</span><small>${esc(e.lesson||'No recorded lesson')} · ${esc(e.createdAt||'')}</small></div>`).join('')||'<div class="empty">Nog onvoldoende gegevens</div>'}
+    function renderLogistics(){const data=dashboard.logistics||{},stale=(data.containers||[]).filter(c=>!c.lastVerifiedAt||Date.now()-Number(c.lastVerifiedAt)>300000);document.getElementById('logisticsWarnings').innerHTML=stale.length?`<div class="notice warning">${stale.length} container inventories are stale or unknown.</div>`:'';document.getElementById('botInventories').innerHTML=(data.botInventories||[]).map(b=>`<div class="item"><strong>${esc(b.botId)}</strong><small>${Object.entries(b.inventorySummary||{}).map(([n,c])=>`${esc(n)}: ${c}`).join(', ')||'Unknown'}</small></div>`).join('')||'<div class="empty">No inventory telemetry.</div>';document.getElementById('containerInventory').innerHTML=(data.containers||[]).map(c=>`<div class="item"><strong>${esc(c.id)}</strong><small>Verified ${esc(c.lastVerifiedAt||'unknown')}</small>${(c.items||[]).map(i=>`<p>${esc(i.item)} · Present ${i.present} · Reserved ${i.reserved} · Available ${i.available}</p>`).join('')}</div>`).join('')||'<div class="empty">No verified containers.</div>';document.getElementById('inventoryReservations').innerHTML=(data.reservations||[]).map(r=>`<div class="item"><strong>${esc(r.item)} × ${r.amount}</strong><small>${esc(r.botId)} · ${esc(r.taskId)}</small></div>`).join('')||'<div class="empty">No inventory reservations.</div>'}
+    function renderSchematics(){const items=dashboard.schematics||[],selected=document.getElementById('schematicSelect').value;document.getElementById('schematicSelect').innerHTML=items.map(item=>`<option value="${esc(item.id)}">${esc(item.name)} (${item.width}×${item.height}×${item.length})</option>`).join('')||'<option value="">No schematics uploaded</option>';if(items.some(item=>item.id===selected))document.getElementById('schematicSelect').value=selected;document.getElementById('schematicList').innerHTML=items.map(item=>`<div class="item"><strong>${esc(item.name)}</strong><small>${item.width}×${item.height}×${item.length} · ${item.blockCount} blocks</small><button type="button" class="danger" data-delete-schematic="${esc(item.id)}">Delete</button></div>`).join('')||'<div class="empty">No schematics uploaded.</div>';const bots=(state.team?.bots||[]).filter(bot=>bot.online&&bot.capabilities?.includes('buildSchematic')),primary=document.getElementById('schematicPrimaryBot').value;document.getElementById('schematicPrimaryBot').innerHTML=bots.map(bot=>`<option value="${esc(bot.botId)}">${esc(botName(bot.botId))} · ${esc(worldName(bot.worldId))}</option>`).join('')||'<option value="">No capable online bots</option>';if(bots.some(bot=>bot.botId===primary))document.getElementById('schematicPrimaryBot').value=primary;renderSchematicDetails();renderSchematicHelpers()}
+    function renderSchematicDetails(){const item=(dashboard.schematics||[]).find(value=>value.id===document.getElementById('schematicSelect').value),target=document.getElementById('schematicDetails');if(!item){target.className='empty';target.textContent='Select a schematic.';return}target.className='';target.innerHTML=`<strong>${esc(item.name)}</strong><p>Size: ${item.width} × ${item.height} × ${item.length}<br>Blocks: ${item.blockCount}</p><p>${Object.entries(item.materials||{}).sort((a,b)=>b[1]-a[1]).map(([name,count])=>`${esc(name)}: ${count}`).join('<br>')}</p>`}
+    function renderSchematicHelpers(){const primary=(state.team?.bots||[]).find(bot=>bot.botId===document.getElementById('schematicPrimaryBot').value),origin={x:Number(document.getElementById('schematicX').value),y:Number(document.getElementById('schematicY').value),z:Number(document.getElementById('schematicZ').value)},target=document.getElementById('schematicHelpers'),previous=new Set([...target.querySelectorAll('input:checked')].map(input=>input.value));if(!primary||!Object.values(origin).every(Number.isFinite)){target.innerHTML='<div class="empty">Choose a primary bot and build coordinates first.</div>';return}const nearby=(state.team?.bots||[]).filter(bot=>bot.online&&bot.botId!==primary.botId&&bot.worldId===primary.worldId&&bot.position&&bot.capabilities?.includes('buildSchematic')).map(bot=>({...bot,distance:Math.hypot(bot.position.x-origin.x,bot.position.y-origin.y,bot.position.z-origin.z)})).filter(bot=>bot.distance<=64).sort((a,b)=>a.distance-b.distance);target.innerHTML=nearby.map(bot=>`<label class="target-bot"><input type="checkbox" value="${esc(bot.botId)}" ${previous.has(bot.botId)?'checked':''}><span>Mag ${esc(botName(bot.botId))} meehelpen?</span><small>${bot.distance.toFixed(1)} blocks away</small></label>`).join('')||'<div class="empty">No nearby capable bots within 64 blocks.</div>'}
+    function renderEvents(){const value=id=>document.getElementById(id).value.toLowerCase(),level=value('eventLevelFilter'),bot=value('eventBotFilter'),goal=value('eventGoalFilter'),task=value('eventTaskFilter'),error=value('eventErrorFilter'),period=Number(value('eventTimeFilter')||0);const events=(dashboard.events||[]).filter(e=>(!level||e.level===level)&&(!bot||String(e.botId||'').toLowerCase().includes(bot))&&(!goal||String(e.goalId||'').toLowerCase().includes(goal))&&(!task||String(e.taskId||'').toLowerCase().includes(task))&&(!error||String(e.errorCode||'').toLowerCase().includes(error))&&(!period||Date.now()-Number(e.timestamp)<=period));document.getElementById('dashboardEventFeed').innerHTML=events.map(e=>`<div class="event event-${esc(e.level)}"><time>${esc(new Date(e.timestamp).toLocaleTimeString())}</time><span>${esc(e.level)}</span><strong>${esc(e.message)}</strong><small>${esc(e.errorCode||e.taskId||'')}</small></div>`).join('')||'<div class="empty">No matching events.</div>'}
+    function renderDashboardSettings(){const d=state.dashboard||{};document.getElementById('dashboardEnabled').value=String(d.enabled!==false);document.getElementById('dashboardRealtime').value=String(d.realtimeEnabled!==false);document.getElementById('dashboardDebug').value=String(d.debugMode===true);document.getElementById('dashboardControls').value=String(d.allowControlActions!==false)}
 
     async function sendHubInput(text, botIds = []) {
       const result = await api('/api/command', {
@@ -181,14 +259,11 @@
       const previousRestore = document.getElementById('restoreBot').value
       const previousKnowledgeSource = document.getElementById('knowledgeSource').value
       const previousKnowledgeTarget = document.getElementById('knowledgeTarget').value
-      const previousPreset = document.getElementById('presetSelect').value
       const groups = state.groups || []
       document.getElementById('groupList').innerHTML = groups.map(group => `<div class="item"><strong>${esc(group)}</strong><span class="inline"><button class="secondary" data-group-action="start" data-group="${esc(group)}">Start</button><button class="secondary" data-group-action="stop" data-group="${esc(group)}">Stop</button>${group === 'Ungrouped' ? '' : `<button class="danger" data-group-delete="${esc(group)}">Delete</button>`}</span></div>`).join('') || '<p>No groups yet.</p>'
       document.getElementById('profileList').innerHTML = (state.serverProfiles || []).map(profile => `<div class="item"><strong>${esc(profile.name)}</strong><span>${esc(profile.host)}:${esc(profile.port)} | ${esc(profile.version || '1.21.4')} <button class="secondary" data-apply-profile="${esc(profile.id)}">Apply to selected update targets</button></span></div>`).join('') || '<p>No server profiles yet.</p>'
       document.getElementById('profileVersion').innerHTML = minecraftVersionOptions('1.21.4')
       document.getElementById('bulkVersion').innerHTML = minecraftVersionOptions('1.21.4')
-      document.getElementById('presetSelect').innerHTML = (state.presets || []).map(preset => `<option value="${esc(preset.id)}">${esc(preset.name)}</option>`).join('')
-      document.getElementById('presetList').innerHTML = (state.presets || []).map(preset => `<div class="item"><strong>${esc(preset.name)}</strong><span>${esc((preset.commands || []).join(' | '))}${preset.builtIn ? '<br>Built-in' : '<br>Custom'}</span></div>`).join('') || '<p>No presets yet.</p>'
       document.getElementById('scheduleGroup').innerHTML = groups.map(group => `<option>${esc(group)}</option>`).join('')
       document.getElementById('scheduleList').innerHTML = (state.schedules || []).map(schedule => `<div class="item"><strong>${esc(schedule.time)} ${esc(schedule.action)}</strong><span>${esc(schedule.group)}</span></div>`).join('') || '<p>No schedules yet.</p>'
       document.getElementById('updateSource').innerHTML = botOptions()
@@ -208,52 +283,6 @@
       document.getElementById('restoreBot').value = previousRestore
       document.getElementById('knowledgeSource').value = previousKnowledgeSource
       document.getElementById('knowledgeTarget').value = previousKnowledgeTarget
-      document.getElementById('presetSelect').value = previousPreset || document.getElementById('presetSelect').value
-      renderPresetTargets()
-      updatePresetTargetUi()
-    }
-
-    function updatePresetTargetUi() {
-      const preset = (state.presets || []).find(item => item.id === document.getElementById('presetSelect').value)
-      document.getElementById('presetPlayer').style.display = preset?.requiresPlayer ? 'block' : 'none'
-    }
-
-    function renderPresets() {
-      const previousPreset = document.getElementById('presetSelect').value
-      const groups = state.groups || []
-      const presets = state.presets || []
-      document.getElementById('presetSelect').innerHTML = presets.map(preset => `<option value="${esc(preset.id)}">${esc(preset.name)}</option>`).join('')
-      document.getElementById('presetSelect').value = previousPreset || document.getElementById('presetSelect').value
-      document.getElementById('presetList').innerHTML = presets.map(preset => `
-        <div class="item" data-preset-id="${esc(preset.id)}">
-          <strong>${esc(preset.name)}</strong>
-          <span>${esc((preset.commands || []).join(' | '))}<br>${preset.delayMs ? `${esc(preset.delayMs)}ms delay | ` : ''}${preset.builtIn ? 'Built-in' : 'Custom'} ${preset.builtIn ? '' : `<button type="button" class="secondary" data-preset-edit="${esc(preset.id)}">Edit</button> <button type="button" class="danger" data-preset-delete="${esc(preset.id)}">Delete</button>`}</span>
-        </div>`).join('') || '<p>No presets yet.</p>'
-      renderPresetTargets()
-      updatePresetTargetUi()
-    }
-
-    function renderPresetTargets() {
-      const target = document.getElementById('presetTargets')
-      const previous = new Set([...target.querySelectorAll('input:checked')].map(input => input.value))
-      const selected = previous.size ? previous : new Set(['all'])
-      const groupBoxes = (state.groups || []).map(group => `<label><input type="checkbox" value="group:${esc(group)}" ${selected.has(`group:${group}`) ? 'checked' : ''}>Group: ${esc(group)}</label>`).join('')
-      const botBoxes = state.bots.map(bot => `<label><input type="checkbox" value="bot:${esc(bot.id)}" ${selected.has(`bot:${bot.id}`) ? 'checked' : ''}>${esc(bot.name)}</label>`).join('')
-      target.innerHTML = `<label><input type="checkbox" value="all" ${selected.has('all') ? 'checked' : ''}>All bots</label>${groupBoxes}${botBoxes}`
-    }
-
-    function selectedPresetPayload() {
-      const selected = [...document.querySelectorAll('#presetTargets input:checked')].map(input => input.value)
-      if (!selected.length || selected.includes('all')) return { targetType:'all', botIds:[], group:'' }
-      const ids = new Set()
-      for (const value of selected) {
-        if (value.startsWith('bot:')) ids.add(value.slice(4))
-        if (value.startsWith('group:')) {
-          const group = value.slice(6)
-          for (const bot of state.bots.filter(item => item.group === group)) ids.add(bot.id)
-        }
-      }
-      return { targetType:'bot', botIds:[...ids], group:'' }
     }
 
     function renderChatTargets() {
@@ -488,7 +517,7 @@
               }).join('')}
             </div>
             <div class="apply-controls">
-              <span class="pill" data-target-count="${esc(merge.id)}">${mergeTargets.get(merge.id)?.size || 0} / 5 selected</span>
+              <span class="pill" data-target-count="${esc(merge.id)}">${mergeTargets.get(merge.id)?.size || 0} selected</span>
               <button type="button" data-apply-merge="${esc(merge.id)}" ${(mergeTargets.get(merge.id)?.size || 0) ? '' : 'disabled'}>Apply to selected bots</button>
             </div>
           </div>`).join('')
@@ -502,31 +531,39 @@
       mergeTargets.set(mergeId, new Set(selected))
       for (const box of boxes) {
         const bot = state.bots.find(item => item.id === box.value)
-        box.disabled = Boolean(bot?.status?.running) || (!box.checked && selected.length >= 5)
+        box.disabled = Boolean(bot?.status?.running)
       }
       const count = document.querySelector(`[data-target-count="${CSS.escape(mergeId)}"]`)
       const apply = document.querySelector(`[data-apply-merge="${CSS.escape(mergeId)}"]`)
-      if (count) count.textContent = `${selected.length} / 5 selected`
-      if (apply) apply.disabled = selected.length < 1 || selected.length > 5
+      if (count) count.textContent = `${selected.length} selected`
+      if (apply) apply.disabled = selected.length < 1
     }
 
     async function refresh() {
+      if(refreshInFlight)return
+      refreshInFlight=true
       try {
         state = await api('/api/state')
+        dashboard.schematics=(await api('/api/schematics')).schematics
+        if(state.dashboard?.enabled!==false)await refreshDashboardData()
         renderTopStatus()
         renderOverview()
+        renderTeam()
         renderBots()
         renderMerge()
         renderManage()
-        renderPresets()
         renderChat()
         renderViewers()
+        renderDashboard()
         if (document.getElementById('health').classList.contains('active')) await refreshHealth()
         if (document.getElementById('discordHealth').classList.contains('active')) await refreshDiscord()
       } catch (err) {
         notify(err.message, true)
-      }
+      } finally { refreshInFlight=false }
     }
+
+    async function refreshDashboardData(forceDetails=false){const overview=await api('/api/dashboard/overview');dashboard.overview=overview.overview;for(const bot of dashboard.overview?.bots||[]){bot.worldId=bot.server?.host?`${bot.server.host}${bot.server.port?`:${bot.server.port}`:''}`:bot.worldId;if(bot.position)bot.position={...bot.position,x:coordinate(bot.position.x),y:coordinate(bot.position.y),z:coordinate(bot.position.z)}}if(forceDetails||Date.now()-lastDashboardDetailsAt>15000){const [skills,experiences,logistics,events,goals]=await Promise.all([api('/api/learning/skills'),api('/api/learning/experiences?limit=50'),api('/api/logistics/inventory'),api('/api/events?limit=150'),api('/api/team/goals')]);dashboard.skills=skills.skills;dashboard.experiences=experiences.items;dashboard.logistics=logistics;dashboard.events=events.items;dashboard.goals=goals.dashboardGoals;lastDashboardDetailsAt=Date.now()}}
+    function connectDashboardStream(){dashboardStream?.close?.();const status=document.getElementById('dashboardConnection');if(state.dashboard?.enabled===false){status.textContent='Dashboard disabled in settings';return}if(state.dashboard?.realtimeEnabled===false){status.textContent='Realtime disabled; polling fallback active';return}dashboardStream=new EventSource('/api/dashboard/stream');dashboardStream.addEventListener('connected',()=>{status.textContent='Realtime dashboard connected';status.classList.remove('warning')});dashboardStream.addEventListener('dashboard',event=>{const value=JSON.parse(event.data);if(value.level!=='debug'){dashboard.events.unshift(value);dashboard.events=dashboard.events.slice(0,500);renderEvents()}clearTimeout(dashboardRefreshTimer);dashboardRefreshTimer=setTimeout(()=>refresh(),500)});dashboardStream.onerror=()=>{status.textContent='Realtime connection lost; reconnecting automatically…';status.classList.add('warning')}}
 
     async function refreshHealth() {
       try {
@@ -577,6 +614,21 @@
       if (!button) return
       activateTab(button.dataset.tab)
     })
+
+    document.getElementById('teamGoalForm').addEventListener('submit',async event=>{event.preventDefault();const status=document.getElementById('teamGoalStatus');try{const worldId=document.getElementById('teamWorld').value;if(!worldId)throw new Error('Start at least one team-enabled bot first.');const position={x:Number(document.getElementById('teamChestX').value),y:Number(document.getElementById('teamChestY').value),z:Number(document.getElementById('teamChestZ').value)};if(!Object.values(position).every(Number.isFinite))throw new Error('Enter the logistics chest coordinates.');const result=await api('/api/team/goals',{method:'POST',body:JSON.stringify({type:'obtain_iron_ingots',worldId,amount:Number(document.getElementById('teamIronAmount').value),target:{position},requestedBy:'hub-ui'})});status.textContent=`Created ${result.goal.id}`;await refresh()}catch(error){status.textContent=error.message}})
+    document.getElementById('teamTasks').addEventListener('click',async event=>{const button=event.target.closest('[data-cancel-team-task]');if(!button||!confirm('Cancel this team task?'))return;await api(`/api/team/tasks/${encodeURIComponent(button.dataset.cancelTeamTask)}/cancel`,{method:'POST',body:JSON.stringify({confirmed:true})});await refresh()})
+    document.getElementById('teamGoals').addEventListener('click',async event=>{const priorityButton=event.target.closest('[data-save-goal-priority]');if(priorityButton){const id=priorityButton.dataset.saveGoalPriority,priority=Number(document.querySelector(`[data-goal-priority="${CSS.escape(id)}"]`).value);await api(`/api/team/goals/${encodeURIComponent(id)}`,{method:'PATCH',body:JSON.stringify({priority})});return refresh()}const button=event.target.closest('[data-goal-action]');if(!button)return;const action=button.dataset.goalAction;if(action==='cancel'&&!confirm('Cancel this complete team goal and its unfinished tasks?'))return;await api(`/api/team/goals/${encodeURIComponent(button.dataset.goalId)}/${action}`,{method:'POST',body:JSON.stringify({confirmed:action==='cancel'})});await refresh()})
+    document.getElementById('dashboardBotDetails').addEventListener('click',async event=>{const button=event.target.closest('[data-control]');if(!button)return;const action=button.dataset.control,botId=button.closest('[data-bot-id]').dataset.botId,destructive=['reconnect','emergency-stop'].includes(action);if(destructive&&!confirm(`Confirm ${action} for this bot?`))return;try{await api(`/api/team/bots/${encodeURIComponent(botId)}/${action}`,{method:'POST',body:JSON.stringify({confirmed:destructive})});notify(`${action} sent`)}catch(error){notify(error.message,true)}})
+    for(const id of ['taskStatusFilter','taskSkillFilter','taskBotFilter','taskGoalFilter','taskWorldFilter','taskErrorFilter','taskPriorityFilter','taskSort'])document.getElementById(id).addEventListener('input',renderTaskBoard)
+    for(const id of ['eventLevelFilter','eventBotFilter','eventGoalFilter','eventTaskFilter','eventErrorFilter','eventTimeFilter'])document.getElementById(id).addEventListener('input',renderEvents)
+    document.getElementById('dashboardSettingsForm').addEventListener('submit',async event=>{event.preventDefault();await api('/api/config',{method:'POST',body:JSON.stringify({dashboard:{enabled:document.getElementById('dashboardEnabled').value==='true',realtimeEnabled:document.getElementById('dashboardRealtime').value==='true',debugMode:document.getElementById('dashboardDebug').value==='true',allowControlActions:document.getElementById('dashboardControls').value==='true'}})});await refresh();connectDashboardStream();notify('Dashboard settings saved')})
+    document.getElementById('schematicUploadForm').addEventListener('submit',async event=>{event.preventDefault();const file=document.getElementById('schematicFile').files[0],status=document.getElementById('schematicUploadStatus');if(!file)return;try{status.textContent='Uploading and validating…';await api('/api/schematics/upload',{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Schematic-Name':encodeURIComponent(file.name)},body:await file.arrayBuffer()});document.getElementById('schematicFile').value='';status.textContent='Schematic saved.';await refresh()}catch(error){status.textContent=error.message}})
+    document.getElementById('schematicList').addEventListener('click',async event=>{const button=event.target.closest('[data-delete-schematic]');if(!button||!confirm('Delete this stored schematic?'))return;await api(`/api/schematics/${encodeURIComponent(button.dataset.deleteSchematic)}`,{method:'DELETE',body:JSON.stringify({confirmed:true})});await refresh()})
+    document.getElementById('schematicSelect').addEventListener('change',renderSchematicDetails)
+    document.getElementById('schematicPrimaryBot').addEventListener('change',renderSchematicHelpers)
+    for(const id of ['schematicX','schematicY','schematicZ'])document.getElementById(id).addEventListener('input',renderSchematicHelpers)
+    document.getElementById('usePrimaryPosition').addEventListener('click',()=>{const bot=(state.team?.bots||[]).find(value=>value.botId===document.getElementById('schematicPrimaryBot').value);if(!bot?.position)return notify('The primary bot has no live position.',true);document.getElementById('schematicX').value=Math.floor(bot.position.x);document.getElementById('schematicY').value=Math.floor(bot.position.y);document.getElementById('schematicZ').value=Math.floor(bot.position.z);renderSchematicHelpers()})
+    document.getElementById('schematicBuildForm').addEventListener('submit',async event=>{event.preventDefault();const primaryBotId=document.getElementById('schematicPrimaryBot').value,helperBotIds=[...document.querySelectorAll('#schematicHelpers input:checked')].map(input=>input.value),origin={x:Number(document.getElementById('schematicX').value),y:Number(document.getElementById('schematicY').value),z:Number(document.getElementById('schematicZ').value)},schematicId=document.getElementById('schematicSelect').value,status=document.getElementById('schematicBuildStatus');if(!schematicId||!primaryBotId)return status.textContent='Choose a schematic and primary bot.';const names=[primaryBotId,...helperBotIds].map(botName).join(', ');if(!confirm(`Start building with ${names} at ${origin.x}, ${origin.y}, ${origin.z}?`))return;try{const result=await api(`/api/schematics/${encodeURIComponent(schematicId)}/build`,{method:'POST',body:JSON.stringify({primaryBotId,helperBotIds,origin,rotation:Number(document.getElementById('schematicRotation').value)})});status.textContent=`Build sent to ${result.builders.map(bot=>`${bot.name} (${bot.blocks} blocks)`).join(', ')}.`}catch(error){status.textContent=error.message}})
 
     window.addEventListener('hashchange', () => activateTab(location.hash.slice(1) || 'overview', false))
 
@@ -715,13 +767,6 @@
     document.getElementById('startAllBots').addEventListener('click', () => runAllBotsAction('start'))
     document.getElementById('stopAllBots').addEventListener('click', () => runAllBotsAction('stop'))
 
-    async function applyPresetSelection(payload) {
-      const result = await api('/api/presets/apply', { method:'POST', body:JSON.stringify(payload) })
-      const skipped = result.skipped.length ? ` Skipped offline: ${result.skipped.join(', ')}.` : ''
-      notify(`Applied ${result.preset} to ${result.sent.length} bot${result.sent.length === 1 ? '' : 's'}.${skipped}`, Boolean(result.skipped.length && !result.sent.length))
-      return result
-    }
-
     document.getElementById('overviewTable').addEventListener('submit', async event => {
       const form = event.target.closest('.bot-send')
       if (!form) return
@@ -743,10 +788,10 @@
       const inputs = [...document.querySelectorAll('#mergeList input[type="checkbox"]')]
       const selected = inputs.filter(input => input.checked)
       document.getElementById('mergeCount').textContent = `${selected.length} selected`
-      document.getElementById('mergeButton').disabled = selected.length < 2 || selected.length > 5
+      document.getElementById('mergeButton').disabled = selected.length < 2
       for (const input of inputs) {
         const bot = state.bots.find(item => item.id === input.value)
-        input.disabled = Boolean(bot?.status?.running) || (!input.checked && selected.length >= 5)
+        input.disabled = Boolean(bot?.status?.running)
       }
     }
 
@@ -822,67 +867,6 @@
     document.getElementById('addSchedule').addEventListener('click', async () => {
       const schedule = { id:String(Date.now()), time:scheduleTime.value, action:scheduleAction.value, group:scheduleGroup.value, command:scheduleCommand.value, enabled:true }
       if (schedule.time && schedule.group) await saveConfig({ schedules:[...(state.schedules || []), schedule] })
-    })
-    document.getElementById('presetSelect').addEventListener('change', updatePresetTargetUi)
-    document.getElementById('applyPreset').addEventListener('click', async () => {
-      const target = selectedPresetPayload()
-      const payload = {
-        presetId:presetSelect.value,
-        targetType:target.targetType,
-        botIds:target.botIds,
-        group:target.group,
-        player: presetPlayer.value.trim()
-      }
-      await applyPresetSelection(payload)
-    })
-    document.getElementById('savePreset').addEventListener('click', async () => {
-      const editId = customPresetId.value.trim()
-      const name = customPresetName.value.trim()
-      const commands = customPresetCommands.value.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
-      if (!name || !commands.length) return notify('Enter a preset name and at least one command.', true)
-      const id = editId || `custom-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || Date.now()}`
-      const custom = (state.presets || []).filter(preset => !preset.builtIn && preset.id !== id && preset.name.toLowerCase() !== name.toLowerCase())
-      await saveConfig({ presets:[...custom, { id, name, commands, delayMs:Number(customPresetDelay.value), requiresPlayer:commands.some(command => command.includes('{player}')) }] })
-      customPresetId.value = ''
-      customPresetName.value = ''
-      customPresetCommands.value = ''
-      customPresetDelay.value = '0'
-      notify(`Saved preset ${name}.`)
-    })
-    document.getElementById('clearPresetEditor').addEventListener('click', () => {
-      customPresetId.value = ''
-      customPresetName.value = ''
-      customPresetCommands.value = ''
-      customPresetDelay.value = '0'
-    })
-    document.getElementById('presetList').addEventListener('click', async event => {
-      const edit = event.target.closest('[data-preset-edit]')
-      const remove = event.target.closest('[data-preset-delete]')
-      if (edit) {
-        const preset = (state.presets || []).find(item => item.id === edit.dataset.presetEdit)
-        if (!preset || preset.builtIn) return
-        customPresetId.value = preset.id
-        customPresetName.value = preset.name
-        customPresetCommands.value = (preset.commands || []).join('\n')
-        customPresetDelay.value = String(preset.delayMs || 0)
-        return
-      }
-      if (remove) {
-        const preset = (state.presets || []).find(item => item.id === remove.dataset.presetDelete)
-        if (!preset || preset.builtIn || !confirm(`Delete preset ${preset.name}?`)) return
-        await saveConfig({ presets:(state.presets || []).filter(item => !item.builtIn && item.id !== preset.id) })
-        notify(`Deleted preset ${preset.name}.`)
-      }
-    })
-    document.getElementById('presetTargets').addEventListener('change', event => {
-      const changed = event.target.closest('input[type="checkbox"]')
-      if (!changed) return
-      if (changed.value === 'all' && changed.checked) {
-        document.querySelectorAll('#presetTargets input:not([value="all"])').forEach(input => { input.checked = false })
-      } else if (changed.checked) {
-        const all = document.querySelector('#presetTargets input[value="all"]')
-        if (all) all.checked = false
-      }
     })
     document.getElementById('chatTargets').addEventListener('change', event => {
       const changed = event.target.closest('input[type="checkbox"]')
@@ -1118,9 +1102,11 @@
       }
     })
 
+    addPanelInformation()
     activateTab(location.hash.slice(1) || 'overview', false)
-    refresh()
-    setInterval(refresh, 3000)
+    refresh().then(connectDashboardStream)
+    const scheduleStatusRefresh=()=>setTimeout(async()=>{await refresh();scheduleStatusRefresh()},Number(state.dashboard?.statusUpdateIntervalMs||3000))
+    scheduleStatusRefresh()
     setInterval(() => {
       if (document.getElementById('logs').classList.contains('active') && document.getElementById('logBot').value) document.getElementById('refreshLogs').click()
     }, 2000)

@@ -14,7 +14,13 @@
         <button type="button" class="active" data-tab="overview">Overview</button>
         <button type="button" data-tab="bots">Bots</button>
         <button type="button" data-tab="chat">Chat</button>
-        <button type="button" data-tab="presets">Presets</button>
+        <button type="button" data-tab="team">Team Goals</button>
+        <button type="button" data-tab="tasksDashboard">Tasks</button>
+        <button type="button" data-tab="learningDashboard">Skills & Learning</button>
+        <button type="button" data-tab="logisticsDashboard">Inventory & Logistics</button>
+        <button type="button" data-tab="schematicsDashboard">Schematics</button>
+        <button type="button" data-tab="eventsDashboard">Events & Logs</button>
+        <button type="button" data-tab="dashboardSettings">Dashboard Settings</button>
         <button type="button" data-tab="merge">Merge Knowledge</button>
         <button type="button" data-tab="manage">Manage</button>
         <button type="button" data-tab="health">System Health</button>
@@ -34,6 +40,9 @@
       </header>
 
       <section id="overview" class="tab active">
+        <div id="dashboardConnection" class="notice">Dashboard realtime stream connecting…</div>
+        <div id="dashboardMetrics" class="dashboard-metrics"></div>
+        <div id="dashboardWarnings"></div>
         <div class="card-head"><div><h2>All bots</h2><p>Live status received from every available bot dashboard.</p></div><span id="overviewCount" class="pill">0 bots</span></div>
         <div class="overview-actions">
           <button type="button" id="startAllBots">Start all bots</button>
@@ -62,12 +71,59 @@
           <span id="bulkSettingsStatus" class="broadcast-status">Running bots are skipped so their active connection is not interrupted.</span>
         </form>
         <div id="botGrid" class="bot-grid"></div>
+        <div class="card-head"><div><h2>Live bot details</h2><p>Task, skill, inventory, safety and debug information.</p></div></div><div id="dashboardBotDetails"></div>
+      </section>
+
+      <section id="tasksDashboard" class="tab"><div class="toolbar"><select id="taskStatusFilter"><option value="">All statuses</option><option>available</option><option>reserved</option><option>assigned</option><option>running</option><option>blocked</option><option>completed</option><option>failed</option><option>cancelled</option></select><input id="taskSkillFilter" placeholder="Skill"><input id="taskBotFilter" placeholder="Bot ID"><input id="taskGoalFilter" placeholder="Goal ID"><input id="taskWorldFilter" placeholder="World ID"><input id="taskErrorFilter" placeholder="Error code"><input id="taskPriorityFilter" type="number" min="0" max="100" placeholder="Priority"><select id="taskSort"><option value="priority">Highest priority</option><option value="newest">Newest</option><option value="oldest">Oldest</option></select></div><div id="dashboardTaskBoard" class="task-board"></div></section>
+      <section id="learningDashboard" class="tab"><div class="card-head"><div><h2>Skills & Learning</h2><p>Only measured executions and stored experiences are shown.</p></div></div><div id="skillSummary" class="dashboard-metrics"></div><div id="skillCharts" class="skill-charts"></div><div id="skillTable"></div><div class="card-head"><div><h2>Recent experiences</h2></div></div><div id="experienceList"></div></section>
+      <section id="logisticsDashboard" class="tab"><div id="logisticsWarnings"></div><div class="manage-grid"><div class="manage-block stack"><h2>Bot inventories</h2><div id="botInventories"></div></div><div class="manage-block stack"><h2>Verified containers</h2><div id="containerInventory"></div></div><div class="manage-block stack"><h2>Reservations</h2><div id="inventoryReservations"></div></div></div></section>
+      <section id="eventsDashboard" class="tab"><div class="toolbar"><select id="eventLevelFilter"><option value="">All levels</option><option>debug</option><option>info</option><option>success</option><option>warning</option><option>error</option><option>critical</option></select><input id="eventBotFilter" placeholder="Bot ID"><input id="eventGoalFilter" placeholder="Goal ID"><input id="eventTaskFilter" placeholder="Task ID"><input id="eventErrorFilter" placeholder="Error code"><select id="eventTimeFilter"><option value="">All buffered</option><option value="3600000">Last hour</option><option value="86400000">Last 24 hours</option></select></div><div id="dashboardEventFeed" class="event-feed"></div></section>
+      <section id="dashboardSettings" class="tab"><form id="dashboardSettingsForm" class="manage-block stack"><h2>Dashboard configuration</h2><label>Enabled<select id="dashboardEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Realtime<select id="dashboardRealtime"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Debug mode<select id="dashboardDebug"><option value="false">Disabled</option><option value="true">Enabled</option></select></label><label>Control actions<select id="dashboardControls"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><button type="submit">Save dashboard settings</button><p>Control actions outside localhost require the server-side DASHBOARD_TOKEN.</p></form></section>
+
+      <section id="schematicsDashboard" class="tab">
+        <div class="manage-grid">
+          <form id="schematicUploadForm" class="manage-block stack">
+            <h2>Schematic library</h2><p>Sla Sponge `.schem`-bestanden centraal op. Uploads worden gecontroleerd en nooit als code uitgevoerd.</p>
+            <input id="schematicFile" type="file" accept=".schem,application/octet-stream" required>
+            <button type="submit">Upload .schem</button><span id="schematicUploadStatus" class="broadcast-status"></span>
+            <div id="schematicList"></div>
+          </form>
+          <form id="schematicBuildForm" class="manage-block stack">
+            <h2>Build placement</h2><p>X, Y en Z zijn exact het onderste noordwestelijke hoekblok van de schematic. Rotation draait rond dat hoekanker.</p>
+            <label>Schematic<select id="schematicSelect" required></select></label>
+            <label>Primary builder<select id="schematicPrimaryBot" required></select></label>
+            <div class="inline"><label>X<input id="schematicX" type="number" step="1" required></label><label>Y<input id="schematicY" type="number" step="1" required></label><label>Z<input id="schematicZ" type="number" step="1" required></label></div>
+            <label>Rotation<select id="schematicRotation"><option value="0">0°</option><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select></label>
+            <button id="usePrimaryPosition" type="button" class="secondary">Use primary bot position</button>
+            <div><h2>Nearby helpers</h2><p>Online bots op dezelfde server, maximaal 64 blokken van de bouwlocatie. Vink per bot aan of die mee mag helpen.</p><div id="schematicHelpers"></div></div>
+            <button type="submit">Start building</button><span id="schematicBuildStatus" class="broadcast-status"></span>
+          </form>
+          <div class="manage-block stack"><h2>Selected schematic</h2><p>Afmetingen en benodigde materialen komen rechtstreeks uit het bestand.</p><div id="schematicDetails" class="empty">Select a schematic.</div></div>
+        </div>
+      </section>
+
+      <section id="team" class="tab">
+        <div class="manage-grid">
+          <form id="teamGoalForm" class="manage-block stack">
+            <h2>Obtain iron ingots</h2><p>The Hub divides this goal between online bots in the selected world.</p>
+            <label>World<select id="teamWorld"></select></label>
+            <label>Amount<input id="teamIronAmount" type="number" min="1" max="2304" value="16"></label>
+            <label>Logistics chest X<input id="teamChestX" type="number"></label>
+            <label>Logistics chest Y<input id="teamChestY" type="number"></label>
+            <label>Logistics chest Z<input id="teamChestZ" type="number"></label>
+            <button type="submit">Create team goal</button><span id="teamGoalStatus" class="broadcast-status"></span>
+          </form>
+          <div class="manage-block stack"><h2>Active bots</h2><div id="teamBots"></div></div>
+          <div class="manage-block stack"><h2>Goals</h2><div id="teamGoals"></div></div>
+          <div class="manage-block stack"><h2>Tasks and reservations</h2><div id="teamTasks"></div><div id="teamReservations"></div></div>
+          <div class="manage-block stack"><h2>Verified inventory</h2><div id="teamInventory"></div></div>
+        </div>
       </section>
 
       <section id="merge" class="tab">
         <div class="merge-layout">
           <div>
-            <div class="card-head"><div><h2>Select bots</h2><p>Choose between 2 and 5 stopped bots.</p></div><span id="mergeCount" class="pill">0 selected</span></div>
+            <div class="card-head"><div><h2>Select bots</h2><p>Choose at least 2 stopped bots.</p></div><span id="mergeCount" class="pill">0 selected</span></div>
             <div id="mergeList" class="merge-list"></div>
           </div>
           <div class="merge-side">
@@ -94,27 +150,6 @@
           <div class="manage-block stack"><h2>5. Code update</h2><p>Pick the newest bot as Source. Tick stopped bots below, then copy only the program code.</p><label>Source bot<select id="updateSource"></select></label><div id="updateTargets"></div><button id="runUpdate" type="button">Copy code to selected bots</button></div>
           <div class="manage-block stack"><h2>6. Knowledge tools</h2><p>Compare what bots learned, see merge history, or restore the latest backup for one stopped bot.</p><button id="refreshScores" type="button">Compare knowledge</button><div id="scoreList"></div><div id="historyList"></div><select id="restoreBot"></select><button id="restoreKnowledge" type="button">Restore latest backup</button></div>
           <div class="manage-block stack"><h2>7. Copy knowledge</h2><p>Copy learned knowledge from a smarter bot to a stopped, less trained bot. The target gets a backup first.</p><label>Smarter source bot<select id="knowledgeSource"></select></label><label>Dumber target bot<select id="knowledgeTarget"></select></label><button id="copyKnowledge" type="button">Copy knowledge to target</button></div>
-        </div>
-      </section>
-
-      <section id="presets" class="tab">
-        <div class="preset-grid">
-          <div class="manage-block stack">
-            <h2>Apply preset</h2>
-            <label>Preset<select id="presetSelect"></select></label>
-            <div id="presetTargets" class="chat-targets"></div>
-            <input id="presetPlayer" placeholder="Player name for Guard preset">
-            <button id="applyPreset" type="button">Apply preset</button>
-          </div>
-          <div class="manage-block stack">
-            <h2>Preset library</h2>
-            <input id="customPresetId" type="hidden">
-            <input id="customPresetName" placeholder="Custom preset name">
-            <textarea id="customPresetCommands" rows="4" placeholder="One command per line"></textarea>
-            <label>Delay between commands<select id="customPresetDelay"><option value="0">No delay</option><option value="500">0.5 seconds</option><option value="1000">1 second</option><option value="2000">2 seconds</option><option value="5000">5 seconds</option></select></label>
-            <div class="inline"><button id="savePreset" type="button">Save custom preset</button><button id="clearPresetEditor" type="button" class="secondary">Clear editor</button></div>
-            <div id="presetList" class="preset-list"></div>
-          </div>
         </div>
       </section>
 

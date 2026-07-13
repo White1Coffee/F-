@@ -22,6 +22,8 @@ echo Stopping Discord bridge PID %DISCORD_PID%...
 taskkill /PID %DISCORD_PID% /T /F >nul 2>nul
 if errorlevel 1 (
   echo Discord bridge was not found or could not be stopped.
+  del "%PID_FILE%" >nul 2>nul
+  exit /b 1
 ) else (
   echo Discord bridge stopped.
 )

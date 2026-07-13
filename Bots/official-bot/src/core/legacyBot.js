@@ -28,6 +28,8 @@ const { FeedbackService } = require('../services/feedbackService')
 const { RankingService } = require('../services/rankingService')
 const { WorldScanner } = require('../systems/worldScanner')
 const { ItemPickupSystem } = require('../systems/itemPickupSystem')
+const { TeamClient } = require('../team/teamClient')
+const { rankBotsForPassage } = require('../team/conflictResolver')
 const { TaskManager, PRIORITY } = require('./taskManager')
 const { SkillRegistry } = require('../skills/skillRegistry')
 const { registerVerticalSkills } = require('../skills/verticalSkills')
@@ -41,7 +43,8 @@ const { ErrorCodes } = require('../recovery/errorCodes')
 const APP_TIME_ZONE = 'Europe/Amsterdam'
 const SUPPORTED_MINECRAFT_VERSIONS = [...minecraftProtocol.supportedVersions].reverse()
 process.env.TZ ||= APP_TIME_ZONE
-const APP_ROOT = path.resolve(__dirname, '../..')
+// Info: Gekloonde bots kunnen dezelfde productiecode gebruiken met volledig gescheiden runtime-data.
+const APP_ROOT = path.resolve(process.env.BOT_APP_ROOT || path.resolve(__dirname, '../..'))
 const botSettingsFile = path.join(APP_ROOT, 'bot-settings.json')
 
 function defaultBotSettings() {
@@ -394,6 +397,7 @@ let workerStopping = false
 const stopWorkerGracefully = async signal => {
   if (workerStopping) return
   workerStopping = true
+  teamClient?.close?.()
   await reliableTaskManager?.close?.(`worker ${signal}`).catch(() => {})
   await flushJsonWrites()
   process.exit(signal === 'SIGINT' ? 130 : 0)
@@ -713,6 +717,9 @@ const state = {
   lastCoordinationWriteAt: 0,
   idleAutonomySince: 0,
   coordinationSpreadUntil: 0,
+  teamPeers: [],
+  teamConflictSince: 0,
+  teamYieldUntil: 0,
   routeStartedAt: 0,
   manualPriorityUntil: 0,
   spawnedAt: 0,
@@ -858,17 +865,20 @@ const skillRegistry = registerVerticalSkills(new SkillRegistry(), {
   ensureSafety: async () => bot.health >= botSettings.safety.minimumHealth ? skillResult.success() : (await eliteEmergencySurvival() ? skillResult.success() : skillResult.failure(ErrorCodes.LOW_HEALTH, true)),
   findFood: async () => (bot.food >= botSettings.safety.minimumFood || bot.inventory.items().some(item => isFood(item.name))) ? skillResult.success() : (await eliteAcquireFood(), bot.inventory.items().some(item => isFood(item.name)) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
   eat: async () => bot.food >= botSettings.safety.minimumFood ? skillResult.success() : (await eatFoodIfNeeded({ force: true }) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
-  collectWood: async () => (await ensureWood(), bot.inventory.items().some(item => item.name.endsWith('_log')) ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
+  collectWood: async context => context.target?.amount ? gatherTeamItems(context, context.target.item || 'oak_log') : (await ensureWood(), bot.inventory.items().some(item => item.name.endsWith('_log')) ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
   craftPlanks: async () => (await craftAvailablePlanks(), bot.inventory.items().some(item => item.name.endsWith('_planks')) ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
   craftCraftingTable: async () => hasItem('crafting_table') ? skillResult.success() : (await craftSmart('crafting_table') ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
-  craftTool: async () => hasItem('stone_pickaxe') ? skillResult.success() : (await craftSmart(itemCount('cobblestone') >= 3 ? 'stone_pickaxe' : 'wooden_pickaxe') ? skillResult.success() : skillResult.failure(ErrorCodes.NO_TOOL, true)),
-  collectStone: async () => (await ensureCobblestone(8), itemCount('cobblestone') >= 8 ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
+  craftTool: async context => { const wanted=context.target?.item||(itemCount('cobblestone')>=3?'stone_pickaxe':'wooden_pickaxe');return hasItem(wanted)?skillResult.success():(await craftSmart(wanted)?skillResult.success():skillResult.failure(ErrorCodes.NO_TOOL,true)) },
+  collectStone: async context => context.target?.amount ? gatherTeamItems(context, context.target.item || 'cobblestone') : (await ensureCobblestone(8), itemCount('cobblestone') >= 8 ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
   craftFurnace: async () => hasItem('furnace') || await hasAvailableFurnace() ? skillResult.success() : (await craftSmart('furnace') ? skillResult.success() : skillResult.failure(ErrorCodes.CRAFT_FAILED, true)),
-  mineResource: async () => { const before=itemCount('raw_iron'); await gatherForProgression('raw_iron', Math.max(1, 3-before)); return itemCount('raw_iron')>before?skillResult.success():skillResult.failure(ErrorCodes.TARGET_MISSING,true) },
-  smeltItem: async () => { const before=itemCount('iron_ingot'); await smeltStep('raw_iron','iron_ingot',Math.max(1,itemCount('raw_iron'))); return itemCount('iron_ingot')>before?skillResult.success():skillResult.failure(ErrorCodes.SMELT_FAILED,true) },
+  mineResource: async context => context.target?.amount ? gatherTeamItems(context, context.target.item || 'raw_iron') : gatherTeamItems({ ...context,target:{item:'raw_iron',amount:3} },'raw_iron'),
+  smeltItem: async context => { const wanted=Math.max(1,Number(context.target?.amount||itemCount('raw_iron')));if(itemCount('iron_ingot')>=wanted)return skillResult.success();await ensureSmelted('raw_iron','iron_ingot',wanted);return itemCount('iron_ingot')>=wanted?skillResult.success():skillResult.failure(ErrorCodes.SMELT_FAILED,true,{expected:wanted,actual:itemCount('iron_ingot')}) },
   returnHome: async () => await goHome() !== false ? skillResult.success() : skillResult.failure(ErrorCodes.PATH_FAILED, true),
-  storeItems: async () => await depositInventory(false) !== false ? skillResult.success() : skillResult.failure(ErrorCodes.VALIDATION_FAILED, true)
+  storeItems: async context => context.destination && context.target?.item
+    ? depositTeamItems(context.target, context.destination)
+    : await depositInventory(false) !== false ? skillResult.success() : skillResult.failure(ErrorCodes.VALIDATION_FAILED, true)
 })
+skillRegistry.register({name:'buildSchematic',description:'Builds an approved .schem assignment at exact coordinates.',goals:['build_schematic'],requirements:[],timeoutMs:600000,maxRetries:1,version:1,execute:buildSchematicAssignment,validate:context=>context.result})
 const reliableTaskManager = new TaskManager({ registry: skillRegistry, taskTimeoutMs: botSettings.learning.taskTimeoutMs })
 const curriculum = new Curriculum(learnedStore.data.skillStats, { enabled: botSettings.learning.curriculumEnabled, minimumSuccesses: botSettings.learning.minimumCurriculumSuccesses, minimumSuccessRate: botSettings.learning.minimumSkillSuccessRate })
 reliableTaskManager.on('complete', task => {
@@ -897,6 +907,39 @@ const itemPickupSystem = new ItemPickupSystem(bot, {
     position: `${entry.entity.position.x.toFixed(1)} ${entry.entity.position.y.toFixed(1)} ${entry.entity.position.z.toFixed(1)}`
   }),
   onCollected: entry => bumpKnowledgeStat('items', 'pickedUp', entry.name || 'unknown')
+})
+
+// Info: De teamclient gebruikt dezelfde lokale TaskManager en skill registry; er ontstaat geen tweede planner.
+const teamClient = new TeamClient({
+  bot,
+  botId: process.env.BOT_ID || path.basename(APP_ROOT),
+  botType: process.env.BOT_TYPE || path.basename(APP_ROOT),
+  worldId: identity.worldId,
+  minecraft: { host:minecraftHost,port:minecraftPort,version:minecraftVersion },
+  registry: skillRegistry,
+  taskManager: reliableTaskManager,
+  heartbeatIntervalMs: Number(process.env.TEAM_HEARTBEAT_INTERVAL_MS || 3000),
+  enabled: process.env.TEAM_ENABLED !== '0',
+  currentDimension,
+  inventorySummary: () => Object.fromEntries(bot.inventory.items().map(item => [item.name,itemCount(item.name)])),
+  skillStats: () => learnedStore.data.skillStats,
+  safetyState: () => bot.health < botSettings.safety.minimumHealth || state.combatRetreating ? 'unsafe' : 'safe'
+  ,onPeers: peers => { state.teamPeers = peers }
+  ,handleControl: async (action, payload = {}) => {
+    if(action==='pause'){reliableTaskManager.pause();return true}
+    if(action==='resume'){reliableTaskManager.resume();return true}
+    if(action==='cancel-task'){return reliableTaskManager.cancelActive('dashboard cancellation')}
+    if(action==='return-home'){reliableTaskManager.enqueue({name:'dashboard:return-home',goal:'return_home',source:'dashboard',priority:65,plan:['returnHome']});return true}
+    if(action==='idle'){reliableTaskManager.cancelAll('dashboard idle');stopEverything();return true}
+    if(action==='emergency-stop'){reliableTaskManager.cancelAll('dashboard emergency stop');stopEverything();return true}
+    if(action==='reconnect'){reliableTaskManager.cancelAll('dashboard reconnect');rejoinServer();return true}
+    if(action==='build-schematic'){
+      if(!Array.isArray(payload.blocks)||!payload.origin)throw new Error('INVALID_SCHEMATIC_TASK')
+      reliableTaskManager.enqueue({name:`schematic:${payload.schematicName||payload.schematicId}`,goal:'build_schematic',source:'dashboard',priority:70,context:{target:{blocks:payload.blocks,origin:payload.origin,schematicId:payload.schematicId}},plan:['buildSchematic']})
+      return true
+    }
+    return false
+  }
 })
 
 const commands = [
@@ -4801,6 +4844,19 @@ async function pickupNearbyUsefulDrop() {
   return result.success
 }
 
+// Info: Een team-gatherskill wacht op de echte inventoryhoeveelheid en blijft annuleerbaar door survival.
+async function gatherTeamItems(context, fallbackItem) {
+  const item = normalizeItemName(context.target?.item || fallbackItem)
+  const amount = Math.max(1, Number(context.target?.amount || 1))
+  if (itemCount(item) >= amount) return skillResult.success({ item,amount })
+  startGatherTask(`ai gather ${item} ${amount}`)
+  const startedAt=Date.now()
+  while (!context.signal?.aborted && itemCount(item)<amount && Date.now()-startedAt<170000) await sleep(750)
+  if (state.gatherTask?.item===item) { state.gatherTask=null;if(state.mode==='gather')state.mode='idle' }
+  if (context.signal?.aborted) return skillResult.failure(ErrorCodes.CANCELLED,true,{item,actual:itemCount(item)})
+  return itemCount(item)>=amount?skillResult.success({item,amount}):skillResult.failure(ErrorCodes.TARGET_MISSING,true,{item,expected:amount,actual:itemCount(item)})
+}
+
 async function mineNearbyNeededResource() {
   const task = activeResourceTask()
   if (!task || state.unstucking || state.recovering) return false
@@ -7155,6 +7211,61 @@ function logActionError(action, err) {
   recordChat('system', 'Runtime', `${action}: ${message}`)
 }
 
+// Info: Deze high-level skill bouwt alleen de door de Hub toegewezen schematicblokken en valideert ieder doelblok in Minecraft.
+async function buildSchematicAssignment(context = {}) {
+  const origin=context.target?.origin,blocks=Array.isArray(context.target?.blocks)?context.target.blocks:[]
+  if(!origin||!blocks.length)return skillResult.failure(ErrorCodes.TARGET_MISSING,false)
+  const pending=blocks.map(block=>({...block,target:new Vec3(Number(origin.x)+block.x,Number(origin.y)+block.y,Number(origin.z)+block.z)})).sort((a,b)=>a.target.y-b.target.y)
+  let placed=0
+  for(let pass=0;pass<3&&pending.length;pass++){
+    let progress=0
+    for(let index=pending.length-1;index>=0;index--){
+      if(context.signal?.aborted)return skillResult.failure(ErrorCodes.CANCELLED,false,{placed,remaining:pending.length})
+      if(bot.health<botSettings.safety.minimumHealth)return skillResult.failure(ErrorCodes.UNSAFE_ENVIRONMENT,true,{placed,remaining:pending.length})
+      const entry=pending[index],current=bot.blockAt(entry.target)
+      if(current?.name===entry.name){pending.splice(index,1);continue}
+      if(current&&current.name!=='air'&&current.boundingBox!=='empty')continue
+      const item=bot.inventory.items().find(value=>value.name===entry.name)
+      if(!item)continue
+      if(entry.target.distanceTo(bot.entity.position)>4.5&&!await safeGoto(new goals.GoalNear(entry.target.x,entry.target.y,entry.target.z,3),`schematic:${entry.name}`,false))continue
+      const faces=[new Vec3(0,1,0),new Vec3(0,-1,0),new Vec3(1,0,0),new Vec3(-1,0,0),new Vec3(0,0,1),new Vec3(0,0,-1)]
+      const face=faces.find(direction=>{const reference=bot.blockAt(entry.target.minus(direction));return reference&&reference.boundingBox==='block'})
+      if(!face)continue
+      try{await bot.equip(item,'hand');await bot.placeBlock(bot.blockAt(entry.target.minus(face)),face);if(bot.blockAt(entry.target)?.name===entry.name){pending.splice(index,1);placed++;progress++}}catch{}
+    }
+    if(!progress)break
+  }
+  if(!pending.length)return skillResult.success({placed,schematicId:context.target.schematicId})
+  const missing=[...new Set(pending.filter(entry=>!bot.inventory.items().some(item=>item.name===entry.name)).map(entry=>entry.name))]
+  return skillResult.failure(missing.length?ErrorCodes.TARGET_MISSING:ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:pending.length,missingMaterials:missing})
+}
+
+// Info: Teamlogistiek gebruikt een expliciete wereldgebonden kist en valideert de echte containerinhoud.
+async function depositTeamItems(target, destination) {
+  const amount = Math.max(1, Number(target.amount || 1))
+  const beforeInventory = itemCount(target.item)
+  if (beforeInventory < amount) return skillResult.failure(ErrorCodes.INSUFFICIENT_ITEMS, true, { expected:amount,actual:beforeInventory })
+  const position = new Vec3(Number(destination.x), Number(destination.y), Number(destination.z))
+  if (!await safeGoto(new goals.GoalNear(position.x, position.y, position.z, 2), 'team logistics chest')) return skillResult.failure(ErrorCodes.PATH_FAILED, true)
+  const block = bot.blockAt(position)
+  if (!block || !['chest','barrel','trapped_chest'].includes(block.name)) return skillResult.failure(ErrorCodes.TARGET_MISSING, true, { position:positionData(position) })
+  let container
+  try {
+    container = await bot.openContainer(block)
+    const beforeContainer = container.containerItems().filter(item => item.name === target.item).reduce((sum,item)=>sum+item.count,0)
+    const inventoryItem = bot.inventory.items().find(item => item.name === target.item)
+    await container.deposit(inventoryItem.type, inventoryItem.metadata ?? null, amount)
+    const contents = Object.fromEntries(container.containerItems().map(item => [item.name, container.containerItems().filter(entry=>entry.name===item.name).reduce((sum,entry)=>sum+entry.count,0)]))
+    const afterContainer = Number(contents[target.item] || 0)
+    const afterInventory = itemCount(target.item)
+    if (afterContainer < beforeContainer + amount || afterInventory > beforeInventory - amount) return skillResult.failure(ErrorCodes.VALIDATION_FAILED, true, { beforeContainer,afterContainer,beforeInventory,afterInventory })
+    rememberContainerContents(block, container)
+    return skillResult.success({ container:{ id:`${identity.worldId}:${block.name}:${position.x}:${position.y}:${position.z}`,worldId:identity.worldId,position:positionData(position),type:block.name,contents } }, { itemsGained:{} })
+  } catch (error) {
+    return skillResult.failure(ErrorCodes.VALIDATION_FAILED, true, { error:error.message })
+  } finally { try { container?.close() } catch {} }
+}
+
 function plannerTaskControllerBlocked() {
   const active = taskController.active
   if (!active) return false
@@ -7762,6 +7873,9 @@ async function runCoordinationStep() {
   refreshCoordinationPeers()
   publishCoordinationPresence()
 
+  // Info: Teampeers uit de Hub hebben voorrang op de oudere file-based nabijheidsdetectie.
+  if (await avoidTeamBlocking()) return
+
   compactMiningKnowledgeIfNeeded()
 
   if (autonomy.enabled && state.mode === 'idle' && !state.hardStopped) {
@@ -7793,6 +7907,28 @@ async function runCoordinationStep() {
   state.exploreNextAt = Date.now() + 20000
   setCurrentTask('moving', 'spreading away from nearby bots', { position: `${target.x} ${target.y} ${target.z}` })
   bot.pathfinder.setGoal(new goals.GoalNear(target.x, target.y, target.z, 4))
+}
+
+async function avoidTeamBlocking() {
+  if (!bot.entity || Date.now() < state.teamYieldUntil) return false
+  const peers = (state.teamPeers || []).filter(peer => peer.position?.dimension === currentDimension() && coordinationPosition(peer.position)?.distanceTo(bot.entity.position) <= 2.5)
+  if (!peers.length) { state.teamConflictSince = 0; return false }
+  state.teamConflictSince ||= Date.now()
+  if (Date.now() - state.teamConflictSince < 5000) return false
+  const own = { botId:teamClient.botId,priority:Number(teamClient.activeTeamTask?.priority||0),destination:teamClient.activeTeamTask?.destination,position:positionData(bot.entity.position),hasObjectReservation:teamClient.activeReservation }
+  const contenders = rankBotsForPassage([own,...peers.map(peer=>({botId:peer.botId,priority:Number(peer.teamTaskPriority||0),destination:peer.teamDestination,position:peer.position,hasObjectReservation:peer.hasObjectReservation}))])
+  if (contenders[0].botId === own.botId) return false
+  state.teamYieldUntil = Date.now() + 3000
+  state.teamConflictSince = 0
+  try { bot.pathfinder.setGoal(null) } catch {}
+  bot.clearControlStates()
+  const winner = peers.find(peer=>peer.botId===contenders[0].botId)
+  const awayFrom = coordinationPosition(winner?.position) || bot.entity.position.offset(1,0,0)
+  const delta = bot.entity.position.minus(awayFrom); const length=Math.max(.1,Math.hypot(delta.x,delta.z))
+  const target=bot.entity.position.offset((delta.x/length)*3,0,(delta.z/length)*3)
+  setCurrentTask('team_yield',`yielding to ${contenders[0].botId}`,{position:`${target.x.toFixed(1)} ${target.y.toFixed(1)} ${target.z.toFixed(1)}`})
+  try { await safeGoto(new goals.GoalNear(target.x,target.y,target.z,1),'team path conflict yield') } catch {}
+  return true
 }
 
 function compactMiningKnowledgeIfNeeded() {
@@ -8291,6 +8427,7 @@ function updateHud() {
     currentPlan: reliableTaskManager.status().currentPlan,
     safetyState: bot.health < botSettings.safety.minimumHealth ? 'unsafe' : 'safe',
     curriculum: { enabled: curriculum.enabled, unlocked: curriculum.unlocked(), next: curriculum.next() },
+    team: { enabled: teamClient.enabled, botId:teamClient.botId,instanceId:teamClient.instanceId,worldId:teamClient.worldId,activeTask:teamClient.activeTeamTask },
     taskLog: state.taskLog,
     miningTask: state.miningTask,
     hitmanTask: state.hitmanTask,
@@ -8357,6 +8494,7 @@ function updateHud() {
 addRuntimeInterval(updateHud, hudIntervalMs)
 
 io.on('connection', socket => {
+  teamClient.attach(socket)
   updateHud()
 
   socket.on('command', cmd => {

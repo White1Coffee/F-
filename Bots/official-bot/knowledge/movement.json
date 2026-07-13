@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-12T22:05:42+02:00",
+  "updatedAt": "2026-07-13T01:43:17+02:00",
   "rules": {
     "unstuckTimeoutMs": 12000,
     "actionTimeoutMs": 30000,
@@ -83,21 +83,21 @@
     "cherry_planks"
   ],
   "stats": {
-    "stuckEvents": 1844973,
-    "unstuckAttempts": 1844973,
-    "holesEscaped": 111028,
+    "stuckEvents": 1844985,
+    "unstuckAttempts": 1844985,
+    "holesEscaped": 111030,
     "bridgesBuilt": 1601,
     "bridgeBlocksPlaced": 13430,
     "existingBridgeSteps": 2107,
     "upwardBridgeSteps": 801,
     "speedBridgeSteps": 626,
     "bridgeFailures": 27077,
-    "voidStops": 2815928,
+    "voidStops": 2816359,
     "watchdogResets": 111936,
-    "watchdogPathResets": 260424,
+    "watchdogPathResets": 260427,
     "watchdogAutonomyRestarts": 29532,
-    "watchdogWakes": 1541766,
-    "actionRecoveryRequests": 37243,
+    "watchdogWakes": 1541768,
+    "actionRecoveryRequests": 37254,
     "pillarsBuilt": 2286
   },
   "learning": {
@@ -2235,44 +2235,44 @@
       },
       "farm": {
         "score": -50,
-        "attempts": 241176,
-        "successes": 165253,
-        "failures": 75923,
+        "attempts": 241204,
+        "successes": 165255,
+        "failures": 75949,
         "notes": [
           {
-            "at": "2026-07-12T22:02:52+02:00",
+            "at": "2026-07-13T01:25:06+02:00",
             "note": "stuck recovery requested action cancellation"
           },
           {
-            "at": "2026-07-12T22:01:42+02:00",
-            "note": "stuck detected"
-          },
-          {
-            "at": "2026-07-12T22:01:06+02:00",
+            "at": "2026-07-13T01:24:26+02:00",
             "note": "stuck recovery requested action cancellation"
           },
           {
-            "at": "2026-07-12T22:00:35+02:00",
-            "note": "stuck recovery requested action cancellation"
-          },
-          {
-            "at": "2026-07-12T21:59:40+02:00",
-            "note": "stuck detected"
-          },
-          {
-            "at": "2026-07-12T21:59:24+02:00",
-            "note": "stuck detected"
-          },
-          {
-            "at": "2026-07-12T21:59:06+02:00",
-            "note": "stuck detected"
-          },
-          {
-            "at": "2026-07-12T21:58:55+02:00",
+            "at": "2026-07-13T01:23:46+02:00",
             "note": "watchdog requested action cancellation"
+          },
+          {
+            "at": "2026-07-13T01:23:38+02:00",
+            "note": "stuck detected"
+          },
+          {
+            "at": "2026-07-13T01:23:16+02:00",
+            "note": "stuck detected"
+          },
+          {
+            "at": "2026-07-13T01:23:06+02:00",
+            "note": "stuck recovery requested action cancellation"
+          },
+          {
+            "at": "2026-07-13T01:22:10+02:00",
+            "note": "watchdog requested action cancellation"
+          },
+          {
+            "at": "2026-07-13T01:21:49+02:00",
+            "note": "stuck detected"
           }
         ],
-        "updatedAt": "2026-07-12T22:02:52+02:00"
+        "updatedAt": "2026-07-13T01:25:06+02:00"
       },
       "defense:pillager": {
         "score": -100,
@@ -4656,44 +4656,44 @@
     "survival": {
       "drowning_escape": {
         "score": 100,
-        "attempts": 812,
-        "successes": 812,
+        "attempts": 852,
+        "successes": 852,
         "failures": 0,
         "notes": [
           {
-            "at": "2026-07-12T22:05:42+02:00",
-            "note": "surfacing with oxygen 15"
+            "at": "2026-07-13T01:22:45+02:00",
+            "note": "surfacing with oxygen 10"
           },
           {
-            "at": "2026-07-12T22:05:41+02:00",
+            "at": "2026-07-13T01:22:43+02:00",
             "note": "surfacing with oxygen 12"
           },
           {
-            "at": "2026-07-12T22:05:41+02:00",
-            "note": "surfacing with oxygen 8"
+            "at": "2026-07-13T01:22:43+02:00",
+            "note": "surfacing with oxygen 13"
           },
           {
-            "at": "2026-07-12T22:05:40+02:00",
-            "note": "surfacing with oxygen 5"
+            "at": "2026-07-13T01:22:42+02:00",
+            "note": "surfacing with oxygen 14"
           },
           {
-            "at": "2026-07-12T22:05:39+02:00",
-            "note": "surfacing with oxygen 6"
-          },
-          {
-            "at": "2026-07-12T22:02:57+02:00",
-            "note": "surfacing with oxygen 16"
-          },
-          {
-            "at": "2026-07-12T22:02:44+02:00",
+            "at": "2026-07-13T01:22:41+02:00",
             "note": "surfacing with oxygen 15"
           },
           {
-            "at": "2026-07-12T22:02:43+02:00",
-            "note": "surfacing with oxygen 14"
+            "at": "2026-07-13T01:22:41+02:00",
+            "note": "surfacing with oxygen 16"
+          },
+          {
+            "at": "2026-07-13T01:22:40+02:00",
+            "note": "surfacing with oxygen 16"
+          },
+          {
+            "at": "2026-07-13T01:22:15+02:00",
+            "note": "surfacing with oxygen 16"
           }
         ],
-        "updatedAt": "2026-07-12T22:05:42+02:00"
+        "updatedAt": "2026-07-13T01:22:45+02:00"
       }
     }
   }

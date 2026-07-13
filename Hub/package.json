@@ -6,7 +6,7 @@
   "main": "hub.js",
   "scripts": {
     "start": "node hub.js",
-    "test": "node --check hub.js && node --check src/knowledge-merge.js"
+    "test": "node --check hub.js && node --test"
   },
   "dependencies": {
     "express": "^5.2.1",

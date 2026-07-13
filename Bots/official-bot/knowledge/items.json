@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-12T22:04:48+02:00",
+  "updatedAt": "2026-07-13T01:43:40+02:00",
   "categories": {
     "alwaysKeep": [
       "blaze_rod",
@@ -140,7 +140,9 @@
       "netherite_boots": 2,
       "cooked_chicken": 2,
       "potato": 1,
-      "jungle_planks": 47
+      "jungle_planks": 47,
+      "wheat": 5,
+      "wheat_seeds": 3
     }
   }
 }

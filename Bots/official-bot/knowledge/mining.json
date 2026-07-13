@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-12T22:07:55+02:00",
+  "updatedAt": "2026-07-13T01:43:40+02:00",
   "rules": {
     "visibleBlockPriority": true,
     "maxSearchDistance": 64,
@@ -2165,18 +2165,6 @@
       "seenAt": "2026-07-07T12:42:37+02:00",
       "mined": false
     },
-    "dark_oak_log:-431,70,-374": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 70,
-        "z": -374
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T07:15:46+02:00",
-      "mined": false
-    },
     "dark_oak_log:-431,69,-373": {
       "block": "dark_oak_log",
       "item": "logs",
@@ -2211,42 +2199,6 @@
       },
       "chunk": "-27,-24",
       "seenAt": "2026-07-07T12:42:37+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-428,68,-364": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -428,
-        "y": 68,
-        "z": -364
-      },
-      "chunk": "-27,-23",
-      "seenAt": "2026-07-07T07:15:24+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-431,68,-362": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 68,
-        "z": -362
-      },
-      "chunk": "-27,-23",
-      "seenAt": "2026-07-07T07:15:24+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-429,68,-363": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -429,
-        "y": 68,
-        "z": -363
-      },
-      "chunk": "-27,-23",
-      "seenAt": "2026-07-07T07:15:24+02:00",
       "mined": false
     },
     "dark_oak_log:-435,70,-382": {
@@ -2547,66 +2499,6 @@
       },
       "chunk": "-22,-24",
       "seenAt": "2026-07-07T12:59:40+02:00",
-      "mined": false
-    },
-    "mushroom_stem:-428,66,-378": {
-      "block": "mushroom_stem",
-      "item": "logs",
-      "position": {
-        "x": -428,
-        "y": 66,
-        "z": -378
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T07:15:46+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-431,67,-374": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 67,
-        "z": -374
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T07:15:46+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-431,68,-373": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 68,
-        "z": -373
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T12:42:37+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-431,68,-374": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 68,
-        "z": -374
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T07:15:46+02:00",
-      "mined": false
-    },
-    "dark_oak_log:-431,69,-374": {
-      "block": "dark_oak_log",
-      "item": "logs",
-      "position": {
-        "x": -431,
-        "y": 69,
-        "z": -374
-      },
-      "chunk": "-27,-24",
-      "seenAt": "2026-07-07T07:15:46+02:00",
       "mined": false
     },
     "dark_oak_log:-345,68,-382": {
@@ -16492,6 +16384,114 @@
       "chunk": "-11,1",
       "seenAt": "2026-07-12T22:07:06+02:00",
       "mined": false
+    },
+    "coal_ore:-327,43,72": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -327,
+        "y": 43,
+        "z": 72
+      },
+      "chunk": "-21,4",
+      "seenAt": "2026-07-12T22:11:37+02:00",
+      "mined": false
+    },
+    "iron_ore:-331,46,64": {
+      "block": "iron_ore",
+      "item": "raw_iron",
+      "position": {
+        "x": -331,
+        "y": 46,
+        "z": 64
+      },
+      "chunk": "-21,4",
+      "seenAt": "2026-07-12T22:11:45+02:00",
+      "mined": false
+    },
+    "iron_ore:-331,46,63": {
+      "block": "iron_ore",
+      "item": "raw_iron",
+      "position": {
+        "x": -331,
+        "y": 46,
+        "z": 63
+      },
+      "chunk": "-21,3",
+      "seenAt": "2026-07-12T22:11:45+02:00",
+      "mined": false
+    },
+    "iron_ore:-330,46,63": {
+      "block": "iron_ore",
+      "item": "raw_iron",
+      "position": {
+        "x": -330,
+        "y": 46,
+        "z": 63
+      },
+      "chunk": "-21,3",
+      "seenAt": "2026-07-12T22:11:45+02:00",
+      "mined": false
+    },
+    "coal_ore:-351,51,69": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -351,
+        "y": 51,
+        "z": 69
+      },
+      "chunk": "-22,4",
+      "seenAt": "2026-07-12T22:11:46+02:00",
+      "mined": false
+    },
+    "coal_ore:-352,51,70": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -352,
+        "y": 51,
+        "z": 70
+      },
+      "chunk": "-22,4",
+      "seenAt": "2026-07-12T22:11:46+02:00",
+      "mined": false
+    },
+    "coal_ore:-357,54,114": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -357,
+        "y": 54,
+        "z": 114
+      },
+      "chunk": "-23,7",
+      "seenAt": "2026-07-13T00:31:41+02:00",
+      "mined": false
+    },
+    "coal_ore:-358,54,114": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -358,
+        "y": 54,
+        "z": 114
+      },
+      "chunk": "-23,7",
+      "seenAt": "2026-07-13T00:31:41+02:00",
+      "mined": false
+    },
+    "coal_ore:-359,54,114": {
+      "block": "coal_ore",
+      "item": "coal",
+      "position": {
+        "x": -359,
+        "y": 54,
+        "z": 114
+      },
+      "chunk": "-23,7",
+      "seenAt": "2026-07-13T00:31:41+02:00",
+      "mined": false
     }
   },
   "oreHeatmap": {
@@ -22422,6 +22422,46 @@
       "mined": 0,
       "failures": 0,
       "lastSeenAt": "2026-07-12T22:07:06+02:00"
+    },
+    "coal:-21,4": {
+      "item": "coal",
+      "chunk": "-21,4",
+      "sightings": 1,
+      "mined": 0,
+      "failures": 0,
+      "lastSeenAt": "2026-07-12T22:11:37+02:00"
+    },
+    "raw_iron:-21,4": {
+      "item": "raw_iron",
+      "chunk": "-21,4",
+      "sightings": 1,
+      "mined": 0,
+      "failures": 0,
+      "lastSeenAt": "2026-07-12T22:11:45+02:00"
+    },
+    "raw_iron:-21,3": {
+      "item": "raw_iron",
+      "chunk": "-21,3",
+      "sightings": 2,
+      "mined": 0,
+      "failures": 0,
+      "lastSeenAt": "2026-07-12T22:11:45+02:00"
+    },
+    "coal:-22,4": {
+      "item": "coal",
+      "chunk": "-22,4",
+      "sightings": 2,
+      "mined": 0,
+      "failures": 0,
+      "lastSeenAt": "2026-07-12T22:11:46+02:00"
+    },
+    "coal:-23,7": {
+      "item": "coal",
+      "chunk": "-23,7",
+      "sightings": 3,
+      "mined": 0,
+      "failures": 0,
+      "lastSeenAt": "2026-07-13T00:31:41+02:00"
     }
   }
 }

@@ -7,6 +7,11 @@ set "SERVER_DIR=%~dp0minecraft-java-server"
 set "PID_FILE=%SERVER_DIR%\server.pid"
 set "MANAGER_PID_FILE=%SERVER_DIR%\server-manager.pid"
 
+if not exist "%SERVER_DIR%" (
+  echo Minecraft server directory was not found: %SERVER_DIR%
+  exit /b 1
+)
+
 powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ^
   "try { Invoke-RestMethod -Uri 'http://127.0.0.1:3101/api/stop' -Method Post -Body '{}' -ContentType 'application/json' -TimeoutSec 12 | Out-Null; Write-Host 'Stop command sent through server manager.' } catch { Write-Host 'Server manager stop failed, using PID fallback.' }"
 
@@ -50,4 +55,5 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ^
   "  Write-Host 'No running Minecraft server manager was found.'" ^
   "}"
 
+echo Minecraft server and manager stop sequence completed.
 endlocal

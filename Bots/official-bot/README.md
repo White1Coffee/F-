@@ -2,6 +2,12 @@
 
 ## Betrouwbare taak- en learninglaag
 
+## Live teamsamenwerking
+
+Wanneer de bot via de Hub draait, registreert hij `BOT_ID`, een unieke runtime `instanceId`, capabilities, skillversies en zijn geïsoleerde `worldId`. Heartbeats en teamopdrachten lopen over de bestaande HUD-Socket.IO-server. Teamtaken worden geaccepteerd en via dezelfde lokale `TaskManager` en geregistreerde skills uitgevoerd.
+
+`bot1`, `bot2` en `WC_Tester` behouden hun bestaande `bot.js`-entrypoint maar laden dezelfde productie-runtime. Iedere map houdt eigen settings, authenticatieprofielen, knowledge en worlds via `BOT_APP_ROOT`.
+
 `bot.js` blijft het compatibele entrypoint. De bestaande runtime gebruikt daarnaast een centrale `TaskManager` voor plannerwerk: één actieve hoofdtaak, een prioriteitsqueue, preëmptie, `AbortController`-cancellation, timeouts en maximaal drie gewijzigde pogingen. De planner kiest alleen geregistreerde high-level skills; Mineflayer en pathfinder voeren de lage acties uit.
 
 Geleerde records staan in `knowledge/learned.json` met `schemaVersion: 2`. Dit bestand bevat compacte ervaringen, skillstatistieken en wereldlocaties. Iedere wereldlocatie heeft een gehashte `worldId` op basis van host, poort, Minecraft-versie en geconfigureerde wereldnaam. Bij migratie wordt eerst een kopie in `knowledge-backups/schema-*` gemaakt. Schrijven gebeurt atomisch via een tijdelijk bestand en rename.

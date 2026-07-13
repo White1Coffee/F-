@@ -156,7 +156,6 @@ async function handleDiscordMessage(message) {
     if (command === 'start') return botAction(message, 'start', args)
     if (command === 'stop') return botAction(message, 'stop', args)
     if (command === 'send') return sendCommand(message, args)
-    if (command === 'preset') return applyPreset(message, args)
     if (command === 'bots') return botsCommand(message, args)
     if (command === 'discord') return discordCommand(message, args)
     if (command === 'link') return linkChannel(message, args)
@@ -183,8 +182,6 @@ async function replyHelp(message) {
       { name: `${prefix} stop all`, value: 'Stop alle bots.', inline: true },
       { name: `${prefix} send all ai status`, value: 'Stuur een command naar alle bots.', inline: false },
       { name: `${prefix} send group:Ungrouped ai stop`, value: 'Stuur een command naar een groep.', inline: false },
-      { name: `${prefix} preset all survival`, value: 'Pas een preset toe.', inline: false },
-      { name: `${prefix} preset official-bot guard WhiteCoffee01`, value: 'Preset met spelernaam.', inline: false },
       { name: `${prefix} info`, value: 'Net overzicht van Discord commands, AI commands en bot commands.', inline: false },
       { name: `${prefix} discord setup`, value: 'Stel de Discord server compleet in met botkanalen en Java serverkanalen.', inline: false },
       { name: `${prefix} bots setup`, value: 'Maak automatisch een Discord-kanaal per bot met de in-game username als kanaalnaam.', inline: false },
@@ -218,8 +215,7 @@ async function replyInfo(message) {
     `${prefix} java op link/unlink`,
     `${prefix} java cmd <command>`,
     `${prefix} start all | ${prefix} stop all`,
-    `${prefix} send <all|bot|group:naam> <command>`,
-    `${prefix} preset <all|bot|group:naam> <preset> [player]`
+    `${prefix} send <all|bot|group:naam> <command>`
   ]
   const aiCommands = [
     'ai help',
@@ -241,7 +237,6 @@ async function replyInfo(message) {
   ]
   const botCommands = [
     'start/stop vanuit Discord of Hub',
-    'preset survival/miner/explorer/pvp/guard',
     'chat via gekoppeld botkanaal',
     'serverchat via gekoppeld serverchat-kanaal',
     'inventory bekijken/drop via HUD',
@@ -339,28 +334,6 @@ async function sendCommand(message, args) {
   const botIds = await resolveTarget(target)
   const result = await hubPost('/api/command', { botIds, text })
   return replyResult(message, 'Command verstuurd', `Naar ${result.sent.length}: ${result.sent.join(', ') || '-'}${result.skipped.length ? `\nSkipped: ${result.skipped.join(', ')}` : ''}`, { thumbnailUrl: discordAvatarUrl(message) })
-}
-
-async function applyPreset(message, args) {
-  if (args.length < 2) throw new Error(`Gebruik: ${prefix} preset all survival`)
-  const target = args.shift()
-  const presetName = args.shift()
-  const player = args.join(' ').trim()
-  const state = await hubGet('/api/state')
-  const preset = state.presets.find(item => item.id.toLowerCase() === presetName.toLowerCase() || item.name.toLowerCase() === presetName.toLowerCase())
-  if (!preset) throw new Error(`Preset niet gevonden: ${presetName}`)
-  const request = { presetId: preset.id, player }
-  if (target.toLowerCase() === 'all') {
-    request.targetType = 'all'
-  } else if (target.toLowerCase().startsWith('group:')) {
-    request.targetType = 'group'
-    request.group = target.slice(6)
-  } else {
-    request.targetType = 'bots'
-    request.botIds = [findBotInState(target, state).id]
-  }
-  const result = await hubPost('/api/presets/apply', request)
-  return replyResult(message, `Preset ${result.preset}`, `Toegepast op: ${result.sent.join(', ') || '-'}`, { thumbnailUrl: bridgeAvatarUrl() })
 }
 
 async function botsCommand(message, args) {

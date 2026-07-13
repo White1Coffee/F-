@@ -9,6 +9,11 @@ const { io } = require('socket.io-client')
 const { mergeKnowledgeFoldersMany } = require('./src/knowledge-merge')
 const { registerSupportRoutes } = require('./src/routes')
 const { systemHealth: buildSystemHealth } = require('./src/health')
+const { TeamStore } = require('./src/team/teamStore')
+const { TeamCoordinator } = require('./src/team/teamCoordinator')
+const { EventBuffer } = require('./src/dashboard/eventBuffer')
+const { DashboardService } = require('./src/dashboard/dashboardService')
+const { SchematicStore, transformBlocks, MAX_BYTES } = require('./src/schematics/schematicStore')
 process.env.TZ ||= 'Europe/Amsterdam'
 
 const HUB_PORT = Number(process.env.HUB_PORT || 3100)
@@ -25,6 +30,8 @@ const logsRoot = path.join(portableRoot, 'Logs', 'hub')
 const updateBackupsRoot = path.join(dataRoot, 'backups', 'update-backups')
 const startupBackupsRoot = path.join(dataRoot, 'backups', 'startup')
 const configBackupsRoot = path.join(dataRoot, 'backups', 'config')
+const teamStateFile = path.join(dataRoot, 'team-state.json')
+const schematicsRoot = path.join(dataRoot, 'schematics')
 const botsRoot = path.join(portableRoot, 'Bots')
 const discordBridgeRoot = path.join(portableRoot, 'minecraft-discord-bot')
 const discordBridgeFile = path.join(discordBridgeRoot, 'index.js')
@@ -32,6 +39,7 @@ const discordEnvFile = path.join(discordBridgeRoot, '.env')
 const discordPidFile = path.join(discordBridgeRoot, 'discord-bridge.pid')
 const discordOutLog = path.join(portableRoot, 'Logs', 'discord-bridge.out.log')
 const discordErrLog = path.join(portableRoot, 'Logs', 'discord-bridge.err.log')
+const schematicStore = new SchematicStore(schematicsRoot, require(path.join(portableRoot,'Bots','node_modules','prismarine-nbt')))
 const runningBots = new Map()
 const telemetrySockets = new Map()
 const botPortBase = 3110
@@ -40,13 +48,14 @@ const perBotBackupLimit = 5
 const supportedMinecraftVersions = ['1.21.11', '1.21.9', '1.21.8', '1.21.6', '1.21.5', '1.21.4', '1.21.3', '1.21.1', '1.20.6', '1.20.4', '1.20.2', '1.20.1', '1.20', '1.19.4', '1.19.3', '1.19.2', '1.19', '1.18.2', '1.17.1', '1.16.5', '1.15.2', '1.14.4', '1.13.2', '1.12.2', '1.11.2', '1.10.2', '1.9.4', '1.8.8', '1.7']
 const crashWindowMs = 10 * 60 * 1000
 const crashWindowLimit = 5
-const defaultPresets = [
-  { id: 'survival', name: 'Survival', commands: ['ai stop', 'ai auto progression'], delayMs: 1000, builtIn: true },
-  { id: 'miner', name: 'Miner', commands: ['ai stop', 'ai auto mine'], delayMs: 1000, builtIn: true },
-  { id: 'explorer', name: 'Explorer', commands: ['ai stop', 'ai explore'], delayMs: 1000, builtIn: true },
-  { id: 'pvp', name: 'PvP', commands: ['ai stop', 'ai pvp', 'ai auto combat'], delayMs: 1000, builtIn: true },
-  { id: 'guard', name: 'Guard', commands: ['ai stop', 'ai guard {player}'], delayMs: 1000, requiresPlayer: true, builtIn: true }
-]
+const defaultTeamSettings = { enabled: true, heartbeatIntervalMs: 3000, botOfflineAfterMs: 12000, taskAcceptTimeoutMs: 10000, taskReservationMs: 30000, areaReservationMs: 60000, objectReservationMs: 30000, inventoryReservationMs: 60000, maxTaskRetries: 3, assignmentIntervalMs: 2000, conflictDistance: 2.5, conflictTimeoutMs: 5000, yieldCooldownMs: 3000, logisticsContainers: [] }
+const defaultDashboardSettings = { enabled:true,realtimeEnabled:true,positionUpdateIntervalMs:1000,statusUpdateIntervalMs:3000,eventBufferSize:500,debugMode:false,allowControlActions:true }
+
+function normalizeTeamSettings(value = {}) {
+  const number = (name, minimum, maximum) => Math.max(minimum, Math.min(maximum, Number(value[name] ?? defaultTeamSettings[name])))
+  return { ...defaultTeamSettings, ...value, enabled: value.enabled !== false, heartbeatIntervalMs:number('heartbeatIntervalMs',1000,30000),botOfflineAfterMs:number('botOfflineAfterMs',3000,120000),taskAcceptTimeoutMs:number('taskAcceptTimeoutMs',1000,60000),taskReservationMs:number('taskReservationMs',5000,300000),areaReservationMs:number('areaReservationMs',5000,300000),objectReservationMs:number('objectReservationMs',5000,300000),inventoryReservationMs:number('inventoryReservationMs',5000,300000),maxTaskRetries:number('maxTaskRetries',0,10),assignmentIntervalMs:number('assignmentIntervalMs',500,30000),conflictDistance:number('conflictDistance',1,16),conflictTimeoutMs:number('conflictTimeoutMs',1000,60000),yieldCooldownMs:number('yieldCooldownMs',500,30000),logisticsContainers:Array.isArray(value.logisticsContainers)?value.logisticsContainers.filter(item=>item?.id&&item?.worldId&&item?.position):[] }
+}
+function normalizeDashboardSettings(value={}){const number=(name,min,max)=>Math.max(min,Math.min(max,Number(value[name]??defaultDashboardSettings[name]))),envBool=(name,fallback)=>process.env[name]===undefined?fallback:process.env[name]==='1';return{...defaultDashboardSettings,...value,enabled:envBool('DASHBOARD_ENABLED',value.enabled!==false),realtimeEnabled:envBool('DASHBOARD_REALTIME_ENABLED',value.realtimeEnabled!==false),positionUpdateIntervalMs:Number(process.env.DASHBOARD_POSITION_INTERVAL_MS)||number('positionUpdateIntervalMs',500,10000),statusUpdateIntervalMs:Number(process.env.DASHBOARD_STATUS_INTERVAL_MS)||number('statusUpdateIntervalMs',1000,30000),eventBufferSize:number('eventBufferSize',50,5000),debugMode:envBool('DASHBOARD_DEBUG',value.debugMode===true),allowControlActions:envBool('DASHBOARD_ALLOW_CONTROLS',value.allowControlActions!==false)}}
 
 function readJson(file, fallback = {}) {
   try {
@@ -129,21 +138,6 @@ function normalizeServerProfile(profile) {
     host: server.host || 'localhost',
     port: server.port,
     version: normalizeMinecraftVersion(profile?.version, '1.21.4')
-  }
-}
-
-function normalizePreset(preset, fallbackId = crypto.randomUUID()) {
-  const commands = Array.isArray(preset?.commands)
-    ? preset.commands.map(command => String(command || '').trim()).filter(Boolean).slice(0, 12)
-    : []
-  const delayMs = Math.max(0, Math.min(10000, Math.floor(Number(preset?.delayMs || 0))))
-  return {
-    id: String(preset?.id || fallbackId).trim().slice(0, 80) || fallbackId,
-    name: String(preset?.name || 'Custom preset').trim().slice(0, 80) || 'Custom preset',
-    commands,
-    delayMs,
-    requiresPlayer: Boolean(preset?.requiresPlayer || commands.some(command => command.includes('{player}'))),
-    builtIn: Boolean(preset?.builtIn)
   }
 }
 
@@ -267,16 +261,14 @@ function normalizeBot(bot) {
 function loadSettings() {
   const loaded = readJson(settingsFile, readJson(legacySettingsFile, {}))
   const bots = compactBotPorts(Array.isArray(loaded.bots) ? loaded.bots.map(normalizeBot) : [])
-  const customPresets = Array.isArray(loaded.presets)
-    ? loaded.presets.map(preset => normalizePreset({ ...preset, builtIn: false })).filter(preset => preset.commands.length && !defaultPresets.some(item => item.id === preset.id))
-    : []
   return {
     bots,
     groups: Array.isArray(loaded.groups) ? loaded.groups : [],
     serverProfiles: Array.isArray(loaded.serverProfiles) ? loaded.serverProfiles.map(normalizeServerProfile) : [],
     schedules: Array.isArray(loaded.schedules) ? loaded.schedules : [],
-    presets: [...defaultPresets, ...customPresets],
     mergeHistory: Array.isArray(loaded.mergeHistory) ? loaded.mergeHistory : [],
+    team: normalizeTeamSettings(loaded.team),
+    dashboard: normalizeDashboardSettings(loaded.dashboard),
     viewerLayout: {
       columns: [1, 2, 3, 4].includes(Number(loaded.viewerLayout?.columns)) ? Number(loaded.viewerLayout.columns) : 2,
       order: Array.isArray(loaded.viewerLayout?.order) ? loaded.viewerLayout.order.map(String) : [],
@@ -286,6 +278,14 @@ function loadSettings() {
 }
 
 let settings = loadSettings()
+const teamStore = new TeamStore(teamStateFile)
+const teamCoordinator = new TeamCoordinator(teamStore, settings.team)
+const dashboardEvents = new EventBuffer(settings.dashboard.eventBufferSize)
+const dashboardStreams = new Set()
+const dashboardService = new DashboardService({ team:teamCoordinator,events:dashboardEvents,configBots:()=>settings.bots,resolveBotFolder:resolvedBotFolder,telemetry:id=>telemetrySockets.get(id),settings:()=>settings.dashboard })
+
+function dashboardEvent(event){const value=dashboardEvents.add(event);if(!settings.dashboard.realtimeEnabled)return value;const line=`event: dashboard\ndata: ${JSON.stringify(value)}\n\n`;for(const response of dashboardStreams){try{response.write(line)}catch{dashboardStreams.delete(response)}}return value}
+teamCoordinator.on('event',dashboardEvent)
 
 function saveSettings() {
   cleanupViewerLayout()
@@ -504,7 +504,7 @@ function ensureTelemetry(bot) {
   if (current?.port === bot.hudPort) return current
   if (current) current.socket.close()
 
-  const entry = { port: bot.hudPort, data: null, receivedAt: null, socket: null }
+  const entry = { port: bot.hudPort, data: null, receivedAt: null, socket: null, lastDashboardPushAt:0 }
   const socket = io(`http://127.0.0.1:${bot.hudPort}`, {
     reconnection: true,
     reconnectionDelay: 1000,
@@ -512,7 +512,29 @@ function ensureTelemetry(bot) {
     timeout: 1200
   })
   entry.socket = socket
+  // Info: Teamverkeer gebruikt dezelfde Socket.IO-verbinding als bestaande HUD-telemetrie.
+  socket.on('team:register', payload => {
+    try { teamCoordinator.register({ ...payload, botId: bot.id }, socket);dashboardEvent({type:'bot.registered',botId:bot.id,message:`${bot.name} registered for teamwork`}) } catch (error) { socket.emit('team:error', { errorCode: error.message }) }
+  })
+  socket.on('team:heartbeat', payload => {
+    try { teamCoordinator.heartbeat({ ...payload, botId: bot.id }) } catch (error) { socket.emit('team:error', { errorCode: error.message }) }
+  })
+  socket.on('team:unregister', payload => { try { teamCoordinator.unregister(bot.id,payload.instanceId) } catch {} })
+  socket.on('team:task-accepted', payload => { try { const task=teamCoordinator.accept({ ...payload, botId:bot.id });dashboardEvent({type:'task.accepted',level:'info',botId:bot.id,taskId:task.id,goalId:task.teamGoalId,message:`${bot.name} accepted ${task.skill}`});socket.emit('team:task-start-approved',{taskId:task.id}) } catch(error){socket.emit('team:error',{errorCode:error.message})} })
+  socket.on('team:task-rejected', payload => { try { teamCoordinator.reject({ ...payload, botId:bot.id }) } catch {} })
+  socket.on('team:task-started', payload => { try { const task=teamCoordinator.start({ ...payload, botId:bot.id });dashboardEvent({type:'task.started',botId:bot.id,taskId:task.id,goalId:task.teamGoalId,message:`${bot.name} started ${task.skill}`}) } catch(error){socket.emit('team:error',{errorCode:error.message})} })
+  socket.on('team:task-progress', payload => { try { teamCoordinator.progress({ ...payload, botId:bot.id }) } catch {} })
+  socket.on('team:task-blocked', payload => { try { const task=teamCoordinator.block({ ...payload, botId:bot.id });dashboardEvent({type:'task.blocked',level:'warning',botId:bot.id,taskId:task.id,goalId:task.teamGoalId,errorCode:task.lastError,message:`${bot.name} was blocked: ${task.lastError}`}) } catch(error){socket.emit('team:error',{errorCode:error.message})} })
+  socket.on('team:task-completed', payload => { try { const task=teamCoordinator.complete({ ...payload, botId:bot.id });dashboardEvent({type:'task.completed',level:'success',botId:bot.id,taskId:task.id,goalId:task.teamGoalId,message:`${bot.name} completed ${task.skill}`}) } catch(error){socket.emit('team:error',{errorCode:error.message})} })
+  socket.on('team:task-failed', payload => { try { const task=teamCoordinator.fail({ ...payload, botId:bot.id });dashboardEvent({type:'task.failed',level:'error',botId:bot.id,taskId:task.id,goalId:task.teamGoalId,errorCode:task.lastError,message:`${bot.name} failed ${task.skill}: ${task.lastError}`}) } catch(error){socket.emit('team:error',{errorCode:error.message})} })
+  socket.on('team:reservation-create', (payload, acknowledge) => { try { const value=teamCoordinator.reservations.create({ ...payload, ownerBotId:bot.id });teamStore.save();acknowledge?.({ok:true,reservation:value}) } catch(error){acknowledge?.({ok:false,errorCode:error.message})} })
+  socket.on('team:reservation-renew', (payload, acknowledge) => { try { const value=teamCoordinator.reservations.renew(payload.id,bot.id,payload.instanceId,payload.ttlMs);teamStore.save();acknowledge?.({ok:true,reservation:value}) } catch(error){acknowledge?.({ok:false,errorCode:error.message})} })
+  socket.on('team:reservation-release', payload => { teamCoordinator.reservations.release(payload.id,bot.id,payload.instanceId);teamStore.save() })
+  socket.on('team:inventory-container', payload => { try { teamCoordinator.inventory.updateContainer(payload);teamStore.save() } catch {} })
+  socket.on('disconnect', () => { const registered=teamCoordinator.registry.get(bot.id);if(registered)teamCoordinator.unregister(bot.id,registered.instanceId) })
   socket.on('update', data => {
+    const inventorySummary = {}
+    for (const item of Array.isArray(data?.inventory) ? data.inventory : []) if (item?.name) inventorySummary[item.name]=(inventorySummary[item.name]||0)+Number(item.count||0)
     entry.data = {
       connected: Boolean(data?.connected),
       health: data?.health ?? null,
@@ -522,6 +544,23 @@ function ensureTelemetry(bot) {
       pvp: Boolean(data?.pvp),
       xp: data?.xp ?? 0,
       position: data?.position ?? null,
+      dimension: data?.team?.activeTask?.dimension || data?.worldMemory?.dimension || null,
+      inventorySummary,
+      equipment: data?.equipment ?? null,
+      currentTask: data?.currentTask ?? null,
+      reliableTask: data?.reliableTask ?? null,
+      currentStep: data?.currentStep ?? null,
+      activeSkill: data?.activeSkill ?? null,
+      attempt: data?.attempt ?? 0,
+      maxAttempts: data?.maxAttempts ?? 0,
+      lastError: data?.lastError ?? null,
+      pathStatus: data?.pathStatus ?? null,
+      safetyState: data?.safetyState ?? 'unknown',
+      curriculum: data?.curriculum ?? null,
+      taskLog: Array.isArray(data?.taskLog) ? data.taskLog.slice(0,20) : [],
+      team: data?.team ?? null,
+      planner: settings.dashboard.debugMode ? data?.planner ?? null : undefined,
+      currentPlan: settings.dashboard.debugMode ? data?.currentPlan ?? [] : undefined,
       chatHistory: Array.isArray(data?.chatHistory) ? data.chatHistory.slice(0, 80) : [],
       username: data?.botUsername ||
         data?.chatHistory?.find(entry => entry?.role === 'ai')?.author ||
@@ -529,6 +568,7 @@ function ensureTelemetry(bot) {
         null
     }
     entry.receivedAt = new Date().toISOString()
+    if(Date.now()-entry.lastDashboardPushAt>=settings.dashboard.positionUpdateIntervalMs){entry.lastDashboardPushAt=Date.now();dashboardEvent({type:'bot.status',level:'debug',botId:bot.id,message:`${bot.name} status updated`})}
   })
   telemetrySockets.set(bot.id, entry)
   return entry
@@ -553,46 +593,6 @@ function sendToBots(botIds, text) {
     sent.push(bot.name)
   }
   return { sent, skipped, message }
-}
-
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-async function applyPreset(request) {
-  const preset = settings.presets.find(item => item.id === String(request?.presetId || ''))
-  if (!preset) throw new Error('Preset was not found.')
-  const playerName = String(request?.player || '').trim()
-  if (preset.requiresPlayer && !/^[A-Za-z0-9_]{1,16}$/.test(playerName)) throw new Error('This preset needs a valid Minecraft player name.')
-  let targets = []
-  if (request?.targetType === 'all') {
-    targets = settings.bots
-  } else if (request?.targetType === 'group') {
-    const group = String(request?.group || '')
-    targets = settings.bots.filter(bot => bot.group === group)
-  } else {
-    const ids = new Set(Array.isArray(request?.botIds) ? request.botIds.map(String) : [])
-    targets = settings.bots.filter(bot => ids.has(bot.id))
-  }
-  if (!targets.length) throw new Error('Choose at least one preset target.')
-
-  const commands = preset.commands.map(command => command.replaceAll('{player}', playerName))
-  const results = []
-  const skipped = new Set()
-  for (let index = 0; index < commands.length; index++) {
-    const command = commands[index]
-    const result = sendToBots(targets.map(bot => bot.id), command)
-    results.push({ command, sent: result.sent, skipped: result.skipped })
-    for (const name of result.skipped) skipped.add(name)
-    if (index < commands.length - 1 && preset.delayMs > 0) await wait(preset.delayMs)
-  }
-  return {
-    preset: preset.name,
-    commands,
-    sent: [...new Set(results.flatMap(result => result.sent))],
-    skipped: [...skipped],
-    results
-  }
 }
 
 function mergedKnowledgeList() {
@@ -960,8 +960,8 @@ async function statePayload() {
     serverProfiles: settings.serverProfiles,
     supportedMinecraftVersions,
     schedules: settings.schedules,
-    presets: settings.presets,
     viewerLayout: settings.viewerLayout,
+    dashboard: settings.dashboard,
     mergeHistory: settings.mergeHistory.slice(-50).reverse(),
     discordBridge: (() => {
       const status = discordBridgeStatus()
@@ -979,7 +979,8 @@ async function statePayload() {
       const stats = displayedStats(bot)
       if (telemetry.data?.connected) stats.lastError = ''
       return { ...bot, stats, folder: resolvedBotFolder(bot), status: await botStatus(bot), telemetry: telemetry.data, telemetryAt: telemetry.receivedAt }
-    }))
+    })),
+    team: teamCoordinator.snapshot()
   }
 }
 
@@ -1042,6 +1043,11 @@ async function startBot(bot) {
       MC_PORT: String(bot.port),
       MC_VERSION: bot.version,
       MINECRAFT_AI_WORKER: '1'
+      ,BOT_ID: bot.id
+      ,BOT_TYPE: path.basename(folder)
+      ,HUB_URL: `http://127.0.0.1:${HUB_PORT}`
+      ,TEAM_ENABLED: settings.team.enabled ? '1' : '0'
+      ,TEAM_HEARTBEAT_INTERVAL_MS: String(settings.team.heartbeatIntervalMs)
     },
     detached: false,
     windowsHide: true,
@@ -1158,14 +1164,53 @@ function findBot(id) {
   return bot
 }
 
+const dashboardWriteRates=new Map()
+function dashboardControlAllowed(request){if(!settings.dashboard.enabled||!settings.dashboard.allowControlActions)return false;const address=String(request.socket.remoteAddress||'');const local=['127.0.0.1','::1','::ffff:127.0.0.1'].includes(address);const token=process.env.DASHBOARD_TOKEN;return local||Boolean(token&&request.get('X-Dashboard-Token')===token)}
+function requireDashboardControl(request){if(!dashboardControlAllowed(request))throw new Error('Dashboard control is only allowed locally or with DASHBOARD_TOKEN.');const key=String(request.socket.remoteAddress||'unknown'),now=Date.now(),recent=(dashboardWriteRates.get(key)||[]).filter(at=>now-at<60000);if(recent.length>=30)throw new Error('Dashboard control rate limit exceeded.');recent.push(now);dashboardWriteRates.set(key,recent);const origin=request.get('Origin');if(origin){const expected=request.get('Host');if(new URL(origin).host!==expected)throw new Error('Dashboard origin check failed.')}}
+function teamBotChannel(id){const bot=findBot(id),telemetry=ensureTelemetry(bot);if(!telemetry.socket.connected)throw new Error('Bot is offline.');return{bot,socket:telemetry.socket}}
+
 const app = express()
 app.use(express.json({ limit: '256kb' }))
+app.use((_request,response,next)=>{response.setHeader('X-Content-Type-Options','nosniff');response.setHeader('Referrer-Policy','same-origin');response.setHeader('Content-Security-Policy',"default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-src http: https:; img-src 'self' data:");next()})
 app.get('/', (_request, response) => response.sendFile(path.join(__dirname, 'public', 'hub.html')))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/state', async (_request, response, next) => {
   try { response.json(await statePayload()) } catch (err) { next(err) }
 })
+
+app.get('/api/dashboard/overview',(_request,response,next)=>{try{response.json({ok:true,overview:dashboardService.overview()})}catch(error){next(error)}})
+app.get('/api/dashboard/stream',(request,response)=>{if(!settings.dashboard.enabled||!settings.dashboard.realtimeEnabled)return response.status(404).end();response.setHeader('Content-Type','text/event-stream');response.setHeader('Cache-Control','no-cache, no-transform');response.setHeader('Connection','keep-alive');response.flushHeaders?.();response.write(`event: connected\ndata: ${JSON.stringify({at:Date.now()})}\n\n`);dashboardStreams.add(response);const heartbeat=setInterval(()=>response.write(`: heartbeat ${Date.now()}\n\n`),15000);request.on('close',()=>{clearInterval(heartbeat);dashboardStreams.delete(response)})})
+app.get('/api/team/bots/:id',(request,response,next)=>{try{const bot=dashboardService.bot(request.params.id);if(!bot)throw new Error('Bot not found.');response.json({ok:true,bot})}catch(error){next(error)}})
+app.post('/api/team/bots/:id/:action',(request,response,next)=>{try{requireDashboardControl(request);const allowed=new Set(['pause','resume','cancel-task','return-home','idle','reconnect','emergency-stop']);const action=String(request.params.action);if(!allowed.has(action))throw new Error('Unsupported bot control action.');if(['emergency-stop','reconnect'].includes(action)&&request.body?.confirmed!==true)throw new Error('Confirmation is required.');const {bot,socket}=teamBotChannel(request.params.id);socket.emit('team:control',{action,requestedAt:Date.now()});dashboardEvent({type:'bot.control',level:action==='emergency-stop'?'critical':'warning',botId:bot.id,message:`Control ${action} sent to ${bot.name}`});response.json({ok:true,botId:bot.id,action})}catch(error){next(error)}})
+app.get('/api/team/goals/:id',(request,response,next)=>{try{const goal=dashboardService.goals().find(item=>item.id===request.params.id);if(!goal)throw new Error('Goal not found.');response.json({ok:true,goal})}catch(error){next(error)}})
+app.post('/api/team/goals/:id/:action',(request,response,next)=>{try{requireDashboardControl(request);const goal=teamCoordinator.goals().find(item=>item.id===request.params.id);if(!goal)throw new Error('Goal not found.');const tasks=teamCoordinator.tasks().filter(item=>item.teamGoalId===goal.id);const action=request.params.action;if(action==='cancel'){if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');for(const task of tasks)if(!['completed','cancelled'].includes(task.status))teamCoordinator.cancelTask(task.id);goal.status='cancelled'}else if(action==='pause'){goal.paused=true;goal.status='blocked';for(const task of tasks)if(task.status==='available')task.status='blocked'}else if(action==='resume'||action==='replan'){goal.paused=false;for(const task of tasks)if(task.status==='blocked'||(action==='replan'&&task.status==='failed'))Object.assign(task,{status:'available',lastError:null,excludedInstanceIds:[]});goal.status='ready';teamCoordinator.assign()}else throw new Error('Unsupported goal action.');goal.updatedAt=Date.now();teamStore.save();dashboardEvent({type:`goal.${action}`,goalId:goal.id,message:`Goal ${goal.id} ${action}`});response.json({ok:true,goal:dashboardService.goalDto(goal)})}catch(error){next(error)}})
+app.patch('/api/team/goals/:id',(request,response,next)=>{try{requireDashboardControl(request);const goal=teamCoordinator.goals().find(item=>item.id===request.params.id);if(!goal)throw new Error('Goal not found.');const priority=Math.max(0,Math.min(100,Number(request.body?.priority)));if(!Number.isFinite(priority))throw new Error('Invalid priority.');goal.priority=priority;for(const task of teamCoordinator.tasks().filter(item=>item.teamGoalId===goal.id&&!['completed','cancelled'].includes(item.status)))task.priority=priority;teamStore.save();response.json({ok:true,goal:dashboardService.goalDto(goal)})}catch(error){next(error)}})
+app.get('/api/team/tasks/:id',(request,response,next)=>{try{const task=teamCoordinator.findTask(request.params.id);if(!task)throw new Error('Task not found.');response.json({ok:true,task:dashboardService.taskDto(task)})}catch(error){next(error)}})
+app.get('/api/learning/skills',(request,response)=>response.json({ok:true,skills:dashboardService.skills().filter(skill=>!request.query.name||skill.name===request.query.name)}))
+app.get('/api/learning/skills/:name',(request,response,next)=>{try{const skill=dashboardService.skills().find(item=>item.name===request.params.name);if(!skill)throw new Error('Skill not found.');response.json({ok:true,skill})}catch(error){next(error)}})
+app.get('/api/learning/experiences',(request,response)=>response.json({ok:true,...dashboardService.experiences(request.query)}))
+app.get('/api/learning/curriculum',(_request,response)=>response.json({ok:true,bots:dashboardService.bots().map(bot=>({botId:bot.botId,curriculum:telemetrySockets.get(bot.botId)?.data?.curriculum||null}))}))
+app.get('/api/logistics/inventory',(_request,response)=>response.json({ok:true,...dashboardService.logistics()}))
+app.get('/api/logistics/containers',(_request,response)=>response.json({ok:true,containers:dashboardService.logistics().containers}))
+app.get('/api/logistics/reservations',(_request,response)=>response.json({ok:true,reservations:dashboardService.logistics().reservations}))
+app.get('/api/world/reservations',(request,response)=>response.json({ok:true,reservations:teamStore.state.reservations.filter(item=>(!request.query.worldId||item.worldId===request.query.worldId)&&item.type==='area')}))
+app.get('/api/events',(request,response)=>response.json({ok:true,...dashboardEvents.query(request.query)}))
+
+// Info: Schematics worden server-side gevalideerd; bots ontvangen alleen een begrensde lijst blokken via hun bestaande TaskManager.
+app.get('/api/schematics',(_request,response)=>response.json({ok:true,schematics:schematicStore.list()}))
+app.post('/api/schematics/upload',express.raw({type:'application/octet-stream',limit:MAX_BYTES}),async(request,response,next)=>{try{requireDashboardControl(request);const filename=decodeURIComponent(String(request.get('X-Schematic-Name')||''));response.json({ok:true,schematic:await schematicStore.save(filename,request.body)})}catch(error){next(error)}})
+app.delete('/api/schematics/:id',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');if(!schematicStore.remove(request.params.id))throw new Error('Schematic not found.');response.json({ok:true})}catch(error){next(error)}})
+app.post('/api/schematics/:id/build',(request,response,next)=>{try{requireDashboardControl(request);const schematic=schematicStore.get(request.params.id,true);if(!schematic)throw new Error('Schematic not found.');const origin={x:Number(request.body?.origin?.x),y:Number(request.body?.origin?.y),z:Number(request.body?.origin?.z)};if(!Object.values(origin).every(Number.isInteger))throw new Error('Build coordinates must be whole block coordinates.');const rotation=Number(request.body?.rotation||0);if(![0,90,180,270].includes(rotation))throw new Error('Invalid rotation.');const ids=[...new Set([String(request.body?.primaryBotId||''),...(Array.isArray(request.body?.helperBotIds)?request.body.helperBotIds.map(String):[])].filter(Boolean))];if(!ids.length)throw new Error('Choose a primary bot.');const primary=teamCoordinator.registry.get(ids[0]);if(!primary?.online)throw new Error('The primary bot is offline.');const bots=ids.map(id=>{const live=teamCoordinator.registry.get(id);if(!live?.online)throw new Error(`${findBot(id).name} is offline.`);if(live.worldId!==primary.worldId)throw new Error('All builders must be on the same server.');return live});const transformed=transformBlocks(schematic.blocks,rotation,schematic.width,schematic.length),assignments=bots.map(()=>[]);transformed.forEach((block,index)=>assignments[index%bots.length].push(block));bots.forEach((live,index)=>{const channel=teamBotChannel(live.botId);channel.socket.emit('team:control',{action:'build-schematic',schematicId:schematic.id,schematicName:schematic.name,origin,rotation,blocks:assignments[index],totalBlocks:transformed.length,requestedAt:Date.now()})});dashboardEvent({type:'schematic.build',level:'info',botId:ids[0],message:`Building ${schematic.name} with ${bots.length} bot(s)`});response.json({ok:true,schematic:{...schematic,blocks:undefined},builders:bots.map(bot=>({botId:bot.botId,name:findBot(bot.botId).name,blocks:assignments[bots.indexOf(bot)].length})),origin,rotation})}catch(error){next(error)}})
+
+// Info: Teambeheer blijft HTTP; live opdrachten en heartbeats lopen over de bestaande bot-sockets.
+app.get('/api/team/bots', (_request,response) => response.json({ok:true,bots:teamCoordinator.registry.list()}))
+app.get('/api/team/goals', (_request,response) => response.json({ok:true,goals:teamCoordinator.goals(),dashboardGoals:dashboardService.goals()}))
+app.post('/api/team/goals', (request,response,next) => { try { requireDashboardControl(request);const body=request.body||{};if(!/^[a-z0-9_-]{1,64}$/i.test(String(body.type||'')))throw new Error('Invalid goal type.');if(!/^[a-f0-9_-]{8,128}$/i.test(String(body.worldId||'')))throw new Error('Invalid worldId.');if(body.amount!==undefined&&(!Number.isInteger(Number(body.amount))||Number(body.amount)<1||Number(body.amount)>2304))throw new Error('Invalid goal amount.');response.json({ok:true,goal:teamCoordinator.createGoal(body)}) } catch(error){next(error)} })
+app.get('/api/team/tasks', (_request,response) => response.json({ok:true,tasks:teamCoordinator.tasks()}))
+app.post('/api/team/tasks/:id/cancel', (request,response,next) => { try { requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');response.json({ok:true,task:teamCoordinator.cancelTask(request.params.id)}) } catch(error){next(error)} })
+app.get('/api/team/reservations', (_request,response) => response.json({ok:true,reservations:teamStore.state.reservations}))
+app.get('/api/team/inventory', (_request,response) => response.json({ok:true,inventory:teamCoordinator.inventory.snapshot()}))
 
 registerSupportRoutes(app, {
   fs,
@@ -1202,15 +1247,16 @@ app.get('/api/knowledge-scores', (_request, response, next) => {
 
 app.post('/api/config', (request, response, next) => {
   try {
+    if(request.body?.dashboard||request.body?.team)requireDashboardControl(request)
     settings.groups = Array.isArray(request.body?.groups) ? request.body.groups.map(String).filter(Boolean) : settings.groups
     settings.serverProfiles = Array.isArray(request.body?.serverProfiles) ? request.body.serverProfiles : settings.serverProfiles
     settings.schedules = Array.isArray(request.body?.schedules) ? request.body.schedules : settings.schedules
-    if (Array.isArray(request.body?.presets)) {
-      const customPresets = request.body.presets
-        .map(preset => normalizePreset({ ...preset, builtIn: false }))
-        .filter(preset => preset.commands.length && !defaultPresets.some(item => item.id === preset.id))
-      settings.presets = [...defaultPresets, ...customPresets]
+    if (request.body?.team && typeof request.body.team === 'object') {
+      settings.team = normalizeTeamSettings({ ...settings.team, ...request.body.team })
+      teamCoordinator.options = { ...teamCoordinator.options, ...settings.team }
+      teamCoordinator.registry.offlineAfterMs = settings.team.botOfflineAfterMs
     }
+    if(request.body?.dashboard&&typeof request.body.dashboard==='object')settings.dashboard=normalizeDashboardSettings({...settings.dashboard,...request.body.dashboard})
     if (request.body?.viewerLayout && typeof request.body.viewerLayout === 'object') {
       const layout = request.body.viewerLayout
       settings.viewerLayout = {
@@ -1221,12 +1267,6 @@ app.post('/api/config', (request, response, next) => {
     }
     saveSettings()
     response.json({ ok: true })
-  } catch (err) { next(err) }
-})
-
-app.post('/api/presets/apply', async (request, response, next) => {
-  try {
-    response.json({ ok: true, ...await applyPreset(request.body || {}) })
   } catch (err) { next(err) }
 })
 
@@ -1472,7 +1512,7 @@ app.post('/api/bots/:id/stop', async (request, response, next) => {
 app.post('/api/merge', async (request, response, next) => {
   try {
     const ids = [...new Set(Array.isArray(request.body?.botIds) ? request.body.botIds.map(String) : [])]
-    if (ids.length < 2 || ids.length > 5) throw new Error('Select between 2 and 5 bots.')
+    if (ids.length < 2) throw new Error('Select at least 2 bots.')
     const bots = ids.map(findBot)
     for (const bot of bots) {
       if ((await botStatus(bot)).running) throw new Error(`Stop ${bot.name} before merging its knowledge.`)
@@ -1493,7 +1533,7 @@ app.post('/api/merge/apply', async (request, response, next) => {
     const merge = mergedKnowledgeList().find(entry => entry.id === mergeId)
     if (!merge) throw new Error('Select an existing merged knowledge folder.')
     const ids = [...new Set(Array.isArray(request.body?.botIds) ? request.body.botIds.map(String) : [])]
-    if (ids.length < 1 || ids.length > 5) throw new Error('Choose between 1 and 5 target bots.')
+    if (ids.length < 1) throw new Error('Choose at least 1 target bot.')
     const bots = ids.map(findBot)
     for (const bot of bots) {
       if ((await botStatus(bot)).running) throw new Error(`Stop ${bot.name} before replacing its knowledge.`)
@@ -1528,6 +1568,10 @@ app.post('/api/open-folder', (request, response, next) => {
 
 app.post('/api/shutdown', async (_request, response) => {
   response.json({ ok: true })
+  teamCoordinator.close()
+  clearInterval(teamSweepTimer)
+  for(const stream of dashboardStreams)try{stream.end()}catch{}
+  dashboardStreams.clear()
   for (const [id, runtime] of runningBots) {
     runtime.stopping = true
     try { runtime.child.kill() } catch {}
@@ -1564,6 +1608,8 @@ app.use((err, _request, response, _next) => {
 })
 
 let lastScheduleMinute = ''
+const teamSweepTimer = setInterval(() => teamCoordinator.sweep(), settings.team.assignmentIntervalMs)
+teamSweepTimer.unref?.()
 setInterval(async () => {
   const now = new Date()
   const minute = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`

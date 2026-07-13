@@ -13,7 +13,7 @@
       "autoRestart": true,
       "disabledUntil": null,
       "stats": {
-        "starts": 158,
+        "starts": 162,
         "crashes": 2,
         "totalRuntimeMs": 133400762,
         "lastExit": "2026-07-10T14:02:38.147Z",
@@ -34,10 +34,10 @@
       "autoRestart": true,
       "disabledUntil": null,
       "stats": {
-        "starts": 287,
+        "starts": 293,
         "crashes": 3,
-        "totalRuntimeMs": 158755495,
-        "lastExit": "2026-07-10T16:31:45.347Z",
+        "totalRuntimeMs": 160199956,
+        "lastExit": "2026-07-12T23:36:07.262Z",
         "lastError": "Worker exited (1073807364).",
         "recentCrashes": []
       }
@@ -55,7 +55,7 @@
       "autoRestart": true,
       "disabledUntil": null,
       "stats": {
-        "starts": 81,
+        "starts": 85,
         "crashes": 2,
         "totalRuntimeMs": 82613253,
         "lastExit": "2026-07-10T16:31:48.002Z",
@@ -78,10 +78,10 @@
       "autoRestart": true,
       "disabledUntil": null,
       "stats": {
-        "starts": 96,
+        "starts": 106,
         "crashes": 0,
-        "totalRuntimeMs": 83922404,
-        "lastExit": "2026-07-12T20:04:25.602Z",
+        "totalRuntimeMs": 85243313,
+        "lastExit": "2026-07-12T22:38:16.927Z",
         "lastError": "",
         "recentCrashes": []
       }
@@ -114,60 +114,6 @@
     }
   ],
   "schedules": [],
-  "presets": [
-    {
-      "id": "survival",
-      "name": "Survival",
-      "commands": [
-        "ai stop",
-        "ai auto progression"
-      ],
-      "delayMs": 1000,
-      "builtIn": true
-    },
-    {
-      "id": "miner",
-      "name": "Miner",
-      "commands": [
-        "ai stop",
-        "ai auto mine"
-      ],
-      "delayMs": 1000,
-      "builtIn": true
-    },
-    {
-      "id": "explorer",
-      "name": "Explorer",
-      "commands": [
-        "ai stop",
-        "ai explore"
-      ],
-      "delayMs": 1000,
-      "builtIn": true
-    },
-    {
-      "id": "pvp",
-      "name": "PvP",
-      "commands": [
-        "ai stop",
-        "ai pvp",
-        "ai auto combat"
-      ],
-      "delayMs": 1000,
-      "builtIn": true
-    },
-    {
-      "id": "guard",
-      "name": "Guard",
-      "commands": [
-        "ai stop",
-        "ai guard {player}"
-      ],
-      "delayMs": 1000,
-      "requiresPlayer": true,
-      "builtIn": true
-    }
-  ],
   "mergeHistory": [
     {
       "at": "164626 07072026",
@@ -179,6 +125,31 @@
       "backup": "F:\\Bots\\official-bot\\knowledge-backups\\copy-164626-07072026"
     }
   ],
+  "team": {
+    "enabled": true,
+    "heartbeatIntervalMs": 3000,
+    "botOfflineAfterMs": 12000,
+    "taskAcceptTimeoutMs": 10000,
+    "taskReservationMs": 30000,
+    "areaReservationMs": 60000,
+    "objectReservationMs": 30000,
+    "inventoryReservationMs": 60000,
+    "maxTaskRetries": 3,
+    "assignmentIntervalMs": 2000,
+    "conflictDistance": 2.5,
+    "conflictTimeoutMs": 5000,
+    "yieldCooldownMs": 3000,
+    "logisticsContainers": []
+  },
+  "dashboard": {
+    "enabled": true,
+    "realtimeEnabled": true,
+    "positionUpdateIntervalMs": 1000,
+    "statusUpdateIntervalMs": 3000,
+    "eventBufferSize": 500,
+    "debugMode": false,
+    "allowControlActions": true
+  },
   "viewerLayout": {
     "columns": 4,
     "order": [

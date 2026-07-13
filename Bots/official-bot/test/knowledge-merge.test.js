@@ -60,9 +60,9 @@ test('folder merge refuses to write inside a source directory', () => {
   )
 })
 
-test('multi-folder merge combines between two and five bots', () => {
+test('multi-folder merge combines any number of bots, with a minimum of two', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'knowledge-merge-many-'))
-  const sources = ['one', 'two', 'three'].map(name => path.join(root, name))
+  const sources = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'].map(name => path.join(root, name))
   const output = path.join(root, 'merged')
   try {
     for (const [index, source] of sources.entries()) {
@@ -70,8 +70,8 @@ test('multi-folder merge combines between two and five bots', () => {
       fs.writeFileSync(path.join(source, 'mining.json'), JSON.stringify({ stats: { mined: { iron: index + 1 } } }))
     }
     mergeKnowledgeFoldersMany(sources, output)
-    assert.equal(JSON.parse(fs.readFileSync(path.join(output, 'mining.json'))).stats.mined.iron, 6)
-    assert.throws(() => mergeKnowledgeFoldersMany([sources[0]], path.join(root, 'too-few')), /between 2 and 5/)
+    assert.equal(JSON.parse(fs.readFileSync(path.join(output, 'mining.json'))).stats.mined.iron, 28)
+    assert.throws(() => mergeKnowledgeFoldersMany([sources[0]], path.join(root, 'too-few')), /at least 2/)
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
   }

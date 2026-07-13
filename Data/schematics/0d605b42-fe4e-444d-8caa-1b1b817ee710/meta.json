@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "0d605b42-fe4e-444d-8caa-1b1b817ee710",
+  "name": "Untitled",
+  "filename": "Untitled.schem",
+  "createdAt": 1783899424046,
+  "width": 1,
+  "height": 4,
+  "length": 3,
+  "blockCount": 6,
+  "materials": {
+    "dirt": 6
+  }
+}

@@ -24,6 +24,13 @@ if not exist "%SERVER_DIR%\server.jar" (
   exit /b 1
 )
 
+if not exist "%SERVER_DIR%\server-manager.js" (
+  echo server-manager.js was not found in:
+  echo %SERVER_DIR%
+  pause
+  exit /b 1
+)
+
 if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
 
 powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ^

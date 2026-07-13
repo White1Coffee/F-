@@ -164,7 +164,7 @@ function mergeKnowledgeFolders(leftDirectory, rightDirectory, outputDirectory) {
 
 function mergeKnowledgeFoldersMany(sourceDirectories, outputDirectory) {
   const sources = [...new Set((sourceDirectories || []).map(directory => path.resolve(directory)))]
-  if (sources.length < 2 || sources.length > 5) throw new Error('Choose between 2 and 5 knowledge directories.')
+  if (sources.length < 2) throw new Error('Choose at least 2 knowledge directories.')
   for (const source of sources) {
     if (!fs.existsSync(source) || !fs.statSync(source).isDirectory()) throw new Error(`Knowledge directory does not exist: ${source}`)
   }
