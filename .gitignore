@@ -45,6 +45,11 @@ Bots/*/
 
 # Runtime/private local data
 Logs/
+runtime/
+dist/
+installer/staging/
+installer-test-output/
+.install-source.json
 Data/backups/
 **/*.tmp
 **/bot-output.log
@@ -55,6 +60,7 @@ Data/backups/
 **/ai-recipes.json
 **/ai-memory.json.*
 **/ai-recipes.json.*
+*.pid
 
 # Minecraft server local/player state
 minecraft-java-server/logs/

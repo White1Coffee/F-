@@ -13,6 +13,7 @@
       <nav>
         <button type="button" class="active" data-tab="overview">Overview</button>
         <button type="button" data-tab="bots">Bots</button>
+        <button type="button" data-tab="botAccess">Owners & Whitelist</button>
         <button type="button" data-tab="chat">Chat</button>
         <button type="button" data-tab="team">Team Goals</button>
         <button type="button" data-tab="tasksDashboard">Tasks</button>
@@ -20,7 +21,7 @@
         <button type="button" data-tab="logisticsDashboard">Inventory & Logistics</button>
         <button type="button" data-tab="schematicsDashboard">Schematics</button>
         <button type="button" data-tab="eventsDashboard">Events & Logs</button>
-        <button type="button" data-tab="dashboardSettings">Dashboard Settings</button>
+        <button type="button" data-tab="dashboardSettings">Settings</button>
         <button type="button" data-tab="merge">Merge Knowledge</button>
         <button type="button" data-tab="manage">Manage</button>
         <button type="button" data-tab="health">System Health</button>
@@ -74,11 +75,20 @@
         <div class="card-head"><div><h2>Live bot details</h2><p>Task, skill, inventory, safety and debug information.</p></div></div><div id="dashboardBotDetails"></div>
       </section>
 
+      <section id="botAccess" class="tab">
+        <div class="card-head"><div><h2>Bot command access</h2><p>De owner en whitelisted players mogen deze bot via Minecraft-chat opdrachten geven. Gebruik exacte Minecraft-spelernamen; wijzigingen worden live toegepast wanneer de bot online is.</p></div></div>
+        <div id="botAccessList" class="manage-grid"></div>
+      </section>
+
       <section id="tasksDashboard" class="tab"><div class="toolbar"><select id="taskStatusFilter"><option value="">All statuses</option><option>available</option><option>reserved</option><option>assigned</option><option>running</option><option>blocked</option><option>completed</option><option>failed</option><option>cancelled</option></select><input id="taskSkillFilter" placeholder="Skill"><input id="taskBotFilter" placeholder="Bot ID"><input id="taskGoalFilter" placeholder="Goal ID"><input id="taskWorldFilter" placeholder="World ID"><input id="taskErrorFilter" placeholder="Error code"><input id="taskPriorityFilter" type="number" min="0" max="100" placeholder="Priority"><select id="taskSort"><option value="priority">Highest priority</option><option value="newest">Newest</option><option value="oldest">Oldest</option></select></div><div id="dashboardTaskBoard" class="task-board"></div></section>
       <section id="learningDashboard" class="tab"><div class="card-head"><div><h2>Skills & Learning</h2><p>Only measured executions and stored experiences are shown.</p></div></div><div id="skillSummary" class="dashboard-metrics"></div><div id="skillCharts" class="skill-charts"></div><div id="skillTable"></div><div class="card-head"><div><h2>Recent experiences</h2></div></div><div id="experienceList"></div></section>
       <section id="logisticsDashboard" class="tab"><div id="logisticsWarnings"></div><div class="manage-grid"><div class="manage-block stack"><h2>Bot inventories</h2><div id="botInventories"></div></div><div class="manage-block stack"><h2>Verified containers</h2><div id="containerInventory"></div></div><div class="manage-block stack"><h2>Reservations</h2><div id="inventoryReservations"></div></div></div></section>
       <section id="eventsDashboard" class="tab"><div class="toolbar"><select id="eventLevelFilter"><option value="">All levels</option><option>debug</option><option>info</option><option>success</option><option>warning</option><option>error</option><option>critical</option></select><input id="eventBotFilter" placeholder="Bot ID"><input id="eventGoalFilter" placeholder="Goal ID"><input id="eventTaskFilter" placeholder="Task ID"><input id="eventErrorFilter" placeholder="Error code"><select id="eventTimeFilter"><option value="">All buffered</option><option value="3600000">Last hour</option><option value="86400000">Last 24 hours</option></select></div><div id="dashboardEventFeed" class="event-feed"></div></section>
-      <section id="dashboardSettings" class="tab"><form id="dashboardSettingsForm" class="manage-block stack"><h2>Dashboard configuration</h2><label>Enabled<select id="dashboardEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Realtime<select id="dashboardRealtime"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Debug mode<select id="dashboardDebug"><option value="false">Disabled</option><option value="true">Enabled</option></select></label><label>Control actions<select id="dashboardControls"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><button type="submit">Save dashboard settings</button><p>Control actions outside localhost require the server-side DASHBOARD_TOKEN.</p></form></section>
+      <section id="dashboardSettings" class="tab"><div class="manage-grid">
+        <form id="dashboardSettingsForm" class="manage-block stack"><h2>Dashboard configuration</h2><p>Application version: <strong id="dashboardAppVersion">-</strong>. Realtime bepaalt live updates; debug toont extra technische gegevens.</p><label>Enabled<select id="dashboardEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Realtime<select id="dashboardRealtime"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><label>Debug mode<select id="dashboardDebug"><option value="false">Disabled</option><option value="true">Enabled</option></select></label><label>Control actions<select id="dashboardControls"><option value="true">Enabled</option><option value="false">Disabled</option></select></label><button type="submit">Save dashboard settings</button><p>Besturing buiten localhost vereist DASHBOARD_TOKEN.</p></form>
+        <form id="discordTokenForm" class="manage-block stack"><h2>Discord koppelen</h2><p>Plak de bot token uit het Discord Developer Portal. De token wordt alleen lokaal in een Git-genegeerd `.env`-bestand opgeslagen en nooit opnieuw getoond.</p><div id="discordTokenState" class="notice">Status wordt geladen…</div><label>Discord bot key<input id="discordBotToken" type="password" autocomplete="new-password" placeholder="Token wordt na opslaan leeggemaakt"></label><button type="submit">Save and connect Discord</button><button id="removeDiscordToken" type="button" class="danger">Remove Discord link</button><span id="discordTokenStatus" class="broadcast-status"></span></form>
+        <div class="manage-block stack"><h2>System update</h2><p>Maakt eerst een backup, haalt alleen nieuwere programmabestanden op, installeert dependencies alleen wanneer nodig en start Hub en bots opnieuw. Knowledge, worlds, schematics en instellingen blijven behouden.</p><div id="systemUpdateState" class="notice">Update status wordt geladen…</div><button id="systemUpdateButton" type="button">UPDATE</button><span id="systemUpdateStatus" class="broadcast-status"></span></div>
+      </div></section>
 
       <section id="schematicsDashboard" class="tab">
         <div class="manage-grid">
@@ -99,6 +109,7 @@
             <button type="submit">Start building</button><span id="schematicBuildStatus" class="broadcast-status"></span>
           </form>
           <div class="manage-block stack"><h2>Selected schematic</h2><p>Afmetingen en benodigde materialen komen rechtstreeks uit het bestand.</p><div id="schematicDetails" class="empty">Select a schematic.</div></div>
+          <div class="manage-block stack"><h2>Build status</h2><p>Sent betekent verzonden, queued wacht in de lokale TaskManager, completed is gevalideerd en failed toont de echte foutreden.</p><div id="schematicBuilds" class="stack"><div class="empty">No build assignments yet.</div></div></div>
         </div>
       </section>
 

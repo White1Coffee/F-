@@ -200,6 +200,11 @@ const viewerPort = Number(process.env.VIEWER_PORT || 3001)
 const hudUrl = `HUD port ${hudPort}`
 const viewerUrl = `viewer port ${viewerPort}`
 const botSettings = loadBotSettings()
+// Info: De Hub kan owner en command-whitelist per botinstantie instellen zonder de gedeelde codefolder te wijzigen.
+if (process.env.BOT_OWNER_PLAYER !== undefined) botSettings.ownerPlayer = /^[A-Za-z0-9_]{1,16}$/.test(process.env.BOT_OWNER_PLAYER) ? process.env.BOT_OWNER_PLAYER : ''
+if (process.env.BOT_WHITELISTED_PLAYERS) {
+  try { botSettings.whitelistedPlayers = normalizeBotSettings({ whitelistedPlayers:JSON.parse(process.env.BOT_WHITELISTED_PLAYERS) }).whitelistedPlayers } catch {}
+}
 const eliteMode = botSettings.eliteMode === true
 const taskController = new TaskController()
 const minecraftHost = process.env.MC_HOST || botSettings.host
@@ -933,10 +938,18 @@ const teamClient = new TeamClient({
     if(action==='idle'){reliableTaskManager.cancelAll('dashboard idle');stopEverything();return true}
     if(action==='emergency-stop'){reliableTaskManager.cancelAll('dashboard emergency stop');stopEverything();return true}
     if(action==='reconnect'){reliableTaskManager.cancelAll('dashboard reconnect');rejoinServer();return true}
+    if(action==='update-command-access'){
+      botSettings.ownerPlayer = /^[A-Za-z0-9_]{1,16}$/.test(String(payload.ownerPlayer||'')) ? String(payload.ownerPlayer) : ''
+      botSettings.whitelistedPlayers = normalizeBotSettings({ whitelistedPlayers:payload.whitelistedPlayers }).whitelistedPlayers
+      return { updated:true }
+    }
     if(action==='build-schematic'){
       if(!Array.isArray(payload.blocks)||!payload.origin)throw new Error('INVALID_SCHEMATIC_TASK')
-      reliableTaskManager.enqueue({name:`schematic:${payload.schematicName||payload.schematicId}`,goal:'build_schematic',source:'dashboard',priority:70,context:{target:{blocks:payload.blocks,origin:payload.origin,schematicId:payload.schematicId}},plan:['buildSchematic']})
-      return true
+      // Info: Veiligheid wordt eerst hersteld; daarna bouwt dezelfde centrale TaskManager en rapporteert het gevalideerde eindresultaat.
+      let task
+      const completion = new Promise(resolve=>{const listener=finished=>{if(finished!==task)return;reliableTaskManager.off('complete',listener);resolve(finished)};reliableTaskManager.on('complete',listener)})
+      task = reliableTaskManager.enqueue({name:`schematic:${payload.schematicName||payload.schematicId}`,goal:'build_schematic',source:'dashboard',priority:70,timeoutMs:660000,context:{target:{blocks:payload.blocks,origin:payload.origin,schematicId:payload.schematicId}},plan:['ensureSafety','buildSchematic']})
+      return { taskId:task.id,queued:true,completion }
     }
     return false
   }
@@ -7215,7 +7228,8 @@ function logActionError(action, err) {
 async function buildSchematicAssignment(context = {}) {
   const origin=context.target?.origin,blocks=Array.isArray(context.target?.blocks)?context.target.blocks:[]
   if(!origin||!blocks.length)return skillResult.failure(ErrorCodes.TARGET_MISSING,false)
-  const pending=blocks.map(block=>({...block,target:new Vec3(Number(origin.x)+block.x,Number(origin.y)+block.y,Number(origin.z)+block.z)})).sort((a,b)=>a.target.y-b.target.y)
+  // Info: Omdat de lus achterstevoren verwijdert, zet deze sortering de laagste steunblokken als eerste aan de beurt.
+  const pending=blocks.map(block=>({...block,target:new Vec3(Number(origin.x)+block.x,Number(origin.y)+block.y,Number(origin.z)+block.z)})).sort((a,b)=>b.target.y-a.target.y)
   let placed=0
   for(let pass=0;pass<3&&pending.length;pass++){
     let progress=0
@@ -7225,7 +7239,12 @@ async function buildSchematicAssignment(context = {}) {
       const entry=pending[index],current=bot.blockAt(entry.target)
       if(current?.name===entry.name){pending.splice(index,1);continue}
       if(current&&current.name!=='air'&&current.boundingBox!=='empty')continue
-      const item=bot.inventory.items().find(value=>value.name===entry.name)
+      let item=bot.inventory.items().find(value=>value.name===entry.name)
+      // Info: In creative krijgt de bot het benodigde goedgekeurde palette-item; survival gebruikt alleen werkelijk verzamelde materialen.
+      if(!item&&bot.game?.gameMode==='creative'&&bot.creative?.setInventorySlot){
+        const itemType=bot.registry?.itemsByName?.[entry.name]
+        if(itemType){try{const Item=require('prismarine-item')(bot.version);await bot.creative.setInventorySlot(36,new Item(itemType.id,64));item=bot.inventory.items().find(value=>value.name===entry.name)}catch{}}
+      }
       if(!item)continue
       if(entry.target.distanceTo(bot.entity.position)>4.5&&!await safeGoto(new goals.GoalNear(entry.target.x,entry.target.y,entry.target.z,3),`schematic:${entry.name}`,false))continue
       const faces=[new Vec3(0,1,0),new Vec3(0,-1,0),new Vec3(1,0,0),new Vec3(-1,0,0),new Vec3(0,0,1),new Vec3(0,0,-1)]
@@ -7237,7 +7256,7 @@ async function buildSchematicAssignment(context = {}) {
   }
   if(!pending.length)return skillResult.success({placed,schematicId:context.target.schematicId})
   const missing=[...new Set(pending.filter(entry=>!bot.inventory.items().some(item=>item.name===entry.name)).map(entry=>entry.name))]
-  return skillResult.failure(missing.length?ErrorCodes.TARGET_MISSING:ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:pending.length,missingMaterials:missing})
+  return skillResult.failure(missing.length?ErrorCodes.INSUFFICIENT_ITEMS:ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:pending.length,missingMaterials:missing})
 }
 
 // Info: Teamlogistiek gebruikt een expliciete wereldgebonden kist en valideert de echte containerinhoud.

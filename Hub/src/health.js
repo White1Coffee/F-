@@ -23,6 +23,8 @@ async function systemHealth(deps) {
   } = deps
 
   const botPorts = settings.bots.flatMap(bot => [bot.hudPort, bot.viewerPort])
+  const portableNode = path.join(portableRoot, 'Node', 'node.exe')
+  const activeNode = fs.existsSync(portableNode) ? portableNode : process.execPath
   const portChecks = await Promise.all([...new Set([HUB_PORT, ...botPorts])].map(async port => ({
     port,
     listening: await portListening(port)
@@ -30,7 +32,7 @@ async function systemHealth(deps) {
   return {
     checkedAt: new Date().toISOString(),
     paths: [
-      { name: 'Portable Node', ok: fs.existsSync(path.join(portableRoot, 'Node', 'node.exe')), path: path.join(portableRoot, 'Node', 'node.exe') },
+      { name: 'Node.js runtime', ok: Boolean(activeNode&&fs.existsSync(activeNode)), path: activeNode },
       { name: 'Hub node_modules', ok: fs.existsSync(path.join(hubRoot, 'node_modules')), path: path.join(hubRoot, 'node_modules') },
       { name: 'Bots node_modules', ok: fs.existsSync(path.join(botsRoot, 'node_modules')), path: path.join(botsRoot, 'node_modules') },
       { name: 'Settings', ok: fs.existsSync(settingsFile), path: settingsFile },

@@ -39,13 +39,19 @@ const discordEnvFile = path.join(discordBridgeRoot, '.env')
 const discordPidFile = path.join(discordBridgeRoot, 'discord-bridge.pid')
 const discordOutLog = path.join(portableRoot, 'Logs', 'discord-bridge.out.log')
 const discordErrLog = path.join(portableRoot, 'Logs', 'discord-bridge.err.log')
+const dashboardUpdateStateFile = path.join(portableRoot, 'Logs', 'dashboard-update.json')
+const dashboardUpdatePidFile = path.join(portableRoot, 'Logs', 'dashboard-update.pid')
+const dashboardUpdateScript = path.join(portableRoot, 'scripts', 'dashboard-update.ps1')
 const schematicStore = new SchematicStore(schematicsRoot, require(path.join(portableRoot,'Bots','node_modules','prismarine-nbt')))
+// Info: Bouwopdrachten blijven begrensd in het geheugen; echte botresultaten bepalen de getoonde status.
+const schematicBuildJobs = new Map()
 const runningBots = new Map()
 const telemetrySockets = new Map()
 const botPortBase = 3110
 const botPortStep = 2
 const perBotBackupLimit = 5
 const supportedMinecraftVersions = ['1.21.11', '1.21.9', '1.21.8', '1.21.6', '1.21.5', '1.21.4', '1.21.3', '1.21.1', '1.20.6', '1.20.4', '1.20.2', '1.20.1', '1.20', '1.19.4', '1.19.3', '1.19.2', '1.19', '1.18.2', '1.17.1', '1.16.5', '1.15.2', '1.14.4', '1.13.2', '1.12.2', '1.11.2', '1.10.2', '1.9.4', '1.8.8', '1.7']
+const appVersion = String(readJson(path.join(portableRoot, 'Bots', 'package.json'), {}).version || '0.0.0')
 const crashWindowMs = 10 * 60 * 1000
 const crashWindowLimit = 5
 const defaultTeamSettings = { enabled: true, heartbeatIntervalMs: 3000, botOfflineAfterMs: 12000, taskAcceptTimeoutMs: 10000, taskReservationMs: 30000, areaReservationMs: 60000, objectReservationMs: 30000, inventoryReservationMs: 60000, maxTaskRetries: 3, assignmentIntervalMs: 2000, conflictDistance: 2.5, conflictTimeoutMs: 5000, yieldCooldownMs: 3000, logisticsContainers: [] }
@@ -76,6 +82,21 @@ function readEnv(file) {
     env[trimmed.slice(0, index).trim()] = trimmed.slice(index + 1).trim()
   }
   return env
+}
+
+// Info: Secrets worden atomisch in het reeds genegeerde .env-bestand geschreven en nooit teruggestuurd naar de browser.
+function writeEnvValue(file, key, value) {
+  if (!/^[A-Z0-9_]+$/.test(key)) throw new Error('Invalid environment key.')
+  const clean = String(value ?? '')
+  if (/[\r\n]/.test(clean)) throw new Error('Environment values may not contain newlines.')
+  fs.mkdirSync(path.dirname(file), { recursive:true })
+  const current = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : ''
+  const pattern = new RegExp(`^${key}=.*$`, 'm')
+  const line = `${key}=${clean}`
+  const next = pattern.test(current) ? current.replace(pattern, line) : `${current.replace(/\s*$/, '')}${current.trim()?'\r\n':''}${line}\r\n`
+  const temp = `${file}.${process.pid}.tmp`
+  fs.writeFileSync(temp, next, 'utf8')
+  fs.renameSync(temp, file)
 }
 
 function psQuote(value) {
@@ -192,9 +213,13 @@ function writePortsConfig() {
 function botFromFolder(folder, existingBots = []) {
   const botSettings = readJson(path.join(folder, 'bot-settings.json'), {})
   const ports = nextPorts(existingBots)
+  const name = path.basename(folder)
   return {
     id: crypto.randomUUID(),
-    name: path.basename(folder),
+    name,
+    username: minecraftUsername(name),
+    ownerPlayer: normalizePlayerName(botSettings.ownerPlayer),
+    whitelistedPlayers: normalizePlayerList(botSettings.whitelistedPlayers),
     folder: portablePath(folder),
     host: String(botSettings.host || 'localhost'),
     port: normalizePort(botSettings.port, 25565),
@@ -206,6 +231,20 @@ function botFromFolder(folder, existingBots = []) {
     disabledUntil: null,
     stats: { starts: 0, crashes: 0, totalRuntimeMs: 0, lastExit: null, lastError: '' }
   }
+}
+
+function normalizePlayerName(value) {
+  const name = String(value || '').trim()
+  return /^[A-Za-z0-9_]{1,16}$/.test(name) ? name : ''
+}
+
+function normalizePlayerList(value) {
+  const entries = Array.isArray(value) ? value : String(value || '').split(/[\r\n,;]+/)
+  return [...new Map(entries.map(normalizePlayerName).filter(Boolean).map(name => [name.toLowerCase(), name])).values()]
+}
+
+function minecraftUsername(value) {
+  return String(value || 'MinecraftAI').trim().replace(/[^A-Za-z0-9_]/g, '_').slice(0, 16) || 'MinecraftAI'
 }
 
 function findBotFolders(rootValue) {
@@ -234,9 +273,16 @@ function normalizeBot(bot) {
     ? path.resolve(portableRoot, String(bot.folder).slice(2))
     : path.resolve(path.isAbsolute(String(bot.folder || '')) ? String(bot.folder || '') : path.join(__dirname, String(bot.folder || '')))
   const server = normalizeHostAndPort(bot.host, bot.port)
+  const folderSettings = readJson(path.join(folder, 'bot-settings.json'), {})
   return {
     id: String(bot.id || crypto.randomUUID()),
     name: String(bot.name || path.basename(folder || 'Minecraft AI')).trim().slice(0, 80) || 'Minecraft AI',
+    // Info: De gekozen Hub-naam is ook de Minecraft-username; zo erven nieuwe of gekloonde bots nooit de bronnaam.
+    username: minecraftUsername(bot.name || path.basename(folder || 'MinecraftAI')),
+    ownerPlayer: normalizePlayerName(bot.ownerPlayer ?? folderSettings.ownerPlayer),
+    whitelistedPlayers: normalizePlayerList(bot.whitelistedPlayers ?? folderSettings.whitelistedPlayers),
+    auth: ['offline', 'microsoft'].includes(String(bot.auth || '').toLowerCase()) ? String(bot.auth).toLowerCase() : undefined,
+    viewerEnabled: bot.viewerEnabled === true,
     folder: portablePath(folder),
     host: server.host || 'localhost',
     port: server.port,
@@ -531,6 +577,20 @@ function ensureTelemetry(bot) {
   socket.on('team:reservation-renew', (payload, acknowledge) => { try { const value=teamCoordinator.reservations.renew(payload.id,bot.id,payload.instanceId,payload.ttlMs);teamStore.save();acknowledge?.({ok:true,reservation:value}) } catch(error){acknowledge?.({ok:false,errorCode:error.message})} })
   socket.on('team:reservation-release', payload => { teamCoordinator.reservations.release(payload.id,bot.id,payload.instanceId);teamStore.save() })
   socket.on('team:inventory-container', payload => { try { teamCoordinator.inventory.updateContainer(payload);teamStore.save() } catch {} })
+  socket.on('team:control-result', payload => {
+    const requestId=String(payload?.requestId||''),job=[...schematicBuildJobs.values()].find(value=>value.builders.some(builder=>builder.requestId===requestId)),builder=job?.builders.find(value=>value.requestId===requestId)
+    if(!builder)return
+    Object.assign(builder,{status:payload.ok?'queued':'failed',localTaskId:payload.taskId??null,errorCode:payload.errorCode||null,updatedAt:Date.now()})
+    job.status=job.builders.every(value=>value.status==='failed')?'failed':'running';job.updatedAt=Date.now()
+    dashboardEvent({type:'schematic.accepted',level:payload.ok?'info':'error',botId:bot.id,errorCode:builder.errorCode,message:payload.ok?`${bot.name} queued schematic blocks`:`${bot.name} rejected schematic build: ${builder.errorCode||'unknown error'}`})
+  })
+  socket.on('team:control-completed', payload => {
+    const requestId=String(payload?.requestId||''),job=[...schematicBuildJobs.values()].find(value=>value.builders.some(builder=>builder.requestId===requestId)),builder=job?.builders.find(value=>value.requestId===requestId)
+    if(!builder)return
+    Object.assign(builder,{status:payload.ok?'completed':'failed',errorCode:payload.errorCode||null,result:payload.result||null,updatedAt:Date.now()})
+    job.status=job.builders.every(value=>value.status==='completed')?'completed':job.builders.some(value=>value.status==='failed')?'failed':'running';job.updatedAt=Date.now()
+    dashboardEvent({type:'schematic.completed',level:payload.ok?'success':'error',botId:bot.id,errorCode:builder.errorCode,message:payload.ok?`${bot.name} completed its schematic blocks`:`${bot.name} could not build: ${builder.errorCode||'unknown error'}`})
+  })
   socket.on('disconnect', () => { const registered=teamCoordinator.registry.get(bot.id);if(registered)teamCoordinator.unregister(bot.id,registered.instanceId) })
   socket.on('update', data => {
     const inventorySummary = {}
@@ -660,6 +720,7 @@ function discordBridgeStatus() {
   const lastError = errLines.slice().reverse().find(line => line && !/^Node\.js/i.test(line)) || ''
   return {
     installed: fs.existsSync(discordBridgeFile),
+    tokenConfigured: Boolean(env.DISCORD_TOKEN),
     running: processAlive(pid),
     pid: processAlive(pid) ? pid : null,
     prefix: env.DISCORD_PREFIX || '!mc',
@@ -673,6 +734,32 @@ function discordBridgeStatus() {
     lastOutput: outLines.slice(-12),
     errorLines: errLines.slice(-12)
   }
+}
+
+async function saveDiscordToken(token, remove = false) {
+  const value = String(token || '').trim()
+  if (!remove && !/^[A-Za-z0-9._-]{30,200}$/.test(value)) throw new Error('Enter a valid Discord bot token without spaces.')
+  writeEnvValue(discordEnvFile, 'DISCORD_TOKEN', remove ? '' : value)
+  if (remove) await stopDiscordBridge()
+  else await restartDiscordBridge()
+  return discordBridgeStatus()
+}
+
+function dashboardUpdateStatus() {
+  const state = readJson(dashboardUpdateStateFile, {})
+  const pid = fs.existsSync(dashboardUpdatePidFile) ? Number(fs.readFileSync(dashboardUpdatePidFile, 'utf8').trim()) : 0
+  return { appVersion, running:Boolean(pid&&processAlive(pid)), status:state.status||'idle', message:String(state.message||''), startedAt:state.startedAt||null, finishedAt:state.finishedAt||null }
+}
+
+function startDashboardUpdate() {
+  if (!fs.existsSync(dashboardUpdateScript)) throw new Error('Dashboard update script is missing.')
+  const current = dashboardUpdateStatus()
+  if (current.running) throw new Error('An update is already running.')
+  fs.mkdirSync(path.dirname(dashboardUpdateStateFile), { recursive:true })
+  fs.writeFileSync(dashboardUpdateStateFile, `${JSON.stringify({status:'starting',message:'Update wordt voorbereid.',startedAt:new Date().toISOString()},null,2)}\n`, 'utf8')
+  const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',dashboardUpdateScript],{cwd:portableRoot,detached:true,windowsHide:true,stdio:'ignore'})
+  fs.writeFileSync(dashboardUpdatePidFile,String(child.pid),'utf8');child.unref()
+  return { ...dashboardUpdateStatus(), running:true }
 }
 
 async function stopDiscordBridge() {
@@ -860,6 +947,7 @@ async function cloneBot(sourceBot, requestedName) {
     ...sourceBot,
     id: crypto.randomUUID(),
     name,
+    username: minecraftUsername(name),
     folder: portablePath(target),
     stats: { starts: 0, crashes: 0, totalRuntimeMs: 0, lastExit: null, lastError: '', recentCrashes: [] },
     disabledUntil: null
@@ -954,6 +1042,7 @@ async function statePayload() {
     }
   }
   return {
+    appVersion,
     hubPort: HUB_PORT,
     mergedKnowledge: mergedKnowledgeList(),
     groups: [...new Set([...settings.groups, ...settings.bots.map(bot => bot.group)])].sort(),
@@ -1042,12 +1131,17 @@ async function startBot(bot) {
       MC_HOST: bot.host,
       MC_PORT: String(bot.port),
       MC_VERSION: bot.version,
+      MC_USERNAME: bot.username || bot.name,
+      ...(bot.auth ? { MC_AUTH: bot.auth } : {}),
+      VIEWER_AUTOSTART: bot.viewerEnabled === false ? '0' : '1',
       MINECRAFT_AI_WORKER: '1'
       ,BOT_ID: bot.id
       ,BOT_TYPE: path.basename(folder)
       ,HUB_URL: `http://127.0.0.1:${HUB_PORT}`
       ,TEAM_ENABLED: settings.team.enabled ? '1' : '0'
       ,TEAM_HEARTBEAT_INTERVAL_MS: String(settings.team.heartbeatIntervalMs)
+      ,BOT_OWNER_PLAYER: bot.ownerPlayer || ''
+      ,BOT_WHITELISTED_PLAYERS: JSON.stringify(bot.whitelistedPlayers || [])
     },
     detached: false,
     windowsHide: true,
@@ -1197,11 +1291,15 @@ app.get('/api/logistics/reservations',(_request,response)=>response.json({ok:tru
 app.get('/api/world/reservations',(request,response)=>response.json({ok:true,reservations:teamStore.state.reservations.filter(item=>(!request.query.worldId||item.worldId===request.query.worldId)&&item.type==='area')}))
 app.get('/api/events',(request,response)=>response.json({ok:true,...dashboardEvents.query(request.query)}))
 
+// Info: Toegangsbeheer is per Hub-botinstantie, ook wanneer bots dezelfde productiecode gebruiken.
+app.get('/api/bot-access',(_request,response)=>response.json({ok:true,bots:settings.bots.map(bot=>({id:bot.id,name:bot.name,username:bot.username,ownerPlayer:bot.ownerPlayer||'',whitelistedPlayers:bot.whitelistedPlayers||[],running:Boolean(runningBots.get(bot.id))}))}))
+app.patch('/api/bots/:id/access',(request,response,next)=>{try{requireDashboardControl(request);const bot=findBot(request.params.id),rawOwner=String(request.body?.ownerPlayer||'').trim(),ownerPlayer=normalizePlayerName(rawOwner);if(rawOwner&&!ownerPlayer)throw new Error('Owner must be a valid Minecraft player name (1-16 letters, numbers or underscores).');const rawList=Array.isArray(request.body?.whitelistedPlayers)?request.body.whitelistedPlayers:String(request.body?.whitelistedPlayers||'').split(/[\r\n,;]+/),whitelistedPlayers=normalizePlayerList(rawList);if(whitelistedPlayers.length!==rawList.filter(value=>String(value||'').trim()).length)throw new Error('One or more whitelisted player names are invalid or duplicated.');Object.assign(bot,{ownerPlayer,whitelistedPlayers});saveSettings();const telemetry=telemetrySockets.get(bot.id),appliedLive=Boolean(telemetry?.socket.connected);if(appliedLive)telemetry.socket.emit('team:control',{action:'update-command-access',ownerPlayer,whitelistedPlayers,requestedAt:Date.now()});response.json({ok:true,bot:{id:bot.id,name:bot.name,username:bot.username,ownerPlayer,whitelistedPlayers},appliedLive,restartRequired:Boolean(runningBots.get(bot.id)&&!appliedLive)})}catch(error){next(error)}})
+
 // Info: Schematics worden server-side gevalideerd; bots ontvangen alleen een begrensde lijst blokken via hun bestaande TaskManager.
-app.get('/api/schematics',(_request,response)=>response.json({ok:true,schematics:schematicStore.list()}))
+app.get('/api/schematics',(_request,response)=>response.json({ok:true,schematics:schematicStore.list(),builds:[...schematicBuildJobs.values()].sort((a,b)=>b.createdAt-a.createdAt).slice(0,50)}))
 app.post('/api/schematics/upload',express.raw({type:'application/octet-stream',limit:MAX_BYTES}),async(request,response,next)=>{try{requireDashboardControl(request);const filename=decodeURIComponent(String(request.get('X-Schematic-Name')||''));response.json({ok:true,schematic:await schematicStore.save(filename,request.body)})}catch(error){next(error)}})
 app.delete('/api/schematics/:id',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');if(!schematicStore.remove(request.params.id))throw new Error('Schematic not found.');response.json({ok:true})}catch(error){next(error)}})
-app.post('/api/schematics/:id/build',(request,response,next)=>{try{requireDashboardControl(request);const schematic=schematicStore.get(request.params.id,true);if(!schematic)throw new Error('Schematic not found.');const origin={x:Number(request.body?.origin?.x),y:Number(request.body?.origin?.y),z:Number(request.body?.origin?.z)};if(!Object.values(origin).every(Number.isInteger))throw new Error('Build coordinates must be whole block coordinates.');const rotation=Number(request.body?.rotation||0);if(![0,90,180,270].includes(rotation))throw new Error('Invalid rotation.');const ids=[...new Set([String(request.body?.primaryBotId||''),...(Array.isArray(request.body?.helperBotIds)?request.body.helperBotIds.map(String):[])].filter(Boolean))];if(!ids.length)throw new Error('Choose a primary bot.');const primary=teamCoordinator.registry.get(ids[0]);if(!primary?.online)throw new Error('The primary bot is offline.');const bots=ids.map(id=>{const live=teamCoordinator.registry.get(id);if(!live?.online)throw new Error(`${findBot(id).name} is offline.`);if(live.worldId!==primary.worldId)throw new Error('All builders must be on the same server.');return live});const transformed=transformBlocks(schematic.blocks,rotation,schematic.width,schematic.length),assignments=bots.map(()=>[]);transformed.forEach((block,index)=>assignments[index%bots.length].push(block));bots.forEach((live,index)=>{const channel=teamBotChannel(live.botId);channel.socket.emit('team:control',{action:'build-schematic',schematicId:schematic.id,schematicName:schematic.name,origin,rotation,blocks:assignments[index],totalBlocks:transformed.length,requestedAt:Date.now()})});dashboardEvent({type:'schematic.build',level:'info',botId:ids[0],message:`Building ${schematic.name} with ${bots.length} bot(s)`});response.json({ok:true,schematic:{...schematic,blocks:undefined},builders:bots.map(bot=>({botId:bot.botId,name:findBot(bot.botId).name,blocks:assignments[bots.indexOf(bot)].length})),origin,rotation})}catch(error){next(error)}})
+app.post('/api/schematics/:id/build',(request,response,next)=>{try{requireDashboardControl(request);const schematic=schematicStore.get(request.params.id,true);if(!schematic)throw new Error('Schematic not found.');const origin={x:Number(request.body?.origin?.x),y:Number(request.body?.origin?.y),z:Number(request.body?.origin?.z)};if(!Object.values(origin).every(Number.isInteger))throw new Error('Build coordinates must be whole block coordinates.');const rotation=Number(request.body?.rotation||0);if(![0,90,180,270].includes(rotation))throw new Error('Invalid rotation.');const ids=[...new Set([String(request.body?.primaryBotId||''),...(Array.isArray(request.body?.helperBotIds)?request.body.helperBotIds.map(String):[])].filter(Boolean))];if(!ids.length)throw new Error('Choose a primary bot.');const primary=teamCoordinator.registry.get(ids[0]);if(!primary?.online)throw new Error('The primary bot is offline.');const bots=ids.map(id=>{const live=teamCoordinator.registry.get(id);if(!live?.online)throw new Error(`${findBot(id).name} is offline.`);if(live.worldId!==primary.worldId)throw new Error('All builders must be on the same server.');return live});const transformed=transformBlocks(schematic.blocks,rotation,schematic.width,schematic.length),assignments=bots.map(()=>[]),buildId=crypto.randomUUID();transformed.forEach((block,index)=>assignments[index%bots.length].push(block));const job={id:buildId,schematicId:schematic.id,schematicName:schematic.name,worldId:primary.worldId,origin,rotation,status:'sent',createdAt:Date.now(),updatedAt:Date.now(),builders:bots.map((live,index)=>({botId:live.botId,name:findBot(live.botId).name,blocks:assignments[index].length,requestId:`${buildId}:${live.botId}`,status:'sent',errorCode:null}))};schematicBuildJobs.set(buildId,job);while(schematicBuildJobs.size>100)schematicBuildJobs.delete(schematicBuildJobs.keys().next().value);bots.forEach((live,index)=>{const channel=teamBotChannel(live.botId),builder=job.builders[index];channel.socket.emit('team:control',{action:'build-schematic',requestId:builder.requestId,schematicId:schematic.id,schematicName:schematic.name,origin,rotation,blocks:assignments[index],totalBlocks:transformed.length,requestedAt:Date.now()})});dashboardEvent({type:'schematic.build',level:'info',botId:ids[0],message:`Schematic ${schematic.name} sent to ${bots.length} bot(s); waiting for validated results`});response.json({ok:true,buildId,schematic:{...schematic,blocks:undefined},builders:job.builders.map(({requestId,...builder})=>builder),origin,rotation})}catch(error){next(error)}})
 
 // Info: Teambeheer blijft HTTP; live opdrachten en heartbeats lopen over de bestaande bot-sockets.
 app.get('/api/team/bots', (_request,response) => response.json({ok:true,bots:teamCoordinator.registry.list()}))
@@ -1211,6 +1309,12 @@ app.get('/api/team/tasks', (_request,response) => response.json({ok:true,tasks:t
 app.post('/api/team/tasks/:id/cancel', (request,response,next) => { try { requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');response.json({ok:true,task:teamCoordinator.cancelTask(request.params.id)}) } catch(error){next(error)} })
 app.get('/api/team/reservations', (_request,response) => response.json({ok:true,reservations:teamStore.state.reservations}))
 app.get('/api/team/inventory', (_request,response) => response.json({ok:true,inventory:teamCoordinator.inventory.snapshot()}))
+
+// Info: Alleen lokale/geauthenticeerde dashboardbesturing mag secrets wijzigen of een systeemupdate starten.
+app.get('/api/settings/integrations',(_request,response)=>response.json({ok:true,discord:{installed:fs.existsSync(discordBridgeFile),tokenConfigured:Boolean(readEnv(discordEnvFile).DISCORD_TOKEN),running:discordBridgeStatus().running},update:dashboardUpdateStatus()}))
+app.post('/api/settings/discord',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');saveDiscordToken(request.body?.token,request.body?.remove===true).then(discord=>response.json({ok:true,discord})).catch(next)}catch(error){next(error)}})
+app.get('/api/system/update/status',(_request,response)=>response.json({ok:true,update:dashboardUpdateStatus()}))
+app.post('/api/system/update',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');const update=startDashboardUpdate();dashboardEvent({type:'system.update',level:'warning',message:'System update started; Hub will restart automatically'});response.status(202).json({ok:true,update})}catch(error){next(error)}})
 
 registerSupportRoutes(app, {
   fs,
@@ -1469,6 +1573,7 @@ app.patch('/api/bots/:id', (request, response, next) => {
     Object.assign(bot, normalizeBot({
       ...bot,
       name: request.body?.name ?? bot.name,
+      username: request.body?.name !== undefined ? minecraftUsername(request.body.name) : bot.username,
       host: server.host,
       port: server.port,
       version: normalizeMinecraftVersion(request.body?.version ?? bot.version, bot.version),

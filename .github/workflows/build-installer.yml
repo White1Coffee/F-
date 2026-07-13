@@ -1,0 +1,43 @@
+name: Build Windows installer
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  installer:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            Hub/package-lock.json
+            Bots/package-lock.json
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          npm ci --prefix Hub --no-audit --no-fund
+          npm ci --prefix Bots --no-audit --no-fund
+      - name: Test
+        shell: pwsh
+        run: |
+          Push-Location Hub; node --test; Pop-Location
+          Push-Location Bots/official-bot; node --test; Pop-Location
+          .\scripts\test-installer.ps1
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+      - name: Build installer and checksum
+        shell: pwsh
+        run: .\scripts\build-installer.ps1 -SkipTests
+      - uses: actions/upload-artifact@v4
+        with:
+          name: F-Mineflayer-Windows-${{ github.ref_name }}
+          path: |
+            dist/*.exe
+            dist/*.sha256
+          if-no-files-found: error
