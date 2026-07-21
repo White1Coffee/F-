@@ -491,12 +491,13 @@ function clearRuntimeIntervals() {
 function scheduleReconnect(reason) {
   if (reconnectTimer || process.env.NO_AUTO_RECONNECT === '1') return
   clearRuntimeIntervals()
+  const delayMs = 5000
   reconnectTimer = setTimeout(async () => {
     console.log(`Restarting worker after ${reason}...`)
     await flushJsonWrites()
     process.exit(75)
-  }, 3000)
-  console.log(`Reconnect scheduled in 3 seconds (${reason}).`)
+  }, delayMs)
+  console.log(`Reconnect scheduled in ${delayMs / 1000} seconds (${reason}).`)
 }
 
 function resetDisconnectedSession() {
@@ -3141,6 +3142,15 @@ async function craftSmartAttempt(itemName, allowDuplicateTool = false) {
   if (itemName === 'stick') {
     await ensureSticks()
     return true
+  }
+
+  if (itemName === 'shield') {
+    if (!hasItem('iron_ingot')) return false
+    if (!await ensureCraftingTable()) return false
+    if (taskWasCancelled(taskToken)) return false
+    if (!await ensurePlanks(6)) return false
+    if (taskWasCancelled(taskToken)) return false
+    return craftWithTable('shield')
   }
 
   await searchNearbyChests()
@@ -8107,7 +8117,12 @@ async function placeBridgeBlock(target) {
   for (const face of usableFaces) {
     try {
       if (!await equipAndConfirmHeldItem(item)) break
-      await bot.placeBlock(bot.blockAt(target.minus(face)), face)
+      const referenceBlock = bot.blockAt(target.minus(face))
+      if (!referenceBlock?.position || !canUseAsPlacementFloor(referenceBlock)) {
+        rememberBlockFailure(state.bridgeBlockFailures, target)
+        continue
+      }
+      await bot.placeBlock(referenceBlock, face)
       if (await waitForPlacedBlock(target, Math.max(500, Number(knowledge.movement.rules?.bridgeVerifyTimeoutMs) || 1200))) {
         delete state.bridgeBlockFailures[blockFailureKey(target)]
         incrementMovementStat('bridgeBlocksPlaced')

@@ -50,7 +50,10 @@ class PlannerBrain {
       candidates.push(this.plan('stone tools', 'get_stone_tools', 'stone-level tools are missing', 70))
     }
 
-    if (!situation.hasShield) {
+    const plankCount = Object.entries(counts).filter(([name]) => name.endsWith('_planks')).reduce((total, [,count]) => total + count, 0)
+    const logCount = Object.entries(counts).filter(([name]) => name.endsWith('_log') || name.endsWith('_stem')).reduce((total, [,count]) => total + count, 0)
+    const canPrepareShield = Number(counts.iron_ingot || 0) >= 1 && (plankCount >= 6 || logCount >= 2)
+    if (!situation.hasShield && canPrepareShield) {
       candidates.push(this.plan('combat safety', 'craft_shield', 'shield is missing before dangerous progression', 72))
     }
 

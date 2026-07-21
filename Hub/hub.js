@@ -13,6 +13,7 @@ const { TeamStore } = require('./src/team/teamStore')
 const { TeamCoordinator } = require('./src/team/teamCoordinator')
 const { EventBuffer } = require('./src/dashboard/eventBuffer')
 const { DashboardService } = require('./src/dashboard/dashboardService')
+const { BoundedHistoryStore, summarizeReconnects } = require('./src/dashboard/historyStore')
 const { SchematicStore, transformBlocks, MAX_BYTES } = require('./src/schematics/schematicStore')
 process.env.TZ ||= 'Europe/Amsterdam'
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -33,6 +34,8 @@ const startupBackupsRoot = path.join(dataRoot, 'backups', 'startup')
 const configBackupsRoot = path.join(dataRoot, 'backups', 'config')
 const teamStateFile = path.join(dataRoot, 'team-state.json')
 const schematicsRoot = path.join(dataRoot, 'schematics')
+const schematicBuildHistoryFile = path.join(dataRoot, 'schematic-build-history.json')
+const reconnectHistoryFile = path.join(dataRoot, 'reconnect-history.json')
 const botsRoot = path.join(portableRoot, 'Bots')
 const discordBridgeRoot = path.join(portableRoot, 'minecraft-discord-bot')
 const discordBridgeFile = path.join(discordBridgeRoot, 'index.js')
@@ -45,8 +48,15 @@ const dashboardUpdatePidFile = path.join(portableRoot, 'Logs', 'dashboard-update
 const dashboardUpdateScript = path.join(portableRoot, 'scripts', 'dashboard-update.ps1')
 const dashboardUpdateLauncher = path.join(portableRoot, 'scripts', 'launch-dashboard-update.ps1')
 const schematicStore = new SchematicStore(schematicsRoot, require(path.join(portableRoot,'Bots','node_modules','prismarine-nbt')))
-// Info: Bouwopdrachten blijven begrensd in het geheugen; echte botresultaten bepalen de getoonde status.
-const schematicBuildJobs = new Map()
+const schematicBuildHistory = new BoundedHistoryStore(schematicBuildHistoryFile, 5)
+const reconnectHistory = new BoundedHistoryStore(reconnectHistoryFile, 1000)
+// Info: Alleen de vijf nieuwste bouwopdrachten worden hersteld; onafgeronde opdrachten worden na een Hub-herstart eerlijk als mislukt gemarkeerd.
+const recoveredSchematicBuilds = schematicBuildHistory.list().map(job => {
+  if (['completed','failed','cancelled'].includes(job.status)) return job
+  return { ...job, status:'failed',updatedAt:Date.now(),builders:(job.builders||[]).map(builder => ['completed','failed','cancelled'].includes(builder.status)?builder:{...builder,status:'failed',errorCode:'HUB_RESTARTED',updatedAt:Date.now()}) }
+})
+const schematicBuildJobs = new Map(recoveredSchematicBuilds.map(job => [job.id, job]))
+if (recoveredSchematicBuilds.length) schematicBuildHistory.replace(recoveredSchematicBuilds)
 const runningBots = new Map()
 const telemetrySockets = new Map()
 const botPortBase = 3110
@@ -70,6 +80,76 @@ function readJson(file, fallback = {}) {
     return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''))
   } catch {
     return fallback
+  }
+}
+
+function persistSchematicBuilds() {
+  const latest = [...schematicBuildJobs.values()].sort((left, right) => Number(right.createdAt) - Number(left.createdAt)).slice(0, 5)
+  schematicBuildJobs.clear()
+  for (const job of latest) schematicBuildJobs.set(job.id, job)
+  schematicBuildHistory.replace(latest)
+}
+
+function recordReconnect(bot, details = {}) {
+  const timestamp = Date.now()
+  reconnectHistory.add({
+    id: crypto.randomUUID(),
+    timestamp,
+    botId: bot.id,
+    botName: bot.name,
+    serverId: `${String(bot.host || 'unknown').toLowerCase()}:${Number(bot.port || 25565)}`,
+    serverName: `${bot.host || 'unknown'}:${Number(bot.port || 25565)}`,
+    attempt: Number(bot.reconnectAttempts || 0),
+    delayMs: Number(details.delayMs || 0),
+    reason: String(details.reason || 'worker-exit').slice(0, 80)
+  })
+}
+
+function reconnectDashboardData() {
+  const events = reconnectHistory.list().filter(event => Number.isFinite(Number(event.timestamp)))
+  return { ...summarizeReconnects(events),events:events.slice(0, 100) }
+}
+
+function diagnosticLogCounts(bot) {
+  const lines = tailLog(bot)
+  const count = pattern => lines.filter(line => pattern.test(line)).length
+  return {
+    connectionReset: count(/ECONNRESET/i),
+    connectionAborted: count(/ECONNABORTED/i),
+    throttled: count(/Connection throttled/i),
+    idleKicks: count(/disconnect\.idling/i),
+    taskTimeouts: count(/task_timeout/i),
+    nullPositionErrors: count(/null \(reading 'position'\)/i)
+  }
+}
+
+async function diagnosticReport() {
+  const health = await systemHealth()
+  return {
+    schemaVersion: 1,
+    generatedAt: new Date().toISOString(),
+    application: { version:appVersion,node:process.version,platform:process.platform,architecture:process.arch,hubUptimeSeconds:Math.round(process.uptime()) },
+    checks: {
+      paths: (health.paths||[]).map(item => ({ name:item.name,ok:item.ok })),
+      ports: health.ports||[],
+      disk: health.disk ? { size:health.disk.size,free:health.disk.free } : null,
+      dashboardEnabled: settings.dashboard.enabled,
+      realtimeEnabled: settings.dashboard.realtimeEnabled,
+      teamEnabled: settings.team.enabled
+    },
+    bots: await Promise.all(settings.bots.map(async bot => ({
+      name:bot.name,
+      username:bot.username,
+      server:`${bot.host}:${bot.port}`,
+      version:bot.version,
+      status:await botStatus(bot),
+      stats:{starts:Number(bot.stats?.starts||0),crashes:Number(bot.stats?.crashes||0),totalRuntimeMs:Number(bot.stats?.totalRuntimeMs||0),lastExit:bot.stats?.lastExit||null,recentCrashes:Array.isArray(bot.stats?.recentCrashes)?bot.stats.recentCrashes.slice(-10):[]},
+      recentLogCounts:diagnosticLogCounts(bot)
+    }))),
+    reconnects: reconnectDashboardData(),
+    schematicBuilds: [...schematicBuildJobs.values()].map(job => ({ id:job.id,name:job.schematicName,status:job.status,createdAt:job.createdAt,updatedAt:job.updatedAt,builders:(job.builders||[]).map(builder=>({name:builder.name,status:builder.status,errorCode:builder.errorCode||null,blocks:builder.blocks})) })),
+    team: { goals:teamCoordinator.goals().length,tasks:teamCoordinator.tasks().length,reservations:teamStore.state.reservations.length },
+    note: 'Secrets, authentication files, environment variables, full filesystem paths, knowledge and world data are intentionally excluded.'
   }
 }
 
@@ -586,6 +666,7 @@ function ensureTelemetry(bot) {
     if(!builder)return
     Object.assign(builder,{status:payload.ok?'queued':'failed',localTaskId:payload.taskId??null,errorCode:payload.errorCode||null,updatedAt:Date.now()})
     job.status=job.builders.every(value=>value.status==='failed')?'failed':'running';job.updatedAt=Date.now()
+    persistSchematicBuilds()
     dashboardEvent({type:'schematic.accepted',level:payload.ok?'info':'error',botId:bot.id,errorCode:builder.errorCode,message:payload.ok?`${bot.name} queued schematic blocks`:`${bot.name} rejected schematic build: ${builder.errorCode||'unknown error'}`})
   })
   socket.on('team:control-completed', payload => {
@@ -593,6 +674,7 @@ function ensureTelemetry(bot) {
     if(!builder)return
     Object.assign(builder,{status:payload.ok?'completed':'failed',errorCode:payload.errorCode||null,result:payload.result||null,updatedAt:Date.now()})
     job.status=job.builders.every(value=>value.status==='completed')?'completed':job.builders.some(value=>value.status==='failed')?'failed':'running';job.updatedAt=Date.now()
+    persistSchematicBuilds()
     dashboardEvent({type:'schematic.completed',level:payload.ok?'success':'error',botId:bot.id,errorCode:builder.errorCode,message:payload.ok?`${bot.name} completed its schematic blocks`:`${bot.name} could not build: ${builder.errorCode||'unknown error'}`})
   })
   socket.on('disconnect', () => { const registered=teamCoordinator.registry.get(bot.id);if(registered)teamCoordinator.unregister(bot.id,registered.instanceId) })
@@ -1200,9 +1282,10 @@ async function startBot(bot) {
       if (livedFor >= 120000) bot.reconnectAttempts = 0
       if (plannedReconnect) bot.reconnectAttempts = Math.min(20,Number(bot.reconnectAttempts||0)+1)
       const jitter=[...String(bot.id)].reduce((total,char)=>total+char.charCodeAt(0),0)%7000
-      const reconnectBackoff=Math.min(120000,10000*(2**Math.min(3,Math.max(0,Number(bot.reconnectAttempts||1)-1))))
+      const reconnectBackoff=Math.min(120000,5000*(2**Math.min(4,Math.max(0,Number(bot.reconnectAttempts||1)-1))))
       const restartDelay = plannedReconnect ? reconnectBackoff+jitter : (livedFor < 30000 ? 30000+jitter : 5000+jitter)
       if(plannedReconnect)console.log(`${bot.name} reconnect attempt ${bot.reconnectAttempts} scheduled in ${Math.ceil(restartDelay/1000)}s.`)
+      recordReconnect(bot,{delayMs:restartDelay,reason:plannedReconnect?'connection-retry':'unexpected-worker-exit'})
       saveSettings()
       setTimeout(() => startBot(bot).catch(() => {}), restartDelay)
     }
@@ -1312,6 +1395,9 @@ app.get('/api/state', async (_request, response, next) => {
 })
 
 app.get('/api/dashboard/overview',(_request,response,next)=>{try{response.json({ok:true,overview:dashboardService.overview()})}catch(error){next(error)}})
+app.post('/api/dashboard/auth-check',(request,response,next)=>{try{requireDashboardControl(request);response.json({ok:true,authorized:true})}catch(error){next(error)}})
+app.get('/api/dashboard/reconnects',(_request,response)=>response.json({ok:true,...reconnectDashboardData()}))
+app.get('/api/diagnostics/download',async(_request,response,next)=>{try{const report=await diagnosticReport();response.setHeader('Content-Type','application/json; charset=utf-8');response.setHeader('Content-Disposition',`attachment; filename="f-mineflayer-diagnostics-${new Date().toISOString().slice(0,10)}.json"`);response.send(`${JSON.stringify(report,null,2)}\n`)}catch(error){next(error)}})
 app.get('/api/dashboard/stream',(request,response)=>{if(!settings.dashboard.enabled||!settings.dashboard.realtimeEnabled)return response.status(404).end();response.setHeader('Content-Type','text/event-stream');response.setHeader('Cache-Control','no-cache, no-transform');response.setHeader('Connection','keep-alive');response.flushHeaders?.();response.write(`event: connected\ndata: ${JSON.stringify({at:Date.now()})}\n\n`);dashboardStreams.add(response);const heartbeat=setInterval(()=>response.write(`: heartbeat ${Date.now()}\n\n`),15000);request.on('close',()=>{clearInterval(heartbeat);dashboardStreams.delete(response)})})
 app.get('/api/team/bots/:id',(request,response,next)=>{try{const bot=dashboardService.bot(request.params.id);if(!bot)throw new Error('Bot not found.');response.json({ok:true,bot})}catch(error){next(error)}})
 app.post('/api/team/bots/:id/:action',(request,response,next)=>{try{requireDashboardControl(request);const allowed=new Set(['pause','resume','cancel-task','return-home','idle','reconnect','emergency-stop']);const action=String(request.params.action);if(!allowed.has(action))throw new Error('Unsupported bot control action.');if(['emergency-stop','reconnect'].includes(action)&&request.body?.confirmed!==true)throw new Error('Confirmation is required.');const {bot,socket}=teamBotChannel(request.params.id);socket.emit('team:control',{action,requestedAt:Date.now()});dashboardEvent({type:'bot.control',level:action==='emergency-stop'?'critical':'warning',botId:bot.id,message:`Control ${action} sent to ${bot.name}`});response.json({ok:true,botId:bot.id,action})}catch(error){next(error)}})
@@ -1334,11 +1420,11 @@ app.get('/api/bot-access',(_request,response)=>response.json({ok:true,bots:setti
 app.patch('/api/bots/:id/access',(request,response,next)=>{try{requireDashboardControl(request);const bot=findBot(request.params.id),rawOwner=String(request.body?.ownerPlayer||'').trim(),ownerPlayer=normalizePlayerName(rawOwner);if(rawOwner&&!ownerPlayer)throw new Error('Owner must be a valid Minecraft player name (1-16 letters, numbers or underscores).');const rawList=Array.isArray(request.body?.whitelistedPlayers)?request.body.whitelistedPlayers:String(request.body?.whitelistedPlayers||'').split(/[\r\n,;]+/),whitelistedPlayers=normalizePlayerList(rawList);if(whitelistedPlayers.length!==rawList.filter(value=>String(value||'').trim()).length)throw new Error('One or more whitelisted player names are invalid or duplicated.');Object.assign(bot,{ownerPlayer,whitelistedPlayers});saveSettings();const telemetry=telemetrySockets.get(bot.id),appliedLive=Boolean(telemetry?.socket.connected);if(appliedLive)telemetry.socket.emit('team:control',{action:'update-command-access',ownerPlayer,whitelistedPlayers,requestedAt:Date.now()});response.json({ok:true,bot:{id:bot.id,name:bot.name,username:bot.username,ownerPlayer,whitelistedPlayers},appliedLive,restartRequired:Boolean(runningBots.get(bot.id)&&!appliedLive)})}catch(error){next(error)}})
 
 // Info: Schematics worden server-side gevalideerd; bots ontvangen alleen een begrensde lijst blokken via hun bestaande TaskManager.
-app.get('/api/schematics',(_request,response)=>response.json({ok:true,schematics:schematicStore.list(),builds:[...schematicBuildJobs.values()].sort((a,b)=>b.createdAt-a.createdAt).slice(0,50)}))
+app.get('/api/schematics',(_request,response)=>response.json({ok:true,schematics:schematicStore.list(),builds:[...schematicBuildJobs.values()].sort((a,b)=>b.createdAt-a.createdAt).slice(0,5)}))
 app.post('/api/schematics/upload',express.raw({type:'application/octet-stream',limit:MAX_BYTES}),async(request,response,next)=>{try{requireDashboardControl(request);const filename=decodeURIComponent(String(request.get('X-Schematic-Name')||''));response.json({ok:true,schematic:await schematicStore.save(filename,request.body)})}catch(error){next(error)}})
-app.delete('/api/schematics/builds/:id',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');const job=schematicBuildJobs.get(request.params.id);if(!job)throw new Error('Build history item not found.');if(!['completed','failed','cancelled'].includes(job.status))throw new Error('An active build cannot be removed.');schematicBuildJobs.delete(job.id);dashboardEvent({type:'schematic.history-removed',level:'info',message:`Removed ${job.schematicName} build history item`});response.json({ok:true,id:job.id})}catch(error){next(error)}})
+app.delete('/api/schematics/builds/:id',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');const job=schematicBuildJobs.get(request.params.id);if(!job)throw new Error('Build history item not found.');if(!['completed','failed','cancelled'].includes(job.status))throw new Error('An active build cannot be removed.');schematicBuildJobs.delete(job.id);persistSchematicBuilds();dashboardEvent({type:'schematic.history-removed',level:'info',message:`Removed ${job.schematicName} build history item`});response.json({ok:true,id:job.id})}catch(error){next(error)}})
 app.delete('/api/schematics/:id',(request,response,next)=>{try{requireDashboardControl(request);if(request.body?.confirmed!==true)throw new Error('Confirmation is required.');if(!schematicStore.remove(request.params.id))throw new Error('Schematic not found.');response.json({ok:true})}catch(error){next(error)}})
-app.post('/api/schematics/:id/build',(request,response,next)=>{try{requireDashboardControl(request);const schematic=schematicStore.get(request.params.id,true);if(!schematic)throw new Error('Schematic not found.');const origin={x:Number(request.body?.origin?.x),y:Number(request.body?.origin?.y),z:Number(request.body?.origin?.z)};if(!Object.values(origin).every(Number.isInteger))throw new Error('Build coordinates must be whole block coordinates.');const rotation=Number(request.body?.rotation||0);if(![0,90,180,270].includes(rotation))throw new Error('Invalid rotation.');const ids=[...new Set([String(request.body?.primaryBotId||''),...(Array.isArray(request.body?.helperBotIds)?request.body.helperBotIds.map(String):[])].filter(Boolean))];if(!ids.length)throw new Error('Choose a primary bot.');const primary=teamCoordinator.registry.get(ids[0]);if(!primary?.online)throw new Error('The primary bot is offline.');const bots=ids.map(id=>{const live=teamCoordinator.registry.get(id);if(!live?.online)throw new Error(`${findBot(id).name} is offline.`);if(live.worldId!==primary.worldId)throw new Error('All builders must be on the same server.');return live});const unsafe=bots.filter(live=>live.safetyState==='unsafe');if(unsafe.length)throw new Error(`Build not started: ${unsafe.map(live=>findBot(live.botId).name).join(', ')} ${unsafe.length===1?'is':'are'} unsafe. Wait until the bot status is safe and try again.`);const transformed=transformBlocks(schematic.blocks,rotation,schematic.width,schematic.length),assignments=bots.map(()=>[]),buildId=crypto.randomUUID();transformed.forEach((block,index)=>assignments[index%bots.length].push(block));const job={id:buildId,schematicId:schematic.id,schematicName:schematic.name,worldId:primary.worldId,origin,rotation,status:'sent',createdAt:Date.now(),updatedAt:Date.now(),builders:bots.map((live,index)=>({botId:live.botId,name:findBot(live.botId).name,blocks:assignments[index].length,requestId:`${buildId}:${live.botId}`,status:'sent',errorCode:null}))};schematicBuildJobs.set(buildId,job);while(schematicBuildJobs.size>100)schematicBuildJobs.delete(schematicBuildJobs.keys().next().value);bots.forEach((live,index)=>{const channel=teamBotChannel(live.botId),builder=job.builders[index];channel.socket.emit('team:control',{action:'build-schematic',requestId:builder.requestId,schematicId:schematic.id,schematicName:schematic.name,origin,rotation,blocks:assignments[index],totalBlocks:transformed.length,requestedAt:Date.now()})});dashboardEvent({type:'schematic.build',level:'info',botId:ids[0],message:`Schematic ${schematic.name} sent to ${bots.length} bot(s); waiting for validated results`});response.json({ok:true,buildId,schematic:{...schematic,blocks:undefined},builders:job.builders.map(({requestId,...builder})=>builder),origin,rotation})}catch(error){next(error)}})
+app.post('/api/schematics/:id/build',(request,response,next)=>{try{requireDashboardControl(request);const schematic=schematicStore.get(request.params.id,true);if(!schematic)throw new Error('Schematic not found.');const origin={x:Number(request.body?.origin?.x),y:Number(request.body?.origin?.y),z:Number(request.body?.origin?.z)};if(!Object.values(origin).every(Number.isInteger))throw new Error('Build coordinates must be whole block coordinates.');const rotation=Number(request.body?.rotation||0);if(![0,90,180,270].includes(rotation))throw new Error('Invalid rotation.');const ids=[...new Set([String(request.body?.primaryBotId||''),...(Array.isArray(request.body?.helperBotIds)?request.body.helperBotIds.map(String):[])].filter(Boolean))];if(!ids.length)throw new Error('Choose a primary bot.');const primary=teamCoordinator.registry.get(ids[0]);if(!primary?.online)throw new Error('The primary bot is offline.');const bots=ids.map(id=>{const live=teamCoordinator.registry.get(id);if(!live?.online)throw new Error(`${findBot(id).name} is offline.`);if(live.worldId!==primary.worldId)throw new Error('All builders must be on the same server.');return live});const unsafe=bots.filter(live=>live.safetyState==='unsafe');if(unsafe.length)throw new Error(`Build not started: ${unsafe.map(live=>findBot(live.botId).name).join(', ')} ${unsafe.length===1?'is':'are'} unsafe. Wait until the bot status is safe and try again.`);const transformed=transformBlocks(schematic.blocks,rotation,schematic.width,schematic.length),assignments=bots.map(()=>[]),buildId=crypto.randomUUID();transformed.forEach((block,index)=>assignments[index%bots.length].push(block));const job={id:buildId,schematicId:schematic.id,schematicName:schematic.name,worldId:primary.worldId,origin,rotation,status:'sent',createdAt:Date.now(),updatedAt:Date.now(),builders:bots.map((live,index)=>({botId:live.botId,name:findBot(live.botId).name,blocks:assignments[index].length,requestId:`${buildId}:${live.botId}`,status:'sent',errorCode:null}))};schematicBuildJobs.set(buildId,job);persistSchematicBuilds();bots.forEach((live,index)=>{const channel=teamBotChannel(live.botId),builder=job.builders[index];channel.socket.emit('team:control',{action:'build-schematic',requestId:builder.requestId,schematicId:schematic.id,schematicName:schematic.name,origin,rotation,blocks:assignments[index],totalBlocks:transformed.length,requestedAt:Date.now()})});dashboardEvent({type:'schematic.build',level:'info',botId:ids[0],message:`Schematic ${schematic.name} sent to ${bots.length} bot(s); waiting for validated results`});response.json({ok:true,buildId,schematic:{...schematic,blocks:undefined},builders:job.builders.map(({requestId,...builder})=>builder),origin,rotation})}catch(error){next(error)}})
 
 // Info: Teambeheer blijft HTTP; live opdrachten en heartbeats lopen over de bestaande bot-sockets.
 app.get('/api/team/bots', (_request,response) => response.json({ok:true,bots:teamCoordinator.registry.list()}))

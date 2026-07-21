@@ -67,9 +67,13 @@ Setup ondersteunt 1 tot 32 instances met unieke namen en poorten. De Hub start i
 
 Dashboard: `http://localhost:3100/#overview` (of de gekozen Hub-poort). Viewerlinks staan per bot in de Hub.
 
-In **Owners & Whitelist** stel je per bot de eigenaar en spelers in die Minecraft-chatcommando's mogen geven. De gekozen Hub-botnaam wordt ook als Minecraft-username gebruikt (maximaal 16 geldige tekens). In **Schematics** toont Build status niet alleen verzending, maar ook de lokale wachtrij, voltooiing en echte foutreden. Creative-bots krijgen paletteblokken automatisch; survival-bots moeten de getoonde materialen werkelijk in hun inventory hebben.
+Op een iPhone of Android-toestel gebruik je vanaf hetzelfde lokale netwerk `http://<LAN-IP-van-de-computer>:3100`. Het dashboard schakelt automatisch naar de mobiele indeling. Alleen bekijken vereist geen token. Voor besturing buiten localhost stel je op de Hub-computer een sterke `DASHBOARD_TOKEN` environmentvariabele in en voer je die in onder **Settings > Telefoonbesturing** in. De browser bewaart deze uitsluitend in `sessionStorage` van het geopende tabblad.
+
+In **Owners & Whitelist** stel je per bot de eigenaar en spelers in die Minecraft-chatcommando's mogen geven. De gekozen Hub-botnaam wordt ook als Minecraft-username gebruikt (maximaal 16 geldige tekens). In **Schematics** toont Build status niet alleen verzending, maar ook de lokale wachtrij, voltooiing en echte foutreden. De vijf nieuwste buildopdrachten blijven na een Hub-herstart beschikbaar. Creative-bots krijgen paletteblokken automatisch; survival-bots moeten de getoonde materialen werkelijk in hun inventory hebben.
 
 In **Settings** kun je de meegeleverde Discord-botbridge koppelen met een bot token. De token blijft uitsluitend in `minecraft-discord-bot\.env`, wordt door Git genegeerd en wordt nooit door de API teruggestuurd. De knop **UPDATE** zoekt naar een fast-forward Git-update of de nieuwste GitHub-release, maakt eerst een backup, werkt alleen programmabestanden en gewijzigde dependencies bij en start Hub en bots opnieuw.
+
+De Overview-pagina toont reconnectgrafieken per bot en server over de laatste zeven dagen. Onder **Settings > Diagnostiekrapport** kun je een opgeschoond JSON-rapport downloaden. Secrets, loginbestanden, volledige paden, knowledge en werelddata worden daarin niet opgenomen.
 
 ## Diagnose
 

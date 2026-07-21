@@ -52,19 +52,28 @@ dist/
 installer/staging/
 installer-test-output/
 .install-source.json
+
 # Hub configuration is generated locally and may contain server and player details.
 /Config/settings.json
 /Config/ports.json
 Data/backups/
+
 # Live Hub/team snapshots are machine-specific runtime state.
 Data/*-state.json
 Data/*-state.json.*
+
+# Bounded dashboard histories are local runtime data.
+Data/*-history.json
+Data/*-history.json.*
+
 # Uploaded schematic library is local runtime content; parser/build code remains tracked.
 Data/schematics/
 Data/schematics/**
+
 # Learned and merged knowledge is generated runtime data and stays local.
 **/knowledge/
 **/knowledge/**
+
 # Per-bot world memory contains server-specific coordinates and stays local.
 **/worlds/
 **/worlds/**

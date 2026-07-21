@@ -1,13 +1,30 @@
 const test = require('node:test')
 const assert = require('node:assert/strict')
+const fs = require('node:fs')
+const path = require('node:path')
 const { WorldScanner } = require('../src/systems/worldScanner')
 const { ActionExecutor } = require('../src/brains/actionExecutor')
 const { FeedbackService } = require('../src/services/feedbackService')
 const { RankingService } = require('../src/services/rankingService')
+const { PlannerBrain } = require('../src/brains/plannerBrain')
 
 function pos(x, y, z) {
   return { x, y, z }
 }
+
+test('planner only proposes a shield when iron and enough wood are available', () => {
+  const planner = new PlannerBrain({ rankingService:{ best:candidates=>candidates.find(candidate=>candidate.action==='craft_shield')||candidates[0] } })
+  const base = { health:20,food:20,hasFood:true,hasShield:false,inventoryItems:[{name:'oak_planks',count:6},{name:'crafting_table',count:1},{name:'stone_pickaxe',count:1},{name:'stone_sword',count:1}],nearbyHostiles:[],nearbyPlayers:[],armorInInventory:[],armorItems:[] }
+  assert.notEqual(planner.choose(base).action, 'craft_shield')
+  assert.equal(planner.choose({ ...base,inventoryItems:[...base.inventoryItems,{name:'iron_ingot',count:1}] }).action, 'craft_shield')
+})
+
+test('runtime waits at least five seconds before reconnecting and guards bridge references', () => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'src', 'core', 'legacyBot.js'), 'utf8')
+  assert.match(source, /const delayMs = 5000/)
+  assert.match(source, /if \(!referenceBlock\?\.position \|\| !canUseAsPlacementFloor\(referenceBlock\)\)/)
+  assert.match(source, /bot\.placeBlock\(referenceBlock, face\)/)
+})
 
 test('world scanner records useful features and ore heatmap entries', async () => {
   const blocks = [

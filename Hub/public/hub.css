@@ -193,18 +193,39 @@
     .notice.warning { min-height:0; }
     .block-info { margin:4px 0 10px; color:var(--muted); font-size:.82rem; line-height:1.45; }
     .skill-charts { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin-bottom:14px; }.skill-bar { padding:9px; border:1px solid var(--line); border-radius:7px; background:#07111b; }.skill-bar small { color:var(--muted); }
+    .reconnect-panel { margin-bottom:16px; }
+    .reconnect-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .reconnect-chart { display:grid; grid-template-columns:minmax(90px,160px) minmax(80px,1fr) auto; gap:8px; align-items:center; margin-top:8px; }
+    .reconnect-chart strong { overflow-wrap:anywhere; }
+    .reconnect-track { height:12px; border:1px solid var(--line); border-radius:999px; background:#07111b; overflow:hidden; }
+    .reconnect-track span { display:block; height:100%; min-width:2px; background:var(--yellow); }
+    .reconnect-chart small { color:var(--muted); white-space:nowrap; }
     @media (max-width:850px) {
       .shell { grid-template-columns:1fr; }
-      aside { position:relative; height:auto; }
-      nav { grid-template-columns:1fr 1fr; }
-      main { padding:14px; }
+      aside { position:sticky; z-index:20; top:0; height:auto; padding:10px max(10px,env(safe-area-inset-right)) 10px max(10px,env(safe-area-inset-left)); border-right:0; border-bottom:1px solid var(--line); }
+      .brand { margin-bottom:8px; }
+      .brand small { display:none; }
+      nav { display:flex; gap:5px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:thin; padding-bottom:3px; }
+      nav button { flex:0 0 auto; min-height:42px; white-space:nowrap; scroll-snap-align:start; }
+      main { padding:14px max(14px,env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left)); }
       header,.merge-layout { display:grid; grid-template-columns:1fr; }
       .bot-grid { grid-template-columns:1fr; }
       .task-board { grid-template-columns:repeat(2,minmax(210px,1fr)); }
       .event { grid-template-columns:75px 65px 1fr; }.event small { grid-column:1/-1; }
       .schematic-grid { grid-template-columns:minmax(0,1fr); }
+      .reconnect-grid { grid-template-columns:1fr; }
+      .top-status { justify-content:flex-start; }
     }
     @media (max-width:520px) {
+      h1 { font-size:1.55rem; }
+      button,input,select,textarea { min-height:44px; }
       .fields { grid-template-columns:minmax(0,1fr); }
       label.wide { grid-column:auto; }
+      .manage-grid,.task-board,.dashboard-metrics,.detail-grid { grid-template-columns:minmax(0,1fr); }
+      .toolbar { align-items:stretch; }
+      .toolbar input,.toolbar select,.toolbar button { min-width:0; width:100%; }
+      .overview-wrap,table { overflow-x:auto; }
+      .event { grid-template-columns:65px 1fr; }
+      .event strong,.event small { grid-column:1/-1; }
+      .reconnect-chart { grid-template-columns:minmax(80px,120px) minmax(60px,1fr) auto; }
     }
