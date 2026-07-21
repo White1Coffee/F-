@@ -3,6 +3,13 @@ param([switch]$Yes,[string]$Branch='main',[string]$ReleaseTag='')
 . (Join-Path $PSScriptRoot 'common.ps1')
 Initialize-FMLog 'update'|Out-Null
 function Confirm-Update([string]$Text){if($Yes){return $true};return @('j','ja','y','yes') -contains (Read-Host "$Text [j/N]").Trim().ToLowerInvariant()}
+function Test-FMRuntimeGitChange([string]$StatusLine){
+  if([string]::IsNullOrWhiteSpace($StatusLine)){return $false}
+  $changedPath=if($StatusLine.Length -gt 3){$StatusLine.Substring(3).Trim().Trim('"')}else{$StatusLine.Trim()}
+  $changedPath=$changedPath.Replace('\','/')
+  # Info: Deze bestanden veranderen normaal tijdens spelen en mogen een programma-update niet blokkeren.
+  return $changedPath -match '^(Config/(settings|ports)\.json|Data/|Bots/official-bot/(knowledge/|worlds/|bot-settings\.json$|ai-memory\.json$|ai-recipes\.json$))'
+}
 function Initialize-UpdateApplication {
   # Info: stop en backup worden pas uitgevoerd nadat een nieuwere versie werkelijk is gevonden.
   & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'stop.ps1')|Out-Null
@@ -21,11 +28,13 @@ try{
     $git=Get-Command git.exe -ErrorAction Stop
     Push-Location (Get-FMProjectRoot)
     try{
-      $changes=& $git.Source status --porcelain
-      if($changes){throw 'Lokale Git-wijzigingen gevonden. Commit of stash deze eerst; er is niets overschreven.'}
       & $git.Source fetch origin $Branch;if($LASTEXITCODE -ne 0){throw 'git fetch mislukte.'}
       $behind=[int](& $git.Source rev-list --count "HEAD..origin/$Branch")
       if($behind -eq 0){Write-FMLog 'Geen update beschikbaar.';exit 0}
+      $changes=@(& $git.Source status --porcelain)
+      $programChanges=@($changes|Where-Object{-not(Test-FMRuntimeGitChange $_)})
+      if($programChanges){throw "Lokale wijzigingen in programmacode gevonden. Commit of stash deze eerst: $($programChanges -join '; ')"}
+      if($changes){Write-FMLog "Runtimewijzigingen blijven behouden tijdens de update: $($changes.Count) bestand(en)."}
       Write-Host "$behind commit(s) beschikbaar."
       if(-not(Confirm-Update 'Update met fast-forward toepassen?')){throw 'Update geannuleerd.'}
       $backup=Initialize-UpdateApplication

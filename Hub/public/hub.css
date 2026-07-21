@@ -93,6 +93,21 @@
     .value-good { color:var(--green); font-weight:900; }
     .value-bad { color:var(--red); font-weight:900; }
     .manage-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:12px; }
+    /* Schematics need wider cards: placement and build results become unreadable in four narrow columns. */
+    .schematic-grid { grid-template-columns:repeat(2,minmax(360px,1fr)); align-items:start; }
+    .schematic-library-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; }
+    .schematic-library-row > div { min-width:0; }
+    .schematic-library-row small { display:block; margin-top:3px; }
+    .schematic-build-card { display:grid; gap:8px; border-top:1px solid var(--line); padding-top:10px; }
+    .schematic-build-card:first-child { border-top:0; padding-top:0; }
+    .schematic-build-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .schematic-build-actions { display:flex; align-items:center; gap:7px; }
+    .schematic-remove-button { display:grid; place-items:center; width:30px; min-height:30px; padding:0; border-color:#704050; border-radius:999px; background:#28131a; color:var(--red); font-size:1.2rem; line-height:1; }
+    .schematic-build-meta { color:var(--muted); line-height:1.4; }
+    .schematic-builder-result { display:grid; grid-template-columns:minmax(100px,1fr) auto; gap:4px 10px; padding:9px; border:1px solid var(--line); border-radius:7px; background:#07111b; }
+    .schematic-builder-result > span { text-align:right; }
+    .schematic-error-help { grid-column:1 / -1; color:var(--yellow); line-height:1.4; }
+    .schematic-retry-button { grid-column:1 / -1; justify-self:start; margin-top:4px; }
     .manage-block { border:1px solid var(--line); border-radius:8px; background:var(--panel); padding:14px; }
     .manage-block p { margin:0; font-size:.82rem; }
     .manage-intro { margin-bottom:12px; }
@@ -121,6 +136,13 @@
     .health-block li,.item { display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--line); padding-top:8px; color:var(--muted); overflow-wrap:anywhere; }
     .health-block li:first-child,.item:first-child { border-top:0; padding-top:0; }
     .health-block strong,.item strong { color:var(--text); }
+    /* Bot status uses two rows so names and status labels stay readable in narrow cards. */
+    .team-bot-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; }
+    .team-bot-row .team-bot-meta { grid-column:1 / -1; min-width:0; line-height:1.35; }
+    /* Inventory names have their own column; only the long item list may wrap anywhere. */
+    .bot-inventory-row { display:grid; grid-template-columns:minmax(100px,120px) minmax(0,1fr); align-items:start; }
+    .bot-display-name { min-width:0; word-break:normal; overflow-wrap:normal; hyphens:none; }
+    .bot-inventory-items { min-width:0; line-height:1.35; overflow-wrap:anywhere; }
     .log-snippet { max-height:180px; overflow:auto; white-space:pre-wrap; background:#050a10; border:1px solid var(--line); border-radius:8px; padding:10px; color:#c9e3d8; font-family:Consolas,monospace; font-size:.78rem; }
     .compact-ports li { align-items:center; gap:10px; }
     .compact-ports strong { min-width:92px; font-family:Consolas,monospace; }
@@ -180,6 +202,7 @@
       .bot-grid { grid-template-columns:1fr; }
       .task-board { grid-template-columns:repeat(2,minmax(210px,1fr)); }
       .event { grid-template-columns:75px 65px 1fr; }.event small { grid-column:1/-1; }
+      .schematic-grid { grid-template-columns:minmax(0,1fr); }
     }
     @media (max-width:520px) {
       .fields { grid-template-columns:minmax(0,1fr); }

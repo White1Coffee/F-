@@ -92,7 +92,7 @@
       </div></section>
 
       <section id="schematicsDashboard" class="tab">
-        <div class="manage-grid">
+        <div class="manage-grid schematic-grid">
           <form id="schematicUploadForm" class="manage-block stack">
             <h2>Schematic library</h2><p>Sla Sponge `.schem`-bestanden centraal op. Uploads worden gecontroleerd en nooit als code uitgevoerd.</p>
             <input id="schematicFile" type="file" accept=".schem,application/octet-stream" required>
@@ -110,7 +110,7 @@
             <button type="submit">Start building</button><span id="schematicBuildStatus" class="broadcast-status"></span>
           </form>
           <div class="manage-block stack"><h2>Selected schematic</h2><p>Afmetingen en benodigde materialen komen rechtstreeks uit het bestand.</p><div id="schematicDetails" class="empty">Select a schematic.</div></div>
-          <div class="manage-block stack"><h2>Build status</h2><p>Sent betekent verzonden, queued wacht in de lokale TaskManager, completed is gevalideerd en failed toont de echte foutreden.</p><div id="schematicBuilds" class="stack"><div class="empty">No build assignments yet.</div></div></div>
+          <div class="manage-block stack"><h2>Build status</h2><p>Dit is de historie van verzonden opdrachten. De bot die nu bij Primary builder staat, geldt alleen voor de volgende opdracht. Failed toont hieronder de echte foutreden en oplossing.</p><div id="schematicBuilds" class="stack"><div class="empty">No build assignments yet.</div></div></div>
         </div>
       </section>
 

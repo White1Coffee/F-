@@ -27,7 +27,12 @@ try{
   # Info: geef de Hub tijd om het HTTP-antwoord te versturen voordat de stopprocedure begint.
   Start-Sleep -Milliseconds 1200
   & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'update.ps1') -Yes
-  if($LASTEXITCODE -ne 0){throw "Updateproces stopte met code $LASTEXITCODE. Bekijk Logs\update.log."}
+  if($LASTEXITCODE -ne 0){
+    $updateLog=Join-Path $root 'Logs\update.log'
+    $lastError=if(Test-Path $updateLog){Get-Content -LiteralPath $updateLog|Where-Object{$_ -match '\[ERROR\]'}|Select-Object -Last 1}else{$null}
+    $detail=if($lastError){[regex]::Replace([string]$lastError,'^.*?\[ERROR\]\s*','')}else{"Updateproces stopte met code $LASTEXITCODE. Bekijk Logs\update.log."}
+    throw $detail
+  }
   $updateSucceeded=$true
   Set-UpdateState 'restarting' 'Update verwerkt; Hub en bots worden opnieuw gestart.'
 }catch{

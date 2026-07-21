@@ -21,7 +21,7 @@
       "reconnectAttempts": 0,
       "disabledUntil": null,
       "stats": {
-        "starts": 164,
+        "starts": 173,
         "crashes": 2,
         "totalRuntimeMs": 133400762,
         "lastExit": "2026-07-10T14:02:38.147Z",
@@ -48,13 +48,13 @@
       "viewerPort": 3113,
       "group": "Ungrouped",
       "autoRestart": true,
-      "reconnectAttempts": 0,
+      "reconnectAttempts": 5,
       "disabledUntil": null,
       "stats": {
-        "starts": 295,
+        "starts": 310,
         "crashes": 3,
-        "totalRuntimeMs": 160199956,
-        "lastExit": "2026-07-12T23:36:07.262Z",
+        "totalRuntimeMs": 161104817,
+        "lastExit": "2026-07-21T16:14:18.656Z",
         "lastError": "Worker exited (1073807364).",
         "recentCrashes": []
       }
@@ -78,13 +78,13 @@
       "viewerPort": 3115,
       "group": "Ungrouped",
       "autoRestart": true,
-      "reconnectAttempts": 0,
+      "reconnectAttempts": 2,
       "disabledUntil": null,
       "stats": {
-        "starts": 87,
+        "starts": 101,
         "crashes": 2,
-        "totalRuntimeMs": 82613253,
-        "lastExit": "2026-07-10T16:31:48.002Z",
+        "totalRuntimeMs": 83982719,
+        "lastExit": "2026-07-21T15:48:30.987Z",
         "lastError": "Worker exited (1).",
         "recentCrashes": [
           "2026-07-09T17:05:28.185Z"
@@ -110,13 +110,13 @@
       "viewerPort": 3117,
       "group": "Ungrouped",
       "autoRestart": true,
-      "reconnectAttempts": 1,
+      "reconnectAttempts": 5,
       "disabledUntil": null,
       "stats": {
-        "starts": 108,
+        "starts": 122,
         "crashes": 0,
-        "totalRuntimeMs": 85330731,
-        "lastExit": "2026-07-21T15:10:47.944Z",
+        "totalRuntimeMs": 86833230,
+        "lastExit": "2026-07-21T16:08:20.951Z",
         "lastError": "",
         "recentCrashes": []
       }

@@ -19,7 +19,7 @@ function migrate(value = {}) {
 }
 
 class TeamStore {
-  constructor(file, options = {}) { this.file = file; this.log = options.log || console.warn; this.state = this.load() }
+  constructor(file, options = {}) { this.file = file; this.log = options.log || console.warn; this.saveRetries = Math.max(1, Number(options.saveRetries || 5)); this.retryDelayMs = Math.max(0, Number(options.retryDelayMs || 25)); this.state = this.load() }
   load() {
     try {
       const state = migrate(JSON.parse(fs.readFileSync(this.file, 'utf8')))
@@ -31,7 +31,22 @@ class TeamStore {
   }
   save() {
     this.state.updatedAt = Date.now(); fs.mkdirSync(path.dirname(this.file), { recursive: true })
-    const temporary = `${this.file}.${process.pid}.tmp`; fs.writeFileSync(temporary, `${JSON.stringify(this.state, null, 2)}\n`, 'utf8'); fs.renameSync(temporary, this.file)
+    const temporary = `${this.file}.${process.pid}.${Date.now()}.tmp`
+    fs.writeFileSync(temporary, `${JSON.stringify(this.state, null, 2)}\n`, 'utf8')
+    for (let attempt=1;attempt<=this.saveRetries;attempt++) {
+      try { fs.renameSync(temporary, this.file); return true }
+      catch (error) {
+        const transient=['EPERM','EBUSY','EACCES'].includes(error.code)
+        if (!transient || attempt===this.saveRetries) {
+          try { fs.rmSync(temporary, { force:true }) } catch {}
+          this.log(`Team state save deferred after ${attempt} attempt(s): ${error.message}`)
+          return false
+        }
+        // Info: Windows, antivirus of een USB-schijf kan de doelnaam heel kort vasthouden; begrensd wachten voorkomt een Hub-crash.
+        if (this.retryDelayMs) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,this.retryDelayMs*attempt)
+      }
+    }
+    return false
   }
 }
 module.exports = { TeamStore, migrate, TASK_STATUSES, GOAL_STATUSES, SCHEMA_VERSION }

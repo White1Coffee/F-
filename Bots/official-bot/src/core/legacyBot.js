@@ -867,7 +867,7 @@ const learnedStore = new KnowledgeStore(learnedKnowledgeFile)
 const experienceMemory = new ExperienceMemory(learnedStore, { deduplicationWindowMs: botSettings.learning.experienceDeduplicationWindowMs })
 const skillStats = new SkillStats(learnedStore)
 const skillRegistry = registerVerticalSkills(new SkillRegistry(), {
-  ensureSafety: async () => bot.health >= botSettings.safety.minimumHealth ? skillResult.success() : (await eliteEmergencySurvival() ? skillResult.success() : skillResult.failure(ErrorCodes.LOW_HEALTH, true)),
+  ensureSafety: async context => bot.health >= botSettings.safety.minimumHealth ? skillResult.success() : (await eliteEmergencySurvival({ ignoreFood:Boolean(context?.ignoreFood) }) ? skillResult.success() : skillResult.failure(ErrorCodes.LOW_HEALTH, true)),
   findFood: async () => (bot.food >= botSettings.safety.minimumFood || bot.inventory.items().some(item => isFood(item.name))) ? skillResult.success() : (await eliteAcquireFood(), bot.inventory.items().some(item => isFood(item.name)) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
   eat: async () => bot.food >= botSettings.safety.minimumFood ? skillResult.success() : (await eatFoodIfNeeded({ force: true }) ? skillResult.success() : skillResult.failure(ErrorCodes.NO_FOOD, true)),
   collectWood: async context => context.target?.amount ? gatherTeamItems(context, context.target.item || 'oak_log') : (await ensureWood(), bot.inventory.items().some(item => item.name.endsWith('_log')) ? skillResult.success() : skillResult.failure(ErrorCodes.TARGET_MISSING, true)),
@@ -948,7 +948,7 @@ const teamClient = new TeamClient({
       // Info: Veiligheid wordt eerst hersteld; daarna bouwt dezelfde centrale TaskManager en rapporteert het gevalideerde eindresultaat.
       let task
       const completion = new Promise(resolve=>{const listener=finished=>{if(finished!==task)return;reliableTaskManager.off('complete',listener);resolve(finished)};reliableTaskManager.on('complete',listener)})
-      task = reliableTaskManager.enqueue({name:`schematic:${payload.schematicName||payload.schematicId}`,goal:'build_schematic',source:'dashboard',priority:70,timeoutMs:660000,context:{target:{blocks:payload.blocks,origin:payload.origin,schematicId:payload.schematicId}},plan:['ensureSafety','buildSchematic']})
+      task = reliableTaskManager.enqueue({name:`schematic:${payload.schematicName||payload.schematicId}`,goal:'build_schematic',source:'dashboard',priority:70,timeoutMs:660000,context:{target:{blocks:payload.blocks,origin:payload.origin,schematicId:payload.schematicId}},plan:[{skill:'ensureSafety',context:{ignoreFood:true}},'buildSchematic']})
       return { taskId:task.id,queued:true,completion }
     }
     return false
@@ -7129,7 +7129,10 @@ async function runPriorities() {
   state.lastPriorityAt = state.busySince
   try {
     state.lastInventorySnapshot = inventorySnapshot()
-    if (!state.hitmanTask && (bot.food <= 6 || bot.health <= 8)) {
+    // Info: Een schematic houdt exclusief controle over normale beweging; food en saturation onderbreken de bouw niet.
+    const reliableTaskActive = Boolean(reliableTaskManager.active)
+    const schematicTaskActive = reliableTaskManager.active?.goal === 'build_schematic'
+    if (!schematicTaskActive && !state.hitmanTask && (bot.food <= 6 || bot.health <= 8)) {
       if (await eatFoodIfNeeded({ force: true })) return
       updatePlanner('food emergency', 'find or produce food before continuing other tasks', 'critical food or health')
       startFarmMode()
@@ -7145,8 +7148,8 @@ async function runPriorities() {
       await runHitmanStep()
       return
     }
-    if (eliteMode && await eliteEmergencySurvival()) return
-    await eatFoodIfNeeded()
+    if (eliteMode && await eliteEmergencySurvival({ ignoreFood:schematicTaskActive })) return
+    if (!schematicTaskActive) await eatFoodIfNeeded()
     if (cancelled()) return
     if (state.guardTask) {
       await runGuardStep()
@@ -7163,6 +7166,9 @@ async function runPriorities() {
       await defendAgainst(hostile)
       return
     }
+
+    // Info: Terwijl een betrouwbare taak loopt, mogen loot-, farm- en planner-routines geen tweede padfinderdoel starten.
+    if (reliableTaskActive) return
 
     // Info: Na directe gevaren wordt loot opgepakt vóór de bot een nieuwe route of productietaak start.
     if (await pickupNearbyUsefulDrop()) return
@@ -7238,6 +7244,25 @@ async function buildSchematicAssignment(context = {}) {
   if(!origin||!blocks.length)return skillResult.failure(ErrorCodes.TARGET_MISSING,false)
   // Info: Omdat de lus achterstevoren verwijdert, zet deze sortering de laagste steunblokken als eerste aan de beurt.
   const pending=blocks.map(block=>({...block,target:new Vec3(Number(origin.x)+block.x,Number(origin.y)+block.y,Number(origin.z)+block.z)})).sort((a,b)=>b.target.y-a.target.y)
+  const targetKeys=new Set(pending.map(entry=>`${entry.target.x},${entry.target.y},${entry.target.z}`)),temporarySupports=[],problems=[]
+  const rememberProblem=(entry,reason,error=null)=>{if(problems.length<20)problems.push({position:positionData(entry.target),block:entry.name,reason,error:error?shortError(error):null})}
+  const faces=[new Vec3(0,1,0),new Vec3(0,-1,0),new Vec3(1,0,0),new Vec3(-1,0,0),new Vec3(0,0,1),new Vec3(0,0,-1)]
+  const referenceFor=target=>faces.map(direction=>({direction,block:bot.blockAt(target.minus(direction))})).find(value=>value.block&&value.block.boundingBox==='block')
+  const buildTemporarySupport=async entry=>{
+    const below=entry.target.offset(0,-1,0)
+    if(targetKeys.has(`${below.x},${below.y},${below.z}`))return false
+    const supportItem=bot.inventory.items().find(item=>['dirt','cobblestone','netherrack','stone','deepslate','oak_planks','spruce_planks','birch_planks'].includes(item.name))
+    if(!supportItem)return false
+    let base=null
+    for(let depth=1;depth<=8;depth++){const candidate=bot.blockAt(entry.target.offset(0,-depth,0));if(candidate?.boundingBox==='block'){base=candidate;break}}
+    if(!base)return false
+    for(let y=base.position.y+1;y<entry.target.y;y++){
+      const position=new Vec3(entry.target.x,y,entry.target.z),current=bot.blockAt(position)
+      if(current?.boundingBox==='block')continue
+      try{await bot.equip(supportItem,'hand');const reference=bot.blockAt(position.offset(0,-1,0));if(!reference||reference.boundingBox!=='block')return false;await bot.placeBlock(reference,new Vec3(0,1,0));if(bot.blockAt(position)?.boundingBox!=='block')return false;temporarySupports.push({position,name:supportItem.name})}catch(error){rememberProblem(entry,'SUPPORT_PLACE_FAILED',error);return false}
+    }
+    return Boolean(referenceFor(entry.target))
+  }
   let placed=0
   for(let pass=0;pass<3&&pending.length;pass++){
     let progress=0
@@ -7246,25 +7271,39 @@ async function buildSchematicAssignment(context = {}) {
       if(bot.health<botSettings.safety.minimumHealth)return skillResult.failure(ErrorCodes.UNSAFE_ENVIRONMENT,true,{placed,remaining:pending.length})
       const entry=pending[index],current=bot.blockAt(entry.target)
       if(current?.name===entry.name){pending.splice(index,1);continue}
-      if(current&&current.name!=='air'&&current.boundingBox!=='empty')continue
       let item=bot.inventory.items().find(value=>value.name===entry.name)
       // Info: In creative krijgt de bot het benodigde goedgekeurde palette-item; survival gebruikt alleen werkelijk verzamelde materialen.
       if(!item&&bot.game?.gameMode==='creative'&&bot.creative?.setInventorySlot){
         const itemType=bot.registry?.itemsByName?.[entry.name]
         if(itemType){try{const Item=require('prismarine-item')(bot.version);await bot.creative.setInventorySlot(36,new Item(itemType.id,64));item=bot.inventory.items().find(value=>value.name===entry.name)}catch{}}
       }
-      if(!item)continue
-      if(entry.target.distanceTo(bot.entity.position)>4.5&&!await safeGoto(new goals.GoalNear(entry.target.x,entry.target.y,entry.target.z,3),`schematic:${entry.name}`,false))continue
-      const faces=[new Vec3(0,1,0),new Vec3(0,-1,0),new Vec3(1,0,0),new Vec3(-1,0,0),new Vec3(0,0,1),new Vec3(0,0,-1)]
-      const face=faces.find(direction=>{const reference=bot.blockAt(entry.target.minus(direction));return reference&&reference.boundingBox==='block'})
-      if(!face)continue
-      try{await bot.equip(item,'hand');await bot.placeBlock(bot.blockAt(entry.target.minus(face)),face);if(bot.blockAt(entry.target)?.name===entry.name){pending.splice(index,1);placed++;progress++}}catch{}
+      if(!item){rememberProblem(entry,'MISSING_MATERIAL');continue}
+      if(entry.target.distanceTo(bot.entity.position)>4.5&&!await safeGoto(new goals.GoalNear(entry.target.x,entry.target.y,entry.target.z,3),`schematic:${entry.name}`,false)){rememberProblem(entry,'PATH_FAILED');continue}
+      const occupied=bot.blockAt(entry.target)
+      if(occupied&&occupied.name!=='air'&&occupied.boundingBox!=='empty'){
+        if(typeof bot.canDigBlock==='function'&&!bot.canDigBlock(occupied)){rememberProblem(entry,'TARGET_BLOCKED');continue}
+        try{await bot.dig(occupied,true)}catch(error){rememberProblem(entry,'TARGET_CLEAR_FAILED',error);continue}
+        if(bot.blockAt(entry.target)?.boundingBox==='block'){rememberProblem(entry,'TARGET_STILL_BLOCKED');continue}
+      }
+      let reference=referenceFor(entry.target)
+      if(!reference&&await buildTemporarySupport(entry))reference=referenceFor(entry.target)
+      if(!reference){rememberProblem(entry,'NO_SUPPORT_FACE');continue}
+      try{await bot.equip(item,'hand');await bot.placeBlock(reference.block,reference.direction);if(bot.blockAt(entry.target)?.name===entry.name){pending.splice(index,1);placed++;progress++}else rememberProblem(entry,'BLOCK_NOT_CONFIRMED')}catch(error){rememberProblem(entry,'PLACE_FAILED',error)}
     }
     if(!progress)break
   }
-  if(!pending.length)return skillResult.success({placed,schematicId:context.target.schematicId})
+  if(!pending.length){
+    for(const support of temporarySupports.reverse()){
+      if(targetKeys.has(`${support.position.x},${support.position.y},${support.position.z}`))continue
+      const block=bot.blockAt(support.position)
+      if(block?.name===support.name){try{if(block.position.distanceTo(bot.entity.position)>4.5)await safeGoto(new goals.GoalNear(block.position.x,block.position.y,block.position.z,3),'remove schematic support',false);await bot.dig(block,true)}catch(error){problems.push({position:positionData(support.position),reason:'SUPPORT_CLEANUP_FAILED',error:shortError(error)})}}
+    }
+    const invalid=blocks.filter(block=>bot.blockAt(new Vec3(Number(origin.x)+block.x,Number(origin.y)+block.y,Number(origin.z)+block.z))?.name!==block.name)
+    if(!invalid.length)return skillResult.success({placed,schematicId:context.target.schematicId})
+    return skillResult.failure(ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:invalid.length,problems:[...problems,{reason:'FINAL_WORLD_VALIDATION_FAILED',count:invalid.length}]})
+  }
   const missing=[...new Set(pending.filter(entry=>!bot.inventory.items().some(item=>item.name===entry.name)).map(entry=>entry.name))]
-  return skillResult.failure(missing.length?ErrorCodes.INSUFFICIENT_ITEMS:ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:pending.length,missingMaterials:missing})
+  return skillResult.failure(missing.length?ErrorCodes.INSUFFICIENT_ITEMS:ErrorCodes.VALIDATION_FAILED,true,{placed,remaining:pending.length,missingMaterials:missing,problems})
 }
 
 // Info: Teamlogistiek gebruikt een expliciete wereldgebonden kist en valideert de echte containerinhoud.
@@ -7765,12 +7804,12 @@ async function emergencyDrowningEscape(force = false) {
   return true
 }
 
-async function eliteEmergencySurvival() {
+async function eliteEmergencySurvival(options = {}) {
   if (!bot.entity) return false
   const feet = bot.blockAt(bot.entity.position.floored())
   const head = bot.blockAt(bot.entity.position.floored().offset(0, 1, 0))
   if ((isWaterBlock(feet) || isWaterBlock(head)) && Number(bot.oxygenLevel ?? 20) <= 16) return emergencyDrowningEscape(true)
-  if (bot.health < 10 && bot.food < 8) {
+  if (!options.ignoreFood && bot.health < 10 && bot.food < 8) {
     setCurrentTask('survival', 'finding food while avoiding combat')
     if (await eatFoodIfNeeded()) return true
     await eliteAcquireFood()
