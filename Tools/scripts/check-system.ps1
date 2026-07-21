@@ -1,6 +1,12 @@
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
-$node = Join-Path $root 'Node\node.exe'
+$portableNode = Join-Path $root 'Node\node.exe'
+$node = if (Test-Path -LiteralPath $portableNode -PathType Leaf) {
+  $portableNode
+} else {
+  $systemNode = Get-Command node.exe -ErrorAction SilentlyContinue
+  if ($systemNode) { $systemNode.Source } else { $null }
+}
 $settingsFile = Join-Path $root 'Config\settings.json'
 $portsFile = Join-Path $root 'Config\ports.json'
 $botsModules = Join-Path $root 'Bots\node_modules'
@@ -33,7 +39,7 @@ function Test-RequiredPath {
 Write-Host "Minecraft AI Bot portable health-check" -ForegroundColor Cyan
 Write-Host "Root: $root"
 
-Test-RequiredPath $node 'Node runtime'
+if ($node) { Pass "Node runtime: $node" } else { Fail 'Node.js runtime ontbreekt; installeer Node.js 22 LTS of plaats Node\node.exe.' }
 Test-RequiredPath $settingsFile 'Config\settings.json'
 Test-RequiredPath $portsFile 'Config\ports.json'
 Test-RequiredPath $botsModules 'Bots gedeelde node_modules'
@@ -66,7 +72,7 @@ if (Test-Path -LiteralPath $settingsFile) {
   }
 }
 
-if (Test-Path -LiteralPath $node -PathType Leaf) {
+if ($node -and (Test-Path -LiteralPath $node -PathType Leaf)) {
   Push-Location (Join-Path $root 'Bots')
   foreach ($package in $requiredPackages) {
     $script = "require.resolve('$package'); console.log('$package OK')"
@@ -74,7 +80,7 @@ if (Test-Path -LiteralPath $node -PathType Leaf) {
     if ($LASTEXITCODE -eq 0) {
       Pass "Package $package via Bots\node_modules"
     } else {
-      Fail "Package $package niet laadbaar vanuit F:\Bots. Output: $output"
+      Fail "Package $package niet laadbaar vanuit $root\Bots. Output: $output"
     }
   }
   Pop-Location

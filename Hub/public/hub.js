@@ -656,6 +656,18 @@
         }catch{status.textContent='Hub is restarting; waiting for connection…'}
       },2000)
     })
+    document.getElementById('updateAllBotCodeButton').addEventListener('click',async()=>{
+      const button=document.getElementById('updateAllBotCodeButton'),status=document.getElementById('updateAllBotCodeStatus')
+      if(!confirm('Update de code van ALLE andere bots vanuit official-bot? Actieve bots worden tijdelijk gestopt en daarna opnieuw gestart.'))return
+      button.disabled=true;status.textContent='Botcode synchroniseren en actieve bots herstarten…'
+      try{
+        const result=await api('/api/update-all-bot-code',{method:'POST',body:JSON.stringify({confirmed:true})})
+        const summary=`Bijgewerkt: ${result.updated.length}. Herstart: ${result.restarted.length}.`
+        status.textContent=result.errors.length?`${summary} Fouten: ${result.errors.map(item=>`${item.bot} (${item.stage}: ${item.error})`).join('; ')}`:summary
+        notify(result.errors.length?'Botcode gedeeltelijk bijgewerkt. Bekijk de melding in Settings.':'Alle botcode is bijgewerkt.',Boolean(result.errors.length))
+        await refresh()
+      }catch(error){status.textContent=error.message;notify(error.message,true)}finally{button.disabled=false}
+    })
     document.getElementById('schematicUploadForm').addEventListener('submit',async event=>{event.preventDefault();const file=document.getElementById('schematicFile').files[0],status=document.getElementById('schematicUploadStatus');if(!file)return;try{status.textContent='Uploading and validating…';await api('/api/schematics/upload',{method:'POST',headers:{'Content-Type':'application/octet-stream','X-Schematic-Name':encodeURIComponent(file.name)},body:await file.arrayBuffer()});document.getElementById('schematicFile').value='';status.textContent='Schematic saved.';await refresh()}catch(error){status.textContent=error.message}})
     document.getElementById('schematicList').addEventListener('click',async event=>{const button=event.target.closest('[data-delete-schematic]');if(!button||!confirm('Delete this stored schematic?'))return;await api(`/api/schematics/${encodeURIComponent(button.dataset.deleteSchematic)}`,{method:'DELETE',body:JSON.stringify({confirmed:true})});await refresh()})
     document.getElementById('schematicSelect').addEventListener('change',renderSchematicDetails)

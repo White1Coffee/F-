@@ -17,7 +17,7 @@ if exist "%~dp0Node\node.exe" (
 
 set "HUB_PORT=3100"
 for /f "usebackq delims=" %%P in (`powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "try { [int](Get-Content -LiteralPath '%~dp0Config\ports.json' -Raw | ConvertFrom-Json).hub } catch { 3100 }"`) do set "HUB_PORT=%%P"
-echo Running portable health-check...
+echo Running health-check...
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Tools\scripts\check-system.ps1"
 if errorlevel 1 (
   echo.

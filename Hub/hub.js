@@ -230,6 +230,7 @@ function botFromFolder(folder, existingBots = []) {
     viewerPort: ports.viewerPort,
     group: 'Ungrouped',
     autoRestart: true,
+    reconnectAttempts: 0,
     disabledUntil: null,
     stats: { starts: 0, crashes: 0, totalRuntimeMs: 0, lastExit: null, lastError: '' }
   }
@@ -293,6 +294,7 @@ function normalizeBot(bot) {
     viewerPort: normalizePort(bot.viewerPort, botPortBase + 1),
     group: String(bot.group || 'Ungrouped').trim().slice(0, 60) || 'Ungrouped',
     autoRestart: bot.autoRestart !== false,
+    reconnectAttempts: Math.max(0, Math.min(20, Number(bot.reconnectAttempts || 0))),
     disabledUntil: bot.disabledUntil || null,
     stats: {
       starts: 0,
@@ -905,7 +907,9 @@ function knowledgeScores(bot) {
 function updateBotCode(sourceFolder, bot) {
   const source = validateBotFolder(sourceFolder)
   const target = validateBotFolder(resolvedBotFolder(bot))
-  const protectedNames = new Set(['bot-settings.json', 'ai-memory.json', 'ai-recipes.json', 'knowledge', 'worlds', 'profiles', 'backups', 'node_modules'])
+  // Info: Code-updates gebruiken een allowlist zodat knowledge, worlds, login-data, instellingen en logs nooit worden overschreven.
+  const codeDirectories = new Set(['src', 'public', 'tools', 'test'])
+  const codeFiles = new Set(['bot.js', 'package.json', 'package-lock.json', 'README.md'])
   const backup = path.join(updateBackupsRoot, bot.id, localStampFile())
   fs.mkdirSync(backup, { recursive: true })
   const copied = []
@@ -925,12 +929,12 @@ function updateBotCode(sourceFolder, bot) {
     }
   }
   for (const name of fs.readdirSync(source)) {
-    if (protectedNames.has(name) || name.startsWith('.')) continue
     const from = path.join(source, name)
     if (fs.statSync(from).isDirectory()) {
-      if (['src', 'public', 'tools', 'test'].includes(name)) copyTree(from, path.join(target, name), path.join(backup, name))
+      if (codeDirectories.has(name)) copyTree(from, path.join(target, name), path.join(backup, name))
       continue
     }
+    if (!codeFiles.has(name)) continue
     const to = path.join(target, name)
     if (fs.existsSync(to)) fs.copyFileSync(to, path.join(backup, name))
     fs.copyFileSync(from, to)
@@ -1191,7 +1195,14 @@ async function startBot(bot) {
     saveSettings()
     if (!runtime.stopping && bot.autoRestart && botPauseMs(bot) === 0) {
       const livedFor = Date.now() - Date.parse(runtime.startedAt)
-      const restartDelay = plannedReconnect ? 2000 : (livedFor < 30000 ? 30000 : 5000)
+      // Info: Oplopende reconnectvertraging en vaste spreiding voorkomen dat alle bots tegelijk door de server worden gethrottled.
+      if (livedFor >= 120000) bot.reconnectAttempts = 0
+      if (plannedReconnect) bot.reconnectAttempts = Math.min(20,Number(bot.reconnectAttempts||0)+1)
+      const jitter=[...String(bot.id)].reduce((total,char)=>total+char.charCodeAt(0),0)%7000
+      const reconnectBackoff=Math.min(120000,10000*(2**Math.min(3,Math.max(0,Number(bot.reconnectAttempts||1)-1))))
+      const restartDelay = plannedReconnect ? reconnectBackoff+jitter : (livedFor < 30000 ? 30000+jitter : 5000+jitter)
+      if(plannedReconnect)console.log(`${bot.name} reconnect attempt ${bot.reconnectAttempts} scheduled in ${Math.ceil(restartDelay/1000)}s.`)
+      saveSettings()
       setTimeout(() => startBot(bot).catch(() => {}), restartDelay)
     }
   })
@@ -1480,6 +1491,7 @@ app.post('/api/server-profile/apply', (request, response, next) => {
 
 app.post('/api/update-code', async (request, response, next) => {
   try {
+    requireDashboardControl(request)
     const source = findBot(String(request.body?.sourceBotId || ''))
     const ids = [...new Set(Array.isArray(request.body?.targetBotIds) ? request.body.targetBotIds : [])].filter(id => id !== source.id)
     if (!ids.length) throw new Error('Choose at least one target bot that is not the source bot.')
@@ -1487,6 +1499,47 @@ app.post('/api/update-code', async (request, response, next) => {
     for (const bot of targets) if ((await botStatus(bot)).running) throw new Error(`Stop ${bot.name} before updating code.`)
     const results = targets.map(bot => ({ bot: bot.name, ...updateBotCode(resolvedBotFolder(source), bot) }))
     response.json({ ok: true, results })
+  } catch (err) { next(err) }
+})
+
+// Info: Deze éénknopsactie gebruikt official-bot als productiebron en behoudt alle persoonlijke runtime-data van doelbots.
+app.post('/api/update-all-bot-code', async (request, response, next) => {
+  try {
+    requireDashboardControl(request)
+    if (request.body?.confirmed !== true) throw new Error('Confirmation is required.')
+    const source = settings.bots.find(bot => bot.name === 'official-bot' || path.resolve(resolvedBotFolder(bot)) === path.resolve(path.join(botsRoot, 'official-bot')))
+    if (!source) throw new Error('official-bot was not found and cannot be used as code source.')
+    const targets = settings.bots.filter(bot => bot.id !== source.id)
+    if (!targets.length) throw new Error('No other bots are registered.')
+    const runningIds = new Set(),previousDisabledUntil=new Map(targets.map(bot=>[bot.id,bot.disabledUntil||null]))
+    const stopped = [], restarted = [], results = [], errors = []
+    for(const bot of targets)if((await botStatus(bot)).running)runningIds.add(bot.id)
+    // Info: De tijdelijke pauze blokkeert ook een reeds geplande reconnect terwijl bestanden worden vervangen.
+    for(const bot of targets)bot.disabledUntil=new Date(Date.now()+300000).toISOString()
+    saveSettings()
+    for (const bot of targets) {
+      if(!runningIds.has(bot.id))continue
+      try {
+        await stopBot(bot)
+        stopped.push(bot.name)
+      } catch (error) {
+        if(/Could not find the process/i.test(error.message||'')){runningBots.delete(bot.id);stopped.push(bot.name)}
+        else errors.push({ bot:bot.name,stage:'stop',error:error.message||String(error) })
+      }
+    }
+    for (const bot of targets) {
+      if (errors.some(item => item.bot === bot.name && item.stage === 'stop')) continue
+      try { results.push({ bot:bot.name,...updateBotCode(resolvedBotFolder(source),bot) }) }
+      catch (error) { errors.push({ bot:bot.name,stage:'copy',error:error.message||String(error) }) }
+    }
+    for(const bot of targets)bot.disabledUntil=previousDisabledUntil.get(bot.id)
+    saveSettings()
+    for (const bot of targets.filter(item => runningIds.has(item.id))) {
+      try { await startBot(bot);restarted.push(bot.name) }
+      catch (error) { errors.push({ bot:bot.name,stage:'restart',error:error.message||String(error) }) }
+    }
+    dashboardEvent({type:'bots.code-updated',level:errors.length?'warning':'success',message:`Updated code for ${results.length} bot(s) from ${source.name}; ${errors.length} error(s)`})
+    response.json({ok:errors.length===0,source:source.name,updated:results.map(item=>item.bot),stopped,restarted,results,errors})
   } catch (err) { next(err) }
 })
 

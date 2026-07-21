@@ -2568,15 +2568,17 @@ async function eatFoodIfNeeded(options = {}) {
   const force = Boolean(options.force)
   if (!force && (bot.food >= 20 || (bot.food > 14 && bot.health > 12))) return false
 
+  // Info: Bij direct levensgevaar is rotten flesh of rauwe kip beter dan blijven verhongeren; giftig voedsel blijft uitgesloten.
+  const allowEmergencyFood = options.allowEmergencyFood !== false && (bot.food <= 4 || bot.health <= 6)
   const food = bot.inventory.items()
-    .filter(item => item?.name && isFood(item.name))
-    .sort((left, right) => foodScore(right.name) - foodScore(left.name))[0]
+    .filter(item => item?.name && (isFood(item.name) || (allowEmergencyFood && isEmergencyFood(item.name))))
+    .sort((left, right) => Number(isFood(right.name))-Number(isFood(left.name)) || foodScore(right.name)-foodScore(left.name))[0]
 
   if (!food?.name) return false
 
   try {
     if (!await equipAndConfirmHeldItem(food)) return false
-    if (!bot.heldItem?.name || !isFood(bot.heldItem.name)) return false
+    if (!bot.heldItem?.name || (!isFood(bot.heldItem.name) && !(allowEmergencyFood && isEmergencyFood(bot.heldItem.name)))) return false
     await bot.consume()
     bot.chat('I am eating for a moment to recover.')
     return true
@@ -6600,6 +6602,10 @@ function isFood(name) {
   return Boolean(FOOD_RULES[name]?.safe)
 }
 
+function isEmergencyFood(name) {
+  return ['rotten_flesh', 'chicken'].includes(name)
+}
+
 function isFoodItem(name) {
   return Boolean(FOOD_RULES[name] || COOKABLE_FOOD[name] || Object.values(COOKABLE_FOOD).includes(name))
 }
@@ -7127,6 +7133,8 @@ async function runPriorities() {
       if (await eatFoodIfNeeded({ force: true })) return
       updatePlanner('food emergency', 'find or produce food before continuing other tasks', 'critical food or health')
       startFarmMode()
+      // Info: Alleen de modus instellen deed niets; voer in dezelfde noodcyclus ook werkelijk een voedselzoek- of farmstap uit.
+      await runFarmStep()
       return
     }
     if (state.recovering) {

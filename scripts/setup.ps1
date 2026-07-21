@@ -113,6 +113,28 @@ try {
     Write-FMLog "Configuratie geschreven voor $count bot(s), zonder secrets."
   } else { Write-FMLog 'Bestaande configuratie behouden.' }
 
+  # Info: iedere geregistreerde bot krijgt lokale runtime-instellingen wanneer die ontbreken.
+  $currentSettings = Read-FMJson $settingsFile
+  foreach ($botEntry in @($currentSettings.bots)) {
+    $folderValue = [string]$botEntry.folder
+    $botFolder = if ($folderValue.StartsWith('@/')) { Join-Path (Get-FMProjectRoot) $folderValue.Substring(2) } else { $folderValue }
+    if (-not (Test-Path -LiteralPath $botFolder -PathType Container)) { continue }
+    $botSettingsPath = Join-Path $botFolder 'bot-settings.json'
+    if (-not (Test-Path -LiteralPath $botSettingsPath)) {
+      $botRuntimeSettings = [ordered]@{
+        host=[string]$botEntry.host;port=[int]$botEntry.port;username=[string]$botEntry.username
+        auth=if(@('offline','microsoft') -contains [string]$botEntry.auth){[string]$botEntry.auth}else{'offline'}
+        version=[string]$botEntry.version;worldId='default';dataProfile='default'
+        ownerPlayer=[string]$botEntry.ownerPlayer;offlineSkinMode='off';offlineSkinValue='';offlineSkinVariant='classic';eliteMode=$true
+        whitelistedPlayers=@($botEntry.whitelistedPlayers)
+        learning=[ordered]@{enabled=$true;curriculumEnabled=$true;maxSkillRetries=3;taskTimeoutMs=120000;memoryResultLimit=5;minimumSkillSuccessRate=0.7;minimumCurriculumSuccesses=3;experienceDeduplicationWindowMs=3600000}
+        safety=[ordered]@{minimumHealth=10;minimumFood=8;fleeDistance=16}
+      }
+      Write-FMJsonAtomic -Path $botSettingsPath -Value $botRuntimeSettings
+      Write-FMLog "Ontbrekende bot-settings aangemaakt voor $($botEntry.name)."
+    }
+  }
+
   Install-FMDependencies
   $installMetadata = [ordered]@{schemaVersion=1;version=(Get-FMAppVersion);installedAt=(Get-Date).ToUniversalTime().ToString('o');model=(if(Test-Path (Join-Path (Get-FMProjectRoot) '.git')){'git'}else{'bundled'});branch='main';repository='https://github.com/White1Coffee/F-'}
   Write-FMJsonAtomic -Path (Join-Path (Get-FMProjectRoot) '.install-source.json') -Value $installMetadata

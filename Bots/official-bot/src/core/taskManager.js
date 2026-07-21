@@ -37,12 +37,13 @@ class TaskManager extends EventEmitter {
   }
   async _runPlan(task, signal) {
     // Info: Skills worden stap voor stap uitgevoerd, gevalideerd en maximaal drie keer geprobeerd.
+    let finalResult=skillResult.success()
     for (const step of task.plan) {
       const spec=typeof step==='string'?{skill:step}:step; const skill=this.registry?.get(spec.skill)
       if(!skill) return skillResult.failure(ErrorCodes.VALIDATION_FAILED,false,{missingSkill:spec.skill})
       const requirements=this.registry.checkRequirements(skill,{...task.context,...spec.context})
       if(!requirements.success)return requirements
-      task.currentStep=spec.skill;task.activeSkill=spec.skill;task.maxAttempts=Math.min(3,Number(spec.maxRetries||skill.maxRetries||1));let previousFingerprint=null
+      task.currentStep=spec.skill;task.activeSkill=spec.skill;task.maxAttempts=Math.min(3,Number(spec.maxRetries||skill.maxRetries||1));let previousFingerprint=null,stepResult=null
       for(let attempt=1;attempt<=task.maxAttempts;attempt++){
         task.attempt=attempt;this.emit('status',this.status())
         const context={...task.context,...spec.context,attempt,previousResult:task.lastResult,signal}
@@ -56,13 +57,16 @@ class TaskManager extends EventEmitter {
           const validation=execution.success?await skill.validate({...context,result:execution}):execution
           const normalized=validation?.success===true?execution:skillResult.normalize(validation,Date.now()-started)
           task.lastResult=normalized;task.lastError=normalized.reason
-          if(normalized.success)return normalized
+          // Info: Een geslaagde skill voltooit alleen deze planstap; de volgende skill moet daarna ook echt draaien.
+          if(normalized.success){stepResult=normalized;break}
           if(!normalized.recoverable)break
         } catch(err){task.lastResult=skillResult.failure(normalizeErrorCode(err?.code),err?.code!==ErrorCodes.CANCELLED);task.lastError=task.lastResult.reason;if(err?.code===ErrorCodes.CANCELLED)throw err}
       }
-      return task.lastResult||skillResult.failure(ErrorCodes.VALIDATION_FAILED)
+      stepResult=stepResult||task.lastResult||skillResult.failure(ErrorCodes.VALIDATION_FAILED)
+      if(!stepResult.success)return stepResult
+      finalResult=stepResult
     }
-    return skillResult.success()
+    return finalResult
   }
 }
 module.exports = { TaskManager, PRIORITY }

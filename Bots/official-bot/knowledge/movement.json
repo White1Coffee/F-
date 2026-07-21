@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-13T01:43:17+02:00",
+  "updatedAt": "2026-07-21T17:09:45+02:00",
   "rules": {
     "unstuckTimeoutMs": 12000,
     "actionTimeoutMs": 30000,
