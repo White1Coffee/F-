@@ -53,6 +53,9 @@ installer/staging/
 installer-test-output/
 .install-source.json
 Data/backups/
+# Live Hub/team snapshots are machine-specific runtime state.
+Data/*-state.json
+Data/*-state.json.*
 # Uploaded schematic library is local runtime content; parser/build code remains tracked.
 Data/schematics/
 Data/schematics/**
