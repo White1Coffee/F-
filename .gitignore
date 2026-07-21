@@ -53,6 +53,9 @@ installer/staging/
 installer-test-output/
 .install-source.json
 Data/backups/
+# Uploaded schematic library is local runtime content; parser/build code remains tracked.
+Data/schematics/
+Data/schematics/**
 # Per-bot world memory contains server-specific coordinates and stays local.
 **/worlds/
 **/worlds/**
