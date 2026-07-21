@@ -26,7 +26,7 @@ SolidCompression=yes
 WizardStyle=modern
 SetupLogging=yes
 UsePreviousAppDir=yes
-UninstallDisplayIcon={app}\start.bat
+UninstallDisplayIcon={app}\Commands\start.bat
 CloseApplications=no
 RestartApplications=no
 
@@ -44,18 +44,18 @@ Name: "startafter"; Description: "F-Mineflayer na installatie starten"; GroupDes
 Source: "{#SourceRoot}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\F-Mineflayer Start"; Filename: "{app}\start.bat"; WorkingDir: "{app}"
-Name: "{group}\F-Mineflayer Stop"; Filename: "{app}\stop.bat"; WorkingDir: "{app}"
+Name: "{group}\F-Mineflayer Start"; Filename: "{app}\Commands\start.bat"; WorkingDir: "{app}"
+Name: "{group}\F-Mineflayer Stop"; Filename: "{app}\Commands\stop.bat"; WorkingDir: "{app}"
 Name: "{group}\F-Mineflayer Dashboard"; Filename: "http://localhost:3100/#overview"
-Name: "{group}\F-Mineflayer Doctor"; Filename: "{app}\doctor.bat"; WorkingDir: "{app}"
-Name: "{group}\F-Mineflayer Update"; Filename: "{app}\update.bat"; WorkingDir: "{app}"
+Name: "{group}\F-Mineflayer Doctor"; Filename: "{app}\Commands\doctor.bat"; WorkingDir: "{app}"
+Name: "{group}\F-Mineflayer Update"; Filename: "{app}\Commands\update.bat"; WorkingDir: "{app}"
 Name: "{group}\F-Mineflayer Uninstall"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\F-Mineflayer Start"; Filename: "{app}\start.bat"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{autodesktop}\F-Mineflayer Start"; Filename: "{app}\Commands\start.bat"; WorkingDir: "{app}"; Tasks: desktopicon
 Name: "{autodesktop}\F-Mineflayer Dashboard"; Filename: "http://localhost:3100/#overview"; Tasks: desktopicon
 
 [Run]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\setup.ps1"" -NonInteractive -InstallNode -MinecraftHost ""{code:GetMinecraftHost}"" -MinecraftPort {code:GetMinecraftPort} -MinecraftVersion ""{code:GetMinecraftVersion}"" -Auth ""{code:GetAuth}"" -BotCount {code:GetBotCount} -BotNamePrefix ""{code:GetBotPrefix}"" -HubPort {code:GetHubPort}"; WorkingDir: "{app}"; StatusMsg: "Node.js, configuratie en dependencies installeren..."; Flags: waituntilterminated
-Filename: "{app}\start.bat"; Description: "F-Mineflayer starten"; Flags: postinstall nowait skipifsilent; Tasks: startafter
+Filename: "{app}\Commands\start.bat"; Description: "F-Mineflayer starten"; Flags: postinstall nowait skipifsilent; Tasks: startafter
 
 [UninstallRun]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\stop.ps1"""; Flags: runhidden waituntilterminated; RunOnceId: "StopF"

@@ -15,11 +15,11 @@ De installer gebruikt standaard `%LOCALAPPDATA%\Programs\F-Mineflayer`. Dit is p
 
 ## Installatie met install.bat
 
-`install.bat` kan los worden gedownload. Het haalt via HTTPS de vaste bootstrap van `White1Coffee/F-` op, valideert de verwachte inhoud en gebruikt Git of anders een GitHub-ZIP.
+`Commands\install.bat` bevat de normale launcher. Alleen `install.bat` blijft daarnaast in de root staan, omdat dit bestand zelfstandig kan worden gedownload om een nieuwe installatie te starten. Het haalt via HTTPS de vaste bootstrap van `White1Coffee/F-` op, valideert de verwachte inhoud en gebruikt Git of anders een GitHub-ZIP.
 
 ```bat
-install.bat
-install.bat -Branch main -InstallDir "C:\F-Mineflayer"
+Commands\install.bat
+Commands\install.bat -Branch main -InstallDir "C:\F-Mineflayer"
 ```
 
 Een bestaande map wordt nooit verwijderd. Bij een bestaande installatie vraagt de bootstrap bevestiging en laat setup de gebruikersdata staan.
@@ -29,13 +29,13 @@ Een bestaande map wordt nooit verwijderd. Bij een bestaande installatie vraagt d
 ```bat
 git clone https://github.com/White1Coffee/F-.git
 cd F-
-setup.bat
+Commands\setup.bat
 ```
 
-`setup.bat` werkt onafhankelijk van de huidige working directory. Voor automatische reparatie:
+`Commands\setup.bat` werkt onafhankelijk van de huidige working directory. Voor automatische reparatie:
 
 ```bat
-setup.bat -Repair -NonInteractive
+Commands\setup.bat -Repair -NonInteractive
 ```
 
 Gebruik `-ResetConfig` alleen wanneer de configuratie bewust opnieuw ingesteld moet worden; setup maakt eerst een backup.
@@ -61,9 +61,21 @@ Setup ondersteunt 1 tot 32 instances met unieke namen en poorten. De Hub start i
 
 ## Starten en stoppen
 
-- `start.bat` voert een korte doctorcheck uit, voorkomt een dubbele Hub, start bots via `/api/bots/action` en opent het dashboard.
-- `stop.bat` gebruikt eerst `/api/shutdown`, zodat bots/teamdata netjes afsluiten. Alleen de opgeslagen PID van deze projectmap mag als fallback geforceerd worden gestopt.
+- `Commands\start.bat` voert een korte doctorcheck uit, voorkomt een dubbele Hub, start bots via `/api/bots/action` en opent het dashboard.
+- `Commands\stop.bat` gebruikt eerst `/api/shutdown`, zodat bots/teamdata netjes afsluiten. Alleen de opgeslagen PID van deze projectmap mag als fallback geforceerd worden gestopt.
+- Alle gewone batchlaunchers staan in `Commands`. Alleen de zelfstandig downloadbare `install.bat` staat nog in de root.
 - De bestaande `Start.cmd` en `Stop.cmd` blijven beschikbaar voor backward compatibility.
+
+### Onderdelen apart starten
+
+- Alles starten (Hub, beheerde bots en Discord): `Start.cmd` of `Commands\start.bat`.
+- Alles netjes stoppen: `Stop.cmd` of `Commands\stop.bat`.
+- Alleen de Discord-bridge starten: `StartDiscord.cmd`.
+- Alleen de Discord-bridge stoppen: `StopDiscord.cmd`.
+- Alleen de meegeleverde Minecraft-server en servermanager starten: `StartServer.cmd`.
+- Alleen de meegeleverde Minecraft-server en servermanager stoppen: `StopServer.cmd`.
+
+De Discord-bridge verwacht zijn configuratie in `minecraft-discord-bot\.env`. Start eerst de Hub wanneer de bridge Hub-status en botcommando's moet gebruiken. De losse Discord-launcher opent geen tweede Hub.
 
 Dashboard: `http://localhost:3100/#overview` (of de gekozen Hub-poort). Viewerlinks staan per bot in de Hub.
 
@@ -77,7 +89,7 @@ De Overview-pagina toont reconnectgrafieken per bot en server over de laatste ze
 
 ## Diagnose
 
-Start `doctor.bat`. De controle omvat Windows/PowerShell, Node/npm, lockfile-dependencies, entrypoints, JSON, configuratie, unieke poorten, schrijfrechten, knowledge, dashboard/team/auth, actieve projectprocessen en optioneel de Minecraft-server.
+Start `Commands\doctor.bat`. De controle omvat Windows/PowerShell, Node/npm, lockfile-dependencies, entrypoints, JSON, configuratie, unieke poorten, schrijfrechten, knowledge, dashboard/team/auth, actieve projectprocessen en optioneel de Minecraft-server.
 
 - exit `0`: in orde;
 - exit `1`: waarschuwingen;
@@ -87,7 +99,7 @@ Doctor wijzigt niets.
 
 ## Updates
 
-`update.bat` stopt eerst veilig, maakt een backup en detecteert Git of een gebundelde installatie. Een Git-installatie vereist een schone worktree en gebruikt alleen `fetch` plus een bevestigde `pull --ff-only`. Voor een gebundelde installatie is de aanbevolen update een nieuwere `setup.exe`; die vervangt uitsluitend programmabestanden en laat niet door Inno beheerde runtime-data staan.
+`Commands\update.bat` stopt eerst veilig, maakt een backup en detecteert Git of een gebundelde installatie. Een Git-installatie vereist een schone worktree en gebruikt alleen `fetch` plus een bevestigde `pull --ff-only`. Voor een gebundelde installatie is de aanbevolen update een nieuwere `setup.exe`; die vervangt uitsluitend programmabestanden en laat niet door Inno beheerde runtime-data staan.
 
 ## Backups
 
@@ -95,12 +107,12 @@ Configuratiebackups staan onder `backups/config-<datum>-<reden>/`. Setup en upda
 
 ## Verwijderen
 
-`uninstall.bat` biedt vier keuzes: alleen programma; programma en logs; alles behalve knowledge/worlds; of volledige verwijdering. Volledige verwijdering vereist exact `VERWIJDER ALLES`. Met `-CreateBackup` wordt eerst een kopie in Documenten gemaakt. De Inno-uninstaller verwijdert geïnstalleerde programmabestanden; later aangemaakte gebruikersdata blijft standaard bestaan.
+`Commands\uninstall.bat` biedt vier keuzes: alleen programma; programma en logs; alles behalve knowledge/worlds; of volledige verwijdering. Volledige verwijdering vereist exact `VERWIJDER ALLES`. Met `-CreateBackup` wordt eerst een kopie in Documenten gemaakt. De Inno-uninstaller verwijdert geïnstalleerde programmabestanden; later aangemaakte gebruikersdata blijft standaard bestaan.
 
 ## Problemen oplossen
 
 - Setupfout: bekijk `Logs/setup.log`.
-- Hub start niet: bekijk `Logs/hub.err.log` en voer `doctor.bat` uit.
+- Hub start niet: bekijk `Logs/hub.err.log` en voer `Commands\doctor.bat` uit.
 - Poort bezet: pas de poort in de Hub aan of voer setup opnieuw uit.
 - Minecraft niet bereikbaar: controleer host, firewall, serverversie en poort.
 - Microsoft-login: verwijder nooit auth-caches tenzij opnieuw aanmelden bewust gewenst is.
@@ -112,16 +124,16 @@ Logs redigeren bekende token-/password-/secretvelden. Deel alsnog geen auth-cach
 Vereisten: Windows, PowerShell 5.1+, Node.js conform `.nvmrc` (Node 22), npm en Inno Setup 6. Ontbreekt Node op de doelcomputer, dan biedt interactieve setup installatie via `winget` aan; de `.exe`-installer activeert die gecontroleerde Node.js LTS-installatie automatisch.
 
 ```bat
-setup.bat -Repair -NonInteractive
+Commands\setup.bat -Repair -NonInteractive
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\test-installer.ps1
-build-installer.bat
+Commands\build-installer.bat
 ```
 
 Output:
 
 ```text
-dist/F-Mineflayer-Setup-1.0.11.exe
-dist/F-Mineflayer-Setup-1.0.11.exe.sha256
+dist/F-Mineflayer-Setup-1.0.12.exe
+dist/F-Mineflayer-Setup-1.0.12.exe.sha256
 ```
 
 De builder voert tests uit, maakt `installer/staging`, sluit `.git`, `node_modules`, Config, Data, logs, backups, auth, knowledge, worlds en secrets uit, compileert met Inno Setup en schrijft SHA-256. Gebruik `-IsccPath` als `ISCC.exe` niet op de standaardlocatie staat.

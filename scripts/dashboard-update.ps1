@@ -41,7 +41,7 @@ try{
   # Info: Ook na een mislukte update wordt de bestaande installatie opnieuw gestart.
   & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'scripts\start.ps1') -NoBrowser
   if($updateSucceeded -and $LASTEXITCODE -eq 0){Set-UpdateState 'completed' 'Updatecontrole voltooid; het systeem is up-to-date.' -Finished}
-  elseif($updateSucceeded){Set-UpdateState 'failed' 'Update lukte, maar automatisch herstarten mislukte. Start handmatig met start.bat.' -Finished}
+  elseif($updateSucceeded){Set-UpdateState 'failed' 'Update lukte, maar automatisch herstarten mislukte. Start handmatig met Commands\start.bat.' -Finished}
   Remove-Item -LiteralPath $pidFile -Force -ErrorAction SilentlyContinue
 }
 

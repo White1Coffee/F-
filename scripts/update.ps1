@@ -59,17 +59,17 @@ try{
     if(([version]($remoteVersion -split '-')[0]) -le ([version]($currentVersion -split '-')[0])){Write-FMLog "Versie $currentVersion is al up-to-date (remote: $remoteVersion).";exit 0}
     $backup=Initialize-UpdateApplication
     $programBackup=Join-Path $backup 'program-rollback';New-Item -ItemType Directory -Path $programBackup -Force|Out-Null
-    foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot')){$source=Join-Path (Get-FMProjectRoot) $relative;if(Test-Path $source){$destination=Join-Path $programBackup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $destination -Recurse -Force}}
+    foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot','Commands')){$source=Join-Path (Get-FMProjectRoot) $relative;if(Test-Path $source){$destination=Join-Path $programBackup $relative;New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force|Out-Null;Copy-Item -LiteralPath $source -Destination $destination -Recurse -Force}}
     $zip=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N')).zip";$stage=Join-Path $env:TEMP "F-update-$([guid]::NewGuid().ToString('N'))"
     try{
       Invoke-WebRequest -UseBasicParsing -TimeoutSec 120 -Uri $archiveUri -OutFile $zip
       Expand-Archive -LiteralPath $zip -DestinationPath $stage
       $source=Get-ChildItem $stage -Directory|Select-Object -First 1
       foreach($required in @('Hub\hub.js','Bots\official-bot\bot.js','scripts\setup.ps1')){if(-not(Test-Path(Join-Path $source.FullName $required))){throw "Releasevalidatie mislukt: $required ontbreekt."}}
-      foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot')){if(Test-Path(Join-Path $source.FullName $relative)){Copy-Item -Path (Join-Path $source.FullName "$relative\*") -Destination (Join-Path (Get-FMProjectRoot) $relative) -Recurse -Force}}
+      foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot','Commands')){if(Test-Path(Join-Path $source.FullName $relative)){Copy-Item -Path (Join-Path $source.FullName "$relative\*") -Destination (Join-Path (Get-FMProjectRoot) $relative) -Recurse -Force}}
       foreach($file in @('Bots\package.json','Bots\package-lock.json')){if(Test-Path(Join-Path $source.FullName $file)){Copy-Item (Join-Path $source.FullName $file) (Join-Path (Get-FMProjectRoot) $file) -Force}}
-      foreach($file in @('install.bat','setup.bat','start.bat','stop.bat','doctor.bat','update.bat','uninstall.bat','build-installer.bat','README.md')){if(Test-Path(Join-Path $source.FullName $file)){Copy-Item (Join-Path $source.FullName $file) (Join-Path (Get-FMProjectRoot) $file) -Force}}
-    }catch{foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot')){$source=Join-Path $programBackup $relative;if(Test-Path $source){Copy-Item -Path (Join-Path $source '*') -Destination (Join-Path (Get-FMProjectRoot) $relative) -Recurse -Force}};Write-FMLog "Update mislukt en programmabestanden zijn teruggezet; backup staat in $backup. $($_.Exception.Message)" 'ERROR';throw}finally{Remove-Item $zip -Force -ErrorAction SilentlyContinue;Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue}
+      foreach($file in @('install.bat','README.md')){if(Test-Path(Join-Path $source.FullName $file)){Copy-Item (Join-Path $source.FullName $file) (Join-Path (Get-FMProjectRoot) $file) -Force}}
+    }catch{foreach($relative in @('Hub','Bots\official-bot','scripts','installer','Tools','minecraft-discord-bot','Commands')){$source=Join-Path $programBackup $relative;if(Test-Path $source){Copy-Item -Path (Join-Path $source '*') -Destination (Join-Path (Get-FMProjectRoot) $relative) -Recurse -Force}};Write-FMLog "Update mislukt en programmabestanden zijn teruggezet; backup staat in $backup. $($_.Exception.Message)" 'ERROR';throw}finally{Remove-Item $zip -Force -ErrorAction SilentlyContinue;Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue}
   }
   Install-FMDependencies
   & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'setup.ps1') -Repair -NonInteractive
