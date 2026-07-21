@@ -53,6 +53,9 @@ installer/staging/
 installer-test-output/
 .install-source.json
 Data/backups/
+# Per-bot world memory contains server-specific coordinates and stays local.
+**/worlds/
+**/worlds/**
 **/*.tmp
 **/bot-output.log
 **/bot-error.log
