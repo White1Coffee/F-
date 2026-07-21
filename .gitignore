@@ -52,6 +52,9 @@ dist/
 installer/staging/
 installer-test-output/
 .install-source.json
+# Hub configuration is generated locally and may contain server and player details.
+/Config/settings.json
+/Config/ports.json
 Data/backups/
 # Live Hub/team snapshots are machine-specific runtime state.
 Data/*-state.json
